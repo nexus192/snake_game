@@ -13,8 +13,6 @@ class HeadSnake;
 class Snake;
 
 class HeadSnake {
-  friend Snake;
-
  private:
   int x;
   int y;
@@ -23,13 +21,13 @@ class HeadSnake {
   HeadSnake();
   HeadSnake(int x, int y);
 
-  void move_point_up();
-  void move_point_down();
-  void move_point_right();
-  void move_point_left();
+  void move_head_up();
+  void move_head_down();
+  void move_head_right();
+  void move_head_left();
 
-  int get_point_x() const;
-  int get_point_y() const;
+  int get_head_x() const;
+  int get_head_y() const;
 };
 
 class BodySnake {
@@ -43,19 +41,30 @@ class BodySnake {
   int get_body_y();
 };
 
-class Snake {
+class Snake : public HeadSnake, protected BodySnake {
  private:
   BodySnake* body_snake;
+  HeadSnake head_snake;
 
  public:
   Snake();
+  ~Snake();
 
-  void move_snake(HeadSnake head_other);
+  void move_snake(Snake& snake, VectorDirection Direction);
 
   int get_x_pixel_body(int pixel) const;
   int get_y_pixel_body(int pixel) const;
 };
 
+// class Apple {
+//   private:
+//    int x;
+//    int y;
+//   public:
+//    void generate_apple();
+// };
+
 void Contol_Key(VectorDirection* Direction, int ch);
+// void Definition_Vector(VectorDirection Direction, Snake* snake);
 
 #endif  // SNAKE_H_

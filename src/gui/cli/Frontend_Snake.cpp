@@ -12,21 +12,21 @@ WINDOW* init_ncurses() {
   nodelay(field, 1);  // что бы программа не ожидала ввода
   start_color();
   init_pair(1, COLOR_WHITE, COLOR_WHITE);
-  init_pair(2, COLOR_WHITE, COLOR_WHITE);
+  init_pair(2, COLOR_RED, COLOR_RED);
 
   return field;
 }
 
-void showField(WINDOW* field, HeadSnake& head_snake, Snake& snake) {
+void showField(WINDOW* field, Snake& snake) {
   werase(field);
   box(field, 0, 0);
   for (int i = 0; i < HEIGHT; i++) {
     for (int j = 0; j < WIDTH; j++) {
-      if (i == head_snake.get_point_y() && j == head_snake.get_point_x()) {
-        wattron(field, COLOR_PAIR(1));
+      if (i == snake.get_head_y() && j == snake.get_head_x()) {
+        wattron(field, COLOR_PAIR(2));
         mvwaddch(field, i + 1, j * 2 + 1, ' ');
         mvwaddch(field, i + 1, j * 2 + 2, ' ');
-        wattroff(field, COLOR_PAIR(1));
+        wattroff(field, COLOR_PAIR(2));
       }
     }
   }
