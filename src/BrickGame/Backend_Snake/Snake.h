@@ -48,14 +48,16 @@ class BodySnake {
   int y_body;
 
  public:
+  BodySnake();
+  BodySnake(int x, int y);
   void set_position(int x, int y);
-  int get_body_x();
-  int get_body_y();
+  int get_body_x() const;
+  int get_body_y() const;
 };
 
 class Snake : public HeadSnake, protected BodySnake {
  private:
-  BodySnake* body_snake;
+  std::vector<BodySnake> body_snake;
   HeadSnake head_snake;
   int body_length;
 
@@ -67,18 +69,22 @@ class Snake : public HeadSnake, protected BodySnake {
 
   int get_x_pixel_body(int pixel) const;
   int get_y_pixel_body(int pixel) const;
+  int get_length_body() const;
 };
 
-// class Apple {
-//   private:
-//    int x;
-//    int y;
-//   public:
-//    void generate_apple();
-// };
+class Apple {
+ private:
+  int x;
+  int y;
+
+ public:
+  int get_x_apple() const;
+  int get_y_apple() const;
+  void generate_apple();
+};
 
 void Contol_Key(VectorDirection* Direction, StateGame* State, int ch);
-void Coliseum(int x_head, int y_head, StateGame* state_game);
+void Coliseum(Snake& snake, StateGame* state_game);
 // void Definition_Vector(VectorDirection Direction, Snake* snake);
 
 #endif  // SNAKE_H_

@@ -35,9 +35,9 @@ int main() {
     snake.move_snake(snake, Direction, &State);
     // mvwprintw(info, 2, 2, "%d \n   %d", snake.get_head_x(),
     // snake.get_head_y());
-    Coliseum(snake.get_head_x(), snake.get_head_y(), &State);
+    Coliseum(snake, &State);
     showField(field, snake);
-    // if (State == End) mvwprintw(info, 8, 8, "End");
+    if (State == End) mvwprintw(info, 8, 8, "End");
     wrefresh(info);
   }
   endwin();
