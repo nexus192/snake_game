@@ -27,7 +27,9 @@ Snake::Snake() {
 };
 Snake::~Snake() { delete body_snake; }
 
-void Snake::move_snake(Snake& snake, VectorDirection Direction) {
+void Snake::move_snake(Snake& snake, VectorDirection Direction,
+                       StateGame* State) {
+  *State = Moving;
   for (int i = 3; i >= 0; i--) {
     if (i == 0) {
       body_snake[i].set_position(snake.get_head_x(), snake.get_head_y());
@@ -53,21 +55,31 @@ int Snake::get_y_pixel_body(int pixel) const {
   return body_snake[pixel].get_body_y();
 }
 
-void Contol_Key(VectorDirection* Direction, int ch) {
-  if (ch == KEY_UP && *Direction != KEY_DOWN) {
+void Contol_Key(VectorDirection* Direction, StateGame* State, int ch) {
+  if (ch == KEY_UP && *Direction != Down) {
     *Direction = Up;
-  } else if (ch == KEY_DOWN) {
-    if (*Direction != KEY_UP) {
-      *Direction = Down;
-    }
-  } else if (ch == KEY_RIGHT) {
-    if (*Direction != KEY_LEFT) {
-      *Direction = Right;
-    }
-  } else if (ch == KEY_LEFT) {
-    if (*Direction != KEY_RIGHT) {
-      *Direction = Left;
-    }
+    *State = Shifting;
+  } else if (ch == KEY_DOWN && *Direction != Up) {
+    *Direction = Down;
+    *State = Shifting;
+  } else if (ch == KEY_RIGHT && *Direction != Left) {
+    *Direction = Right;
+    *State = Shifting;
+  } else if (ch == KEY_LEFT && *Direction != Right) {
+    *Direction = Left;
+    *State = Shifting;
+  } else if (ch == 'p') {
+    // funk
+    *State = Pausa;
+  }
+}
+
+void Coliseum(int x_head, int y_head, StateGame* state_game) {
+  if (x_head < 0 || x_head > 9) {
+    *state_game = End;
+  }
+  if (y_head < 0 || y_head > 19) {
+    *state_game = End;
   }
 }
 
