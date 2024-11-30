@@ -32,7 +32,7 @@ Snake::~Snake() {};
 void Snake::move_snake(Snake& snake, VectorDirection Direction,
                        StateGame* State) {
   *State = Moving;
-  for (int i = 3; i >= 0; i--) {
+  for (int i = snake.body_length - 1; i >= 0; i--) {
     if (i == 0) {
       body_snake.at(i).set_position(snake.get_head_x(), snake.get_head_y());
     } else {
@@ -50,6 +50,29 @@ void Snake::move_snake(Snake& snake, VectorDirection Direction,
   }
 }
 
+void Snake::eating_apple(Snake* snake, Apple& apple,
+                         VectorDirection direction) {
+  if ((snake->get_head_x() == apple.get_x_apple()) &&
+      (snake->get_head_y() == apple.get_y_apple())) {
+    snake->add_body_snake(snake, direction);
+    apple.generate_apple(*snake);
+  }
+}
+void Snake::add_body_snake(Snake* snake, VectorDirection direction) {
+  body_snake.insert(body_snake.begin(),
+                    BodySnake(snake->get_head_x(), snake->get_head_y()));
+  if (direction == Up) {
+    snake->head_snake.move_head_up();
+  } else if (direction == Down) {
+    snake->head_snake.move_head_down();
+  } else if (direction == Left) {
+    snake->head_snake.move_head_left();
+  } else {
+    snake->head_snake.move_head_right();
+  }
+  snake->body_length++;
+}
+
 int Snake::get_x_pixel_body(int pixel) const {
   return body_snake.at(pixel).get_body_x();
 }
@@ -57,7 +80,36 @@ int Snake::get_y_pixel_body(int pixel) const {
   return body_snake.at(pixel).get_body_y();
 }
 
-int Snake::get_length_body() const { return this->body_length; }
+int Snake::get_length_body() const { return body_snake.size(); }
+
+void Apple::generate_apple(Snake& snake) {
+  bool check_on_correct = false;
+  int counter = 0;
+  std::random_device rd;
+  std::mt19937 gen(rd());
+  std::uniform_int_distribution<> dist_x(0, 9);
+  std::uniform_int_distribution<> dist_y(0, 19);
+
+  while (check_on_correct == false) {
+    this->x = dist_x(gen);
+    this->y = dist_y(gen);
+    for (int i = 0; i < snake.get_length_body(); i++) {
+      if ((this->x != snake.get_x_pixel_body(i)) &&
+          (this->y != snake.get_y_pixel_body(i))) {
+        counter++;
+      }
+    }
+    if (counter == snake.get_length_body()) {
+      if ((this->x != snake.get_head_x()) && (this->y != snake.get_head_y())) {
+        check_on_correct = true;
+      }
+    }
+    counter = 0;
+  }
+}
+
+int Apple::get_x_apple() const { return this->x; }
+int Apple::get_y_apple() const { return this->x; }
 
 void Contol_Key(VectorDirection* Direction, StateGame* State, int ch) {
   if (ch == KEY_UP && *Direction != Down) {

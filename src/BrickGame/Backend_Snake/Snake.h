@@ -3,6 +3,7 @@
 
 #include <ncurses.h>
 
+#include <random>
 #include <vector>
 
 #define WIDTH 10
@@ -24,6 +25,16 @@ class BodySnake;
 class HeadSnake;
 class Snake;
 
+class Apple {
+ private:
+  int x;
+  int y;
+
+ public:
+  int get_x_apple() const;
+  int get_y_apple() const;
+  void generate_apple(Snake& snake);
+};
 class HeadSnake {
  private:
   int x;
@@ -66,21 +77,12 @@ class Snake : public HeadSnake, protected BodySnake {
   ~Snake();
 
   void move_snake(Snake& snake, VectorDirection Direction, StateGame* State);
+  void eating_apple(Snake* snake, Apple& apple, VectorDirection direction);
+  void add_body_snake(Snake* snake, VectorDirection direction);
 
   int get_x_pixel_body(int pixel) const;
   int get_y_pixel_body(int pixel) const;
   int get_length_body() const;
-};
-
-class Apple {
- private:
-  int x;
-  int y;
-
- public:
-  int get_x_apple() const;
-  int get_y_apple() const;
-  void generate_apple();
 };
 
 void Contol_Key(VectorDirection* Direction, StateGame* State, int ch);

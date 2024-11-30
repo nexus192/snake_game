@@ -13,11 +13,12 @@ WINDOW* init_ncurses() {
   start_color();
   init_pair(1, COLOR_WHITE, COLOR_WHITE);
   init_pair(2, COLOR_RED, COLOR_RED);
+  init_pair(3, COLOR_GREEN, COLOR_GREEN);
 
   return field;
 }
 
-void showField(WINDOW* field, Snake& snake) {
+void showField(WINDOW* field, Snake& snake, Apple& apple) {
   werase(field);
   box(field, 0, 0);
   for (int i = 0; i < HEIGHT; i++) {
@@ -28,10 +29,16 @@ void showField(WINDOW* field, Snake& snake) {
         mvwaddch(field, i + 1, j * 2 + 2, ' ');
         wattroff(field, COLOR_PAIR(2));
       }
+      if (i == apple.get_y_apple() && j == apple.get_x_apple()) {
+        wattron(field, COLOR_PAIR(3));
+        mvwaddch(field, i + 1, j * 2 + 1, ' ');
+        mvwaddch(field, i + 1, j * 2 + 2, ' ');
+        wattroff(field, COLOR_PAIR(3));
+      }
     }
   }
 
-  for (int k = 0; k < 4; k++) {
+  for (int k = 0; k < snake.get_length_body(); k++) {
     for (int i = 0; i < HEIGHT; i++) {
       for (int j = 0; j < WIDTH; j++) {
         if (i == snake.get_y_pixel_body(k) && j == snake.get_x_pixel_body(k)) {
