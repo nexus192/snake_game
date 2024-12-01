@@ -3,6 +3,8 @@
 
 #include <ncurses.h>
 
+#include <cstdlib>
+#include <ctime>
 #include <random>
 #include <vector>
 
@@ -17,6 +19,7 @@ typedef enum StateGame {
   Spawn,
   Moving,
   Shifting,
+  Eating,
   Pausa,
   End
 } StateGame;
@@ -29,6 +32,9 @@ class Apple {
  private:
   int x;
   int y;
+
+  int get_random_x();
+  int get_random_y();
 
  public:
   int get_x_apple() const;
@@ -44,10 +50,7 @@ class HeadSnake {
   HeadSnake();
   HeadSnake(int x, int y);
 
-  void move_head_up();
-  void move_head_down();
-  void move_head_right();
-  void move_head_left();
+  void move_haed(VectorDirection Direction);
 
   int get_head_x() const;
   int get_head_y() const;
@@ -61,7 +64,6 @@ class BodySnake {
  public:
   BodySnake();
   BodySnake(int x, int y);
-  void set_position(int x, int y);
   int get_body_x() const;
   int get_body_y() const;
 };
@@ -74,10 +76,10 @@ class Snake : public HeadSnake, protected BodySnake {
 
  public:
   Snake();
-  ~Snake();
 
   void move_snake(Snake& snake, VectorDirection Direction, StateGame* State);
-  void eating_apple(Snake* snake, Apple& apple, VectorDirection direction);
+  void eating_apple(Snake* snake, Apple& apple, VectorDirection direction,
+                    StateGame* State);
   void add_body_snake(Snake* snake, VectorDirection direction);
 
   int get_x_pixel_body(int pixel) const;
@@ -87,6 +89,5 @@ class Snake : public HeadSnake, protected BodySnake {
 
 void Contol_Key(VectorDirection* Direction, StateGame* State, int ch);
 void Coliseum(Snake& snake, StateGame* state_game);
-// void Definition_Vector(VectorDirection Direction, Snake* snake);
 
 #endif  // SNAKE_H_

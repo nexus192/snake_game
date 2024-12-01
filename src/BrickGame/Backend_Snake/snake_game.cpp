@@ -34,14 +34,16 @@ int main() {
     int chchc = wgetch(field);
 
     Contol_Key(&Direction, &State, chchc);
+    snake.eating_apple(&snake, apple, Direction, &State);
     snake.move_snake(snake, Direction, &State);
     // mvwprintw(info, 2, 2, "%d \n   %d", snake.get_head_x(),
     // snake.get_head_y());
     Coliseum(snake, &State);
-    snake.eating_apple(&snake, apple, Direction);
     showField(field, snake, apple);
     if (State == End) mvwprintw(info, 8, 8, "End");
-    mvwprintw(info, 8, 8, "%d", snake.get_length_body());
+    mvwprintw(info, 8, 8, "len_body%d", snake.get_length_body());
+    mvwprintw(info, 6, 6, "x_apple: %d", apple.get_x_apple());
+    mvwprintw(info, 7, 6, "y_apple%d", apple.get_y_apple());
     wrefresh(info);
   }
   endwin();

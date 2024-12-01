@@ -23,17 +23,17 @@ void showField(WINDOW* field, Snake& snake, Apple& apple) {
   box(field, 0, 0);
   for (int i = 0; i < HEIGHT; i++) {
     for (int j = 0; j < WIDTH; j++) {
-      if (i == snake.get_head_y() && j == snake.get_head_x()) {
-        wattron(field, COLOR_PAIR(2));
-        mvwaddch(field, i + 1, j * 2 + 1, ' ');
-        mvwaddch(field, i + 1, j * 2 + 2, ' ');
-        wattroff(field, COLOR_PAIR(2));
-      }
       if (i == apple.get_y_apple() && j == apple.get_x_apple()) {
         wattron(field, COLOR_PAIR(3));
         mvwaddch(field, i + 1, j * 2 + 1, ' ');
         mvwaddch(field, i + 1, j * 2 + 2, ' ');
         wattroff(field, COLOR_PAIR(3));
+      }
+      if (i == snake.get_head_y() && j == snake.get_head_x()) {
+        wattron(field, COLOR_PAIR(2));
+        mvwaddch(field, i + 1, j * 2 + 1, ' ');
+        mvwaddch(field, i + 1, j * 2 + 2, ' ');
+        wattroff(field, COLOR_PAIR(2));
       }
     }
   }
