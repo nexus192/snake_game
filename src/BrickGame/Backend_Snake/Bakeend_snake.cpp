@@ -71,21 +71,38 @@ int Snake::get_y_pixel_body(int pixel) const {
 
 int Snake::get_length_body() const { return body_snake.size(); }
 
-int Apple::get_random_x() { return rand() % 10; }
-int Apple::get_random_y() { return rand() % 20; }
-
 void Apple::generate_apple(Snake& snake) {
-  srand(time(NULL));
-  this->x = get_random_x();
-  for (int i = 0; i < 10; i++) {
-    this->y = get_random_y();
+  std::mt19937 gen(std::random_device{}());
+  std::uniform_int_distribution<int> dist_x(0, 9);
+  std::uniform_int_distribution<int> dist_y(0, 19);
+
+  bool apple_generated = false;
+
+  while (!apple_generated) {
+    // Генерация случайных координат для яблока
+    this->x = dist_x(gen);
+    this->y = dist_y(gen);
+
+    // Проверка, что яблоко не попало в тело или голову змеи
+    apple_generated = true;
+    for (int i = 0; i < snake.get_length_body(); i++) {
+      if (this->x == snake.get_x_pixel_body(i) &&
+          this->y == snake.get_y_pixel_body(i)) {
+        apple_generated = false;
+        break;
+      }
+    }
+    if (this->x == snake.get_head_x() && this->y == snake.get_head_y()) {
+      apple_generated = false;
+    }
   }
 }
 
 int Apple::get_x_apple() const { return this->x; }
-int Apple::get_y_apple() const { return this->x; }
+int Apple::get_y_apple() const { return this->y; }
 
-void Contol_Key(VectorDirection* Direction, StateGame* State, int ch) {
+void Contol_Key(WINDOW* field, VectorDirection* Direction, StateGame* State) {
+  int ch = wgetch(field);
   if (ch == KEY_UP && *Direction != Down) {
     *Direction = Up;
     *State = Shifting;
@@ -99,8 +116,19 @@ void Contol_Key(VectorDirection* Direction, StateGame* State, int ch) {
     *Direction = Left;
     *State = Shifting;
   } else if (ch == 'p') {
-    // funk
     *State = Pausa;
+    Game_Pausa(field, State);
+  } else if (ch == 'q') {
+    *State = End;
+  } else {
+    return;
+  }
+}
+
+void Game_Pausa(WINDOW* field, StateGame* State) {
+  int chh;
+  while ((chh = wgetch(field)) != 'p') {
+    ;
   }
 }
 

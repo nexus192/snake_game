@@ -21,7 +21,8 @@ typedef enum StateGame {
   Shifting,
   Eating,
   Pausa,
-  End
+  End,
+  Win
 } StateGame;
 
 class BodySnake;
@@ -33,8 +34,8 @@ class Apple {
   int x;
   int y;
 
-  int get_random_x();
-  int get_random_y();
+  // int get_random_x();
+  // int get_random_y();
 
  public:
   int get_x_apple() const;
@@ -87,7 +88,11 @@ class Snake : public HeadSnake, protected BodySnake {
   int get_length_body() const;
 };
 
-void Contol_Key(VectorDirection* Direction, StateGame* State, int ch);
+int get_random_x();
+int get_random_y();
+
+void Contol_Key(WINDOW* field, VectorDirection* Direction, StateGame* State);
+void Game_Pausa(WINDOW* field, StateGame* State);
 void Coliseum(Snake& snake, StateGame* state_game);
 
 #endif  // SNAKE_H_

@@ -2,12 +2,12 @@
 
 WINDOW* init_ncurses() {
   initscr();
-  cbreak();
   noecho();
   keypad(stdscr, true);
   timeout(50);
   curs_set(0);
   WINDOW* field = newwin(22, 22, 0, 0);
+  cbreak();
   keypad(field, true);
   nodelay(field, 1);  // что бы программа не ожидала ввода
   start_color();
