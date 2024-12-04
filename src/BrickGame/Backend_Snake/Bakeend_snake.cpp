@@ -33,8 +33,7 @@ Snake::Snake() {
 
 void Snake::move_snake(Snake& snake, VectorDirection Direction,
                        StateGame* State) {
-  if (*State != Eating) {
-    *State = Moving;
+  if (*State != Spawn) {
     for (int i = snake.body_length - 1; i >= 0; i--) {
       if (i == 0) {
         body_snake.front() = BodySnake(snake.get_head_x(), snake.get_head_y());
@@ -44,15 +43,18 @@ void Snake::move_snake(Snake& snake, VectorDirection Direction,
     }
     snake.move_haed(Direction);
   }
+  *State = Moving;
 }
 
 void Snake::eating_apple(Snake* snake, Apple& apple, VectorDirection direction,
-                         StateGame* State) {
+                         StateGame* State, GameParameters* Parameters) {
   if ((snake->get_head_x() == apple.get_x_apple()) &&
       (snake->get_head_y() == apple.get_y_apple())) {
     *State = Eating;
     snake->add_body_snake(snake, direction);
-    apple.generate_apple(*snake);
+    apple.generate_apple(*snake, State);
+    Parameters->parameter_changes(snake->get_length_body() -
+                                  INITIAL_BODY_LENGTH);
   }
 }
 void Snake::add_body_snake(Snake* snake, VectorDirection direction) {
@@ -71,7 +73,8 @@ int Snake::get_y_pixel_body(int pixel) const {
 
 int Snake::get_length_body() const { return body_snake.size(); }
 
-void Apple::generate_apple(Snake& snake) {
+void Apple::generate_apple(Snake& snake, StateGame* State) {
+  *State = Spawn;
   std::mt19937 gen(std::random_device{}());
   std::uniform_int_distribution<int> dist_x(0, 9);
   std::uniform_int_distribution<int> dist_y(0, 19);
@@ -101,34 +104,28 @@ void Apple::generate_apple(Snake& snake) {
 int Apple::get_x_apple() const { return this->x; }
 int Apple::get_y_apple() const { return this->y; }
 
-void Contol_Key(WINDOW* field, VectorDirection* Direction, StateGame* State) {
-  int ch = wgetch(field);
-  if (ch == KEY_UP && *Direction != Down) {
-    *Direction = Up;
-    *State = Shifting;
-  } else if (ch == KEY_DOWN && *Direction != Up) {
-    *Direction = Down;
-    *State = Shifting;
-  } else if (ch == KEY_RIGHT && *Direction != Left) {
-    *Direction = Right;
-    *State = Shifting;
-  } else if (ch == KEY_LEFT && *Direction != Right) {
-    *Direction = Left;
-    *State = Shifting;
-  } else if (ch == 'p') {
-    *State = Pausa;
-    Game_Pausa(field, State);
-  } else if (ch == 'q') {
-    *State = End;
-  } else {
-    return;
+GameParameters::GameParameters() {
+  speed = STANDART_SPEED;
+  level = 0;
+  high_score = 0;
+  get_high_score();
+};
+void GameParameters::get_high_score() {
+  std::ifstream inputFile("score_snake.txt");
+  inputFile >> high_score;
+  inputFile.close();
+}
+void GameParameters::set_high_score(int score) {
+  if (score > high_score) {
+    std::ofstream outputFile("score_snake.txt");
+    outputFile << score;
+    outputFile.close();
   }
 }
-
-void Game_Pausa(WINDOW* field, StateGame* State) {
-  int chh;
-  while ((chh = wgetch(field)) != 'p') {
-    ;
+void GameParameters::parameter_changes(int score) {
+  if ((score % 5) == 0) {
+    level++;
+    speed -= 25000;
   }
 }
 
@@ -145,5 +142,4 @@ void Coliseum(Snake& snake, StateGame* state_game) {
       *state_game = End;
     }
   }
-  *state_game = Moving;
 }

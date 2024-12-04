@@ -1,16 +1,19 @@
 #ifndef SNAKE_H_
 #define SNAKE_H_
 
-#include <ncurses.h>
+#include <unistd.h>
 
 #include <cstdlib>
 #include <ctime>
+#include <fstream>
 #include <random>
+#include <utility>
 #include <vector>
 
 #define WIDTH 10
 #define HEIGHT 20
 #define INITIAL_BODY_LENGTH 4
+#define STANDART_SPEED 500000
 
 typedef enum VectorDirection { Up, Down, Right, Left } VectorDirection;
 
@@ -40,7 +43,7 @@ class Apple {
  public:
   int get_x_apple() const;
   int get_y_apple() const;
-  void generate_apple(Snake& snake);
+  void generate_apple(Snake& snake, StateGame* State);
 };
 class HeadSnake {
  private:
@@ -69,6 +72,17 @@ class BodySnake {
   int get_body_y() const;
 };
 
+class GameParameters {
+ public:
+  int level;
+  int speed;
+  int high_score;
+  GameParameters();
+  void get_high_score();
+  void set_high_score(int score);
+  void parameter_changes(int score);
+};
+
 class Snake : public HeadSnake, protected BodySnake {
  private:
   std::vector<BodySnake> body_snake;
@@ -80,7 +94,7 @@ class Snake : public HeadSnake, protected BodySnake {
 
   void move_snake(Snake& snake, VectorDirection Direction, StateGame* State);
   void eating_apple(Snake* snake, Apple& apple, VectorDirection direction,
-                    StateGame* State);
+                    StateGame* State, GameParameters* Parameters);
   void add_body_snake(Snake* snake, VectorDirection direction);
 
   int get_x_pixel_body(int pixel) const;
@@ -91,8 +105,8 @@ class Snake : public HeadSnake, protected BodySnake {
 int get_random_x();
 int get_random_y();
 
-void Contol_Key(WINDOW* field, VectorDirection* Direction, StateGame* State);
-void Game_Pausa(WINDOW* field, StateGame* State);
 void Coliseum(Snake& snake, StateGame* state_game);
+
+// temporary fanc debag
 
 #endif  // SNAKE_H_

@@ -18,7 +18,38 @@ WINDOW* init_ncurses() {
   return field;
 }
 
-void showField(WINDOW* field, Snake& snake, Apple& apple) {
+void Contol_Key(WINDOW* field, VectorDirection* Direction, StateGame* State) {
+  int ch = wgetch(field);
+  if (ch == KEY_UP && *Direction != Down) {
+    *Direction = Up;
+    *State = Shifting;
+  } else if (ch == KEY_DOWN && *Direction != Up) {
+    *Direction = Down;
+    *State = Shifting;
+  } else if (ch == KEY_RIGHT && *Direction != Left) {
+    *Direction = Right;
+    *State = Shifting;
+  } else if (ch == KEY_LEFT && *Direction != Right) {
+    *Direction = Left;
+    *State = Shifting;
+  } else if (ch == 'p') {
+    *State = Pausa;
+    Game_Pausa(field);
+  } else if (ch == 'q') {
+    *State = End;
+  } else {
+    return;
+  }
+}
+
+void Game_Pausa(WINDOW* field) {
+  int chh;
+  while ((chh = wgetch(field)) != 'p') {
+    ;
+  }
+}
+
+void Render_Field(WINDOW* field, Snake& snake, Apple& apple) {
   werase(field);
   box(field, 0, 0);
   for (int i = 0; i < HEIGHT; i++) {
@@ -51,4 +82,21 @@ void showField(WINDOW* field, Snake& snake, Apple& apple) {
     }
   }
   wrefresh(field);
+}
+
+void Render_Info(WINDOW* info, Snake& snake, GameParameters& Parameters) {
+  werase(info);
+  box(info, 0, 0);
+  mvwprintw(info, 1, 1, "SCORE: %d",
+            snake.get_length_body() - INITIAL_BODY_LENGTH);
+
+  if (snake.get_length_body() - INITIAL_BODY_LENGTH < Parameters.high_score) {
+    mvwprintw(info, 2, 1, "HIGH SCORE: %d", Parameters.high_score);
+  } else {
+    mvwprintw(info, 2, 1, "HIGH SCORE: %d",
+              snake.get_length_body() - INITIAL_BODY_LENGTH);
+  }
+  mvwprintw(info, 3, 1, "LEVEL: %d", Parameters.level);
+  mvwprintw(info, 4, 1, "SPEED: %d", Parameters.speed);
+  wrefresh(info);
 }
