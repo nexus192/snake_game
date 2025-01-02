@@ -15,8 +15,9 @@ class SnakeGameRender : public QWidget
 public:
     SnakeGameRender(QWidget *parent = nullptr);
     ~SnakeGameRender();
-    void Render_Field(QPainter &painter);
-    void control_key(QKeyEvent *event); // Method to handle key press
+    void Render_Field(QPainter &painter, int cellSize);
+    void Render_Info(QPainter &painter, int cellSize);
+    void Control_Key(QKeyEvent *event); // Method to handle key press
     void updateGame();
 
 protected:

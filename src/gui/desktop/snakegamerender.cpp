@@ -10,7 +10,8 @@ SnakeGameRender::SnakeGameRender(QWidget *parent) : QWidget(parent), Direction(D
 
     timer = new QTimer(this);
     connect(timer, &QTimer::timeout, this, &SnakeGameRender::updateGame);
-    timer->start(500);  // Обновление игры каждую 1/10 секунды
+    Parameters.speed = 500;
+    timer->start(Parameters.speed);
 }
 
 SnakeGameRender::~SnakeGameRender()
@@ -24,63 +25,91 @@ void SnakeGameRender::paintEvent(QPaintEvent *event)
     QPainter painter(this);
     painter.setRenderHint(QPainter::Antialiasing);
 
-    Render_Field(painter);
+    int windowWidth = this->width();
+    int windowHeight = this->height();
+    int cellSize = qMin(windowWidth / WIDTH, windowHeight / HEIGHT);
 
-    QRect appleCell(apple.get_x_apple() * 20, apple.get_y_apple() * 20, 20, 20);
-    painter.setBrush(Qt::red);
-    painter.fillRect(appleCell, Qt::red);
+    Render_Field(painter, cellSize);
 
-    QRect snakeHeadCell(snake.get_head_x() * 20, snake.get_head_y() * 20, 20, 20);
-    painter.setBrush(Qt::green);
-    painter.fillRect(snakeHeadCell, Qt::green);
-
-    painter.setBrush(Qt::darkGreen);
-    for (int i = 0; i < snake.get_length_body(); i++) {
-        QRect bodyCell(snake.get_x_pixel_body(i) * 20, snake.get_y_pixel_body(i) * 20, 20, 20);
-        painter.fillRect(bodyCell, Qt::darkGreen);
-    }
-    Parameters.set_high_score(snake.get_length_body() - INITIAL_BODY_LENGTH);
-
-    QFont font;
-    font.setPointSize(14);
-    painter.setFont(font);
-    std::string s = "Score: " + std::to_string(snake.get_length_body() - INITIAL_BODY_LENGTH);
-    painter.drawText(205, 55, s.data());
-    std::string hs = "High score: " + std::to_string(Parameters.high_score);
-    painter.drawText(205, 85, hs.data());
-    std::string l = "Level: " + std::to_string(Parameters.level);
-    painter.drawText(205, 115, l.data());
-    std::string sp = "Speed: " + std::to_string(Parameters.speed);
-    painter.drawText(205, 145, sp.data());
-    if (State == Pausa) {
-        painter.drawText(205, 175, "Pause");
-    }
+    Render_Info(painter, cellSize);
 
 }
 
-void SnakeGameRender::Render_Field(QPainter &painter)
+void SnakeGameRender::Render_Field(QPainter &painter, int cellSize)
 {
-    QRect rect(0, 0, 200, 400);
-
+    QRect rect(0, 0, WIDTH * cellSize, HEIGHT * cellSize);
     QPen pen(Qt::black, 2);
     painter.setPen(pen);
     painter.drawRect(rect);
 
-    for (int i = 0; i < 10; i++) {
-        for (int j = 0; j < 20; j++) {
-            QRect cell(i * 20, j * 20, 20, 20);
+    // Рисуем клетки поля
+    for (int i = 0; i < WIDTH; i++) {
+        for (int j = 0; j < HEIGHT; j++) {
+            QRect cell(i * cellSize, j * cellSize, cellSize, cellSize);
             painter.drawRect(cell);
         }
     }
+
+    // Рисуем яблоко (позиция яблока в клетках с учётом изменения размера)
+    QRect appleCell(apple.get_x_apple() * cellSize, apple.get_y_apple() * cellSize, cellSize, cellSize);
+    painter.setBrush(Qt::red);
+    painter.fillRect(appleCell, Qt::red);
+
+    // Рисуем голову змейки (позиция головы змейки в клетках с учётом изменения размера)
+    QRect snakeHeadCell(snake.get_head_x() * cellSize, snake.get_head_y() * cellSize, cellSize, cellSize);
+    painter.setBrush(Qt::green);
+    painter.fillRect(snakeHeadCell, Qt::green);
+
+    // Рисуем тело змейки (позиции тела змейки в клетках с учётом изменения размера)
+    painter.setBrush(Qt::darkGreen);
+    for (int i = 0; i < snake.get_length_body(); i++) {
+        QRect bodyCell(snake.get_x_pixel_body(i) * cellSize, snake.get_y_pixel_body(i) * cellSize, cellSize, cellSize);
+        painter.fillRect(bodyCell, Qt::darkGreen);
+    }
 }
+
+
+void SnakeGameRender::Render_Info(QPainter &painter, int cellSize) {
+    int windowHeight = this->height();
+    int textX = cellSize * WIDTH + 5;
+    int fontSize = windowHeight / 25;
+    QFont font;
+    font.setPointSize(fontSize);
+    painter.setFont(font);
+
+    int textY = windowHeight / 10;
+    std::string s = "Score: " + std::to_string(snake.get_length_body() - INITIAL_BODY_LENGTH);
+
+    // Устанавливаем белый цвет для текста
+    QPen whitePen(Qt::white);
+    painter.setPen(whitePen);
+    painter.drawText(textX, textY, s.data());
+
+    textY += fontSize + 5;
+    std::string hs = "High score: " + std::to_string(Parameters.high_score);
+    painter.drawText(textX, textY, hs.data());
+
+    textY += fontSize + 5;
+    std::string l = "Level: " + std::to_string(Parameters.level);
+    painter.drawText(textX, textY, l.data());
+
+    textY += fontSize + 5;
+    std::string sp = "Speed: " + std::to_string(Parameters.speed);
+    painter.drawText(textX, textY, sp.data());
+
+    if (State == Pausa) {
+        textY += fontSize + 5;
+        painter.drawText(textX, textY, "Pause");
+    }
+}
+
 
 void SnakeGameRender::keyPressEvent(QKeyEvent *event)
 {
-    // Call the control_key method when a key is pressed
-    control_key(event);
+    Control_Key(event);
 }
 
-void SnakeGameRender::control_key(QKeyEvent *event)
+void SnakeGameRender::Control_Key(QKeyEvent *event)
 {
     switch (event->key()) {
     case Qt::Key_Up:
@@ -99,13 +128,16 @@ void SnakeGameRender::control_key(QKeyEvent *event)
         Direction = Right;
         State = Shifting;
         break;
-    case Qt::Key_W:
-        Direction = Up;
-        State = Shifting;
+    case Qt::Key_Escape:
+        this->close();
         break;
-    case Qt::Key_S:
-        Direction = Up;
-        State = Shifting;
+    case Qt::Key_P:
+        if (State != Pausa) {
+            State = Pausa;
+            timer->stop();
+        } else if(State == Pausa) {
+            timer->start(Parameters.speed);
+        }
         break;
     case Qt::Key_A:
         Direction = Up;
