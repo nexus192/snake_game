@@ -3,7 +3,7 @@
 
 #include <ncurses.h>
 
-#include "../../BrickGame/Backend_Snake/Snake.h"
+#include "../../../BrickGame/BackEnd_Snake/Snake.h"
 
 WINDOW* init_ncurses();
 void Contol_Key(WINDOW* field, VectorDirection* Direction, StateGame* State);

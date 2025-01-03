@@ -111,13 +111,13 @@ GameParameters::GameParameters() {
   get_high_score();
 };
 void GameParameters::get_high_score() {
-  std::ifstream inputFile("score_snake.txt");
+  std::ifstream inputFile("./game_state/score_snake.txt");
   inputFile >> high_score;
   inputFile.close();
 }
 void GameParameters::set_high_score(int score) {
   if (score > high_score) {
-    std::ofstream outputFile("score_snake.txt");
+    std::ofstream outputFile("./game_state/score_snake.txt");
     outputFile << score;
     outputFile.close();
   }

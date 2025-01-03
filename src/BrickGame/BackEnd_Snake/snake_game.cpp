@@ -1,7 +1,7 @@
 #include <ncurses.h>
 #include <unistd.h>
 
-#include "../../gui/cli/Frontend_Snake.h"
+#include "../../gui/cli/Snake/Frontend_Snake.h"
 #include "Snake.h"
 
 int main() {

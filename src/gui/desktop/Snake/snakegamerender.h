@@ -6,7 +6,7 @@
 #include <QObject>
 #include <QPaintEvent>
 #include <QTimer>
-#include "../../BrickGame/Backend_Snake/Snake.h"
+#include "../../../BrickGame/BackEnd_Snake/Snake.h"
 
 class SnakeGameRender : public QWidget
 {

@@ -2,7 +2,7 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
-#include "../../BrickGame/Backend_Snake/Snake.h"
+#include "../../../BrickGame/BackEnd_Snake/Snake.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui {
@@ -18,7 +18,13 @@ public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
 
+private slots:
+    void Push_Button_Tetris();
+    void Push_Button_Snake();
+    void Push_Button_Exit();
+
 private:
     Ui::MainWindow *ui;
+    void Spatial_Button();
 };
 #endif // MAINWINDOW_H

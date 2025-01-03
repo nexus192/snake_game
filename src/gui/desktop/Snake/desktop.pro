@@ -11,12 +11,12 @@ CONFIG += c++17
 SOURCES += \
     main.cpp \
     mainwindow.cpp \
-    ../../BrickGame/Backend_Snake/Bakeend_snake.cpp \
+    ../../../BrickGame/BackEnd_Snake/Backend_snake.cpp \
     snakegamerender.cpp
 
 HEADERS += \
     mainwindow.h \
-    ../../BrickGame/Backend_Snake/Snake.h \
+    ../../../BrickGame/BackEnd_Snake/Snake.h \
     snakegamerender.h
 
 FORMS += \
