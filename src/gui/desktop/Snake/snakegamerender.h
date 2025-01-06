@@ -22,10 +22,10 @@ public:
 
 protected:
     void paintEvent(QPaintEvent *event) override;
-    void keyPressEvent(QKeyEvent *event) override; // Override key press event
+    void keyPressEvent(QKeyEvent *event) override;
 
 private:
-    Snake snake; // Assume you have a Snake class handling snake movement
+    Snake snake;
     Apple apple;
     GameParameters Parameters;
     VectorDirection Direction;

@@ -1,5 +1,3 @@
-#include "tetris.h"
-
 #include <unistd.h>
 
 #include "../../gui/cli/Tetris/front_end.h"

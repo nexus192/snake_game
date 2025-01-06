@@ -1,6 +1,7 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
-#include "snakegamerender.h"
+#include "Snake/snakegamerender.h"
+#include "Tetris/tetrisgamerender.h"
 
 #include<QDebug>
 
@@ -22,7 +23,20 @@ MainWindow::~MainWindow()
 }
 
 void MainWindow::Push_Button_Tetris(){
-    qDebug() << "pushed";
+    this->close();
+    TetrisGameRender *field = new TetrisGameRender();
+    field->setStyleSheet(
+        "QWidget {"
+        "   background-color: #18191C;"
+        "   color: white;"
+        "   border: 3px solid #2C2F36;"
+        "   border-radius: 10px;"
+        "}");
+    field->setWindowTitle("Snake");
+
+    field->resize(420, 420);
+
+    field->show();
 }
 
 void MainWindow::Push_Button_Snake(){

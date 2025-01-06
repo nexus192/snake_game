@@ -11,13 +11,17 @@ CONFIG += c++17
 SOURCES += \
     main.cpp \
     mainwindow.cpp \
-    ../../../BrickGame/BackEnd_Snake/Backend_snake.cpp \
-    snakegamerender.cpp
+    ../../BrickGame/BackEnd_Snake/Backend_snake.cpp \
+    ../../BrickGame/BackEnd_Tetris/back_end.c \
+    Snake/snakegamerender.cpp \
+    Tetris/tetrisgamerender.cpp
 
 HEADERS += \
     mainwindow.h \
-    ../../../BrickGame/BackEnd_Snake/Snake.h \
-    snakegamerender.h
+    ../../BrickGame/BackEnd_Snake/Snake.h \
+    Snake/snakegamerender.h \
+    Tetris/tetrisgamerender.h \
+    ../../BrickGame/BackEnd_Tetris/back_end.h \
 
 FORMS += \
     mainwindow.ui

@@ -1,10 +1,63 @@
 #ifndef SRC_BACK_END_H_
 #define SRC_BACK_END_H_
+#ifdef __cplusplus
+extern "C" {
+#endif
 
 #include <math.h>
+#include <stdbool.h>
 
-#include "../../gui/cli/Tetris/front_end.h"
-#include "tetris.h"
+#define GAME_ROW 22
+#define GAME_COL 12
+
+#define WIDTH 10
+#define HEIGHT 20
+
+#define START_POS_FIGUR_X 1
+#define START_POS_FIGUR_Y 6
+
+#define COUNT_BLOCS_IN_FIGUR 4
+
+#define START_SPEED 500
+#define START_LEVEL 1
+#define LEVEL_UP 600
+
+typedef enum UserAction_t {
+  Start,
+  Pause,
+  Terminate,
+  TLeft,
+  TRight,
+  TUp,
+  TDown,
+  Action,
+  Game_over,
+  Restart
+} UserAction_t;
+
+typedef struct Game_space {
+  int** space;
+  int row;
+  int col;
+} Game_space;
+
+typedef struct GameInfo_t {
+  int** next;
+  int next_figur;
+  int score;
+  int high_score;
+  int level;
+  int speed;
+  int pause;
+} GameInfo_t;
+
+typedef struct Figur {
+  int position[COUNT_BLOCS_IN_FIGUR * 2];
+  int figur_type;
+  int move_triger;
+  int rotations_position;
+  int code;
+} Figur;
 
 void init_figur(int number_figur, Figur* figur);
 void init_next_figur(int number_figur, Figur* figur);
@@ -14,8 +67,6 @@ void check_line(Game_space* game_space, int i, int* check_linee);
 void kill_line(Game_space* game_space, int i, int* count_full_line,
                int* check_line);
 bool check_on_game_over(Game_space game_space);
-void control_key(Figur* figur, WINDOW* window, Game_space* game_space,
-                 UserAction_t* user_actions);
 void rotation_figurs(Figur* figur);
 void remove_trash_on_poly(Figur* figur, Game_space* game_space);
 bool conditions_of_falling_down(Figur figur, Game_space game_space);
@@ -29,11 +80,14 @@ void game_level_and_speed(GameInfo_t* game_info);
 int readNumberFromFile();
 void writeNumberToFile(int number);
 void figur_falling_down(Figur* figur);
-void game_pause(WINDOW* window, UserAction_t* us_sct);
 int get_random_number();
 void get_figur(Figur* figur, GameInfo_t game_info);
-void restart_game(UserAction_t* user_actions, GameInfo_t* game_info,
-                  WINDOW* window);
+void print_figur_in_game_poly(Game_space *game_space, Figur *figur);
+void print_next_figur(GameInfo_t *game_info);
+void clean_space_game(Game_space *game_space);
+void init_space_game(Game_space *game_space);
+void init_game_info(GameInfo_t *game_info);
+void game_remove(Game_space *game_space, GameInfo_t *game_info);
 
 bool traffic_permit_left_for_figur_1(Game_space* game_space, Figur* figur);
 bool traffic_permit_left_for_figur_2(Game_space* game_space, Figur* figur);
@@ -88,5 +142,9 @@ void remove_trash_on_poly_for_figur_4(Figur* figur, Game_space* game_space);
 void remove_trash_on_poly_for_figur_5(Figur* figur, Game_space* game_space);
 void remove_trash_on_poly_for_figur_6(Figur* figur, Game_space* game_space);
 void remove_trash_on_poly_for_figur_7(Figur* figur, Game_space* game_space);
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif  // SRC_BACK_END_H_

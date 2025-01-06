@@ -1,6 +1,7 @@
 #include "back_end.h"
+#include <stdlib.h>
+#include <stdio.h>
 
-// #include "../../gui/cli/front_end.h"
 
 void init_figur(int number_figur, Figur* figur) {
   Figur figur1 = {{1, 4, 1, 5, 1, 6, 1, 7}, 1, 0, 0, 3};  // палка
@@ -133,47 +134,6 @@ bool check_on_game_over(Game_space game_space) {
     }
   }
   return result;
-}
-
-void control_key(Figur* figur, WINDOW* window, Game_space* game_space,
-                 UserAction_t* user_actions) {
-  int ch = wgetch(window);
-  if (ch == KEY_LEFT && (traffic_permit_left(game_space, figur) == true)) {
-    kill_figur(figur, game_space);
-    figur->position[1]--;
-    figur->position[3]--;
-    figur->position[5]--;
-    figur->position[7]--;
-    print_figur_in_game_poly(game_space, figur);
-    render_space_game(game_space, window);
-  } else if (ch == KEY_RIGHT &&
-             (traffic_permit_right(game_space, figur) == true)) {
-    kill_figur(figur, game_space);
-    figur->position[1]++;
-    figur->position[3]++;
-    figur->position[5]++;
-    figur->position[7]++;
-    print_figur_in_game_poly(game_space, figur);
-    render_space_game(game_space, window);
-  } else if (ch == KEY_DOWN && traffic_permit_down(game_space, figur) == true) {
-    kill_figur(figur, game_space);
-    figur->position[0]++;
-    figur->position[2]++;
-    figur->position[4]++;
-    figur->position[6]++;
-    print_figur_in_game_poly(game_space, figur);
-    render_space_game(game_space, window);
-  } else if (ch == KEY_UP && traffic_permit_flip(game_space, figur) == true) {
-    kill_figur(figur, game_space);
-    rotation_figurs(figur);
-    print_figur_in_game_poly(game_space, figur);
-    render_space_game(game_space, window);
-  } else if (ch == 'p') {
-    *user_actions = Pause;
-  } else if (ch == 'q') {
-    *user_actions = Terminate;
-    figur->move_triger = 1;
-  }
 }
 
 bool traffic_permit_left(Game_space* game_space, Figur* figur) {
@@ -1710,15 +1670,6 @@ void figur_falling_down(Figur* figur) {
   figur->position[6]++;
 }
 
-void game_pause(WINDOW* window, UserAction_t* us_sct) {
-  while (*us_sct == Pause) {
-    int ch1;
-    if ((ch1 = wgetch(window)) == 'p') {
-      *us_sct = Start;
-    }
-  }
-}
-
 int get_random_number() {
   int rand_number = rand() % 7 + 1;
   return rand_number;
@@ -1728,16 +1679,82 @@ void get_figur(Figur* figur, GameInfo_t game_info) {
   init_figur(game_info.next_figur, figur);
 }
 
-void restart_game(UserAction_t* user_actions, GameInfo_t* game_info,
-                  WINDOW* window) {
-  int ch1;
-  bool end = true;
-  while (*user_actions == Game_over && end == true) {
-    render_game_info(game_info, *user_actions, window);
-    if ((ch1 = wgetch(window)) == 'r') {
-      *user_actions = Restart;
-    } else if ((ch1 = wgetch(window)) == 'q') {
-      end = false;
+void print_figur_in_game_poly(Game_space *game_space, Figur *figur) {
+  game_space->space[figur->position[0]][figur->position[1]] = figur->code;
+  game_space->space[figur->position[2]][figur->position[3]] = figur->code;
+  game_space->space[figur->position[4]][figur->position[5]] = figur->code;
+  game_space->space[figur->position[6]][figur->position[7]] = figur->code;
+}
+
+void print_next_figur(GameInfo_t *game_info) {
+  Figur next_figur;
+  init_next_figur(game_info->next_figur, &next_figur);
+  game_info->next[next_figur.position[0]][next_figur.position[1]] =
+      next_figur.code;
+  game_info->next[next_figur.position[2]][next_figur.position[3]] =
+      next_figur.code;
+  game_info->next[next_figur.position[4]][next_figur.position[5]] =
+      next_figur.code;
+  game_info->next[next_figur.position[6]][next_figur.position[7]] =
+      next_figur.code;
+}
+
+void clean_space_game(Game_space *game_space) {
+  for (int i = 0; i < GAME_ROW; i++) {
+    for (int j = 0; j < GAME_COL; j++) {
+      if (game_space->space[i][j] == 3) {
+        game_space->space[i][j] = 0;
+      }
     }
   }
+}
+
+void init_space_game(Game_space *game_space) {
+  game_space->space = (int **)malloc(GAME_ROW * sizeof(int *));
+
+  for (int i = 0; i < GAME_ROW; i++) {
+    game_space->space[i] = (int *)malloc(GAME_COL * sizeof(int));
+  }
+
+  for (int i = 0; i < GAME_ROW; i++) {
+    for (int j = 0; j < GAME_COL; j++) {
+      if (i == 0 || i == 21) {
+        game_space->space[i][j] = 1;
+      } else if (j == 0 || j == 11) {
+        game_space->space[i][j] = 2;
+      } else {
+        game_space->space[i][j] = 0;
+      }
+    }
+  }
+}
+
+void init_game_info(GameInfo_t *game_info) {
+  game_info->next = (int **)malloc(4 * sizeof(int *));
+
+  for (int i = 0; i < 4; i++) {
+    game_info->next[i] = (int *)malloc(6 * sizeof(int));
+  }
+
+  for (int i = 0; i < 4; i++) {
+    for (int j = 0; j < 6; j++) {
+      if (i == 0 || i == 3) {
+        game_info->next[i][j] = 1;
+      } else {
+        game_info->next[i][j] = 0;
+      }
+    }
+  }
+}
+
+void game_remove(Game_space *game_space, GameInfo_t *game_info) {
+  for (int i = 0; i < GAME_ROW; i++) {
+    free(game_space->space[i]);
+  }
+  free(game_space->space);
+
+  for (int i = 0; i < 4; i++) {
+    free(game_info->next[i]);
+  }
+  free(game_info->next);
 }
