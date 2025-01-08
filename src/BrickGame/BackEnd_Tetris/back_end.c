@@ -1,7 +1,7 @@
 #include "back_end.h"
-#include <stdlib.h>
-#include <stdio.h>
 
+#include <stdio.h>
+#include <stdlib.h>
 
 void init_figur(int number_figur, Figur* figur) {
   Figur figur1 = {{1, 4, 1, 5, 1, 6, 1, 7}, 1, 0, 0, 3};  // палка
@@ -81,7 +81,7 @@ void kill_figur(Figur* figur, Game_space* game_space) {
 }
 
 void check_line(Game_space* game_space, int i, int* check_linee) {
-  for (int j = GAME_COL - 1; j > 0; j--) {
+  for (int j = WIDTH - 1; j >= 0; j--) {
     if (game_space->space[i][j] == 3) {
       *check_linee += 1;
     }
@@ -91,11 +91,11 @@ void check_line(Game_space* game_space, int i, int* check_linee) {
 void kill_line(Game_space* game_space, int i, int* count_full_line,
                int* check_line) {
   if (*check_line == 10) {
-    for (int k = 1; k < GAME_COL - 1; k++) {
+    for (int k = 0; k < WIDTH; k++) {
       game_space->space[i][k] = 0;
     }
     for (int r = i; r > 1; r--) {
-      for (int g = 1; g < GAME_COL - 1; g++) {
+      for (int g = 0; g < WIDTH; g++) {
         game_space->space[r][g] = game_space->space[r - 1][g];
         game_space->space[r - 1][g] = 0;
       }
@@ -108,7 +108,7 @@ void find_full_line(Game_space* game_space, GameInfo_t* game_info) {
   int check_linee = 0;
   int count_full_line = 0;
   for (int l = 0; l < 4; l++) {
-    for (int i = GAME_ROW - 1; i > 0; i--) {
+    for (int i = HEIGHT - 1; i >= 0; i--) {
       check_line(game_space, i, &check_linee);
       kill_line(game_space, i, &count_full_line, &check_linee);
       check_linee = 0;
@@ -128,8 +128,8 @@ void find_full_line(Game_space* game_space, GameInfo_t* game_info) {
 
 bool check_on_game_over(Game_space game_space) {
   bool result = true;
-  for (int i = 0; i < GAME_COL; i++) {
-    if (game_space.space[1][i] == 3) {
+  for (int i = 0; i < GAME_COL - 2; i++) {
+    if (game_space.space[0][i] == 3) {
       result = false;
     }
   }
@@ -138,8 +138,8 @@ bool check_on_game_over(Game_space game_space) {
 
 bool traffic_permit_left(Game_space* game_space, Figur* figur) {
   bool code_result = false;
-  if (figur->position[1] - 1 != 0 && figur->position[3] - 1 != 0 &&
-      figur->position[5] - 1 != 0 && figur->position[7] - 1 != 0) {
+  if (figur->position[1] - 1 != -1 && figur->position[3] - 1 != -1 &&
+      figur->position[5] - 1 != -1 && figur->position[7] - 1 != -1) {
     if (figur->figur_type == 1) {
       code_result = traffic_permit_left_for_figur_1(game_space, figur);
     } else if (figur->figur_type == 2) {
@@ -160,8 +160,8 @@ bool traffic_permit_left(Game_space* game_space, Figur* figur) {
 }
 bool traffic_permit_right(Game_space* game_space, Figur* figur) {
   bool code_result = false;
-  if (figur->position[1] + 1 != 11 && figur->position[3] + 1 != 11 &&
-      figur->position[5] + 1 != 11 && figur->position[7] + 1 != 11) {
+  if (figur->position[1] + 1 != 10 && figur->position[3] + 1 != 10 &&
+      figur->position[5] + 1 != 10 && figur->position[7] + 1 != 10) {
     if (figur->figur_type == 1) {
       code_result = traffic_permit_right_for_figur_1(game_space, figur);
     } else if (figur->figur_type == 2) {
@@ -183,10 +183,10 @@ bool traffic_permit_right(Game_space* game_space, Figur* figur) {
 
 bool traffic_permit_down(Game_space* game_space, Figur* figur) {
   bool code_result = false;
-  if ((figur->position[0] + 2 != 21 && figur->position[2] + 2 != 21 &&
-       figur->position[4] + 2 != 21 && figur->position[6] + 2 != 21) &&
-      (figur->position[0] + 1 != 21 && figur->position[2] + 1 != 21 &&
-       figur->position[4] + 1 != 21 && figur->position[6] + 1 != 21)) {
+  if ((figur->position[0] + 2 != 20 && figur->position[2] + 2 != 20 &&
+       figur->position[4] + 2 != 20 && figur->position[6] + 2 != 20) &&
+      (figur->position[0] + 1 != 20 && figur->position[2] + 1 != 20 &&
+       figur->position[4] + 1 != 20 && figur->position[6] + 1 != 20)) {
     if (figur->figur_type == 1) {
       code_result = traffic_permit_down_for_figur_1(game_space, figur);
     } else if (figur->figur_type == 2) {
@@ -1441,8 +1441,8 @@ bool traffic_permit_flip_for_figur_7(Game_space* game_space, Figur* figur) {
 
 bool end_space(Figur* figur) {
   bool code_result = false;
-  if (figur->position[0] == 21 || figur->position[2] == 21 ||
-      figur->position[4] == 21 || figur->position[6] == 21) {
+  if (figur->position[0] == 20 || figur->position[2] == 20 ||
+      figur->position[4] == 20 || figur->position[6] == 20) {
     code_result = true;
   }
 
@@ -1679,14 +1679,14 @@ void get_figur(Figur* figur, GameInfo_t game_info) {
   init_figur(game_info.next_figur, figur);
 }
 
-void print_figur_in_game_poly(Game_space *game_space, Figur *figur) {
+void print_figur_in_game_poly(Game_space* game_space, Figur* figur) {
   game_space->space[figur->position[0]][figur->position[1]] = figur->code;
   game_space->space[figur->position[2]][figur->position[3]] = figur->code;
   game_space->space[figur->position[4]][figur->position[5]] = figur->code;
   game_space->space[figur->position[6]][figur->position[7]] = figur->code;
 }
 
-void print_next_figur(GameInfo_t *game_info) {
+void print_next_figur(GameInfo_t* game_info) {
   Figur next_figur;
   init_next_figur(game_info->next_figur, &next_figur);
   game_info->next[next_figur.position[0]][next_figur.position[1]] =
@@ -1699,9 +1699,9 @@ void print_next_figur(GameInfo_t *game_info) {
       next_figur.code;
 }
 
-void clean_space_game(Game_space *game_space) {
-  for (int i = 0; i < GAME_ROW; i++) {
-    for (int j = 0; j < GAME_COL; j++) {
+void clean_space_game(Game_space* game_space) {
+  for (int i = 0; i < HEIGHT; i++) {
+    for (int j = 0; j < WIDTH; j++) {
       if (game_space->space[i][j] == 3) {
         game_space->space[i][j] = 0;
       }
@@ -1709,31 +1709,25 @@ void clean_space_game(Game_space *game_space) {
   }
 }
 
-void init_space_game(Game_space *game_space) {
-  game_space->space = (int **)malloc(GAME_ROW * sizeof(int *));
+void init_space_game(Game_space* game_space) {
+  game_space->space = (int**)malloc(HEIGHT * sizeof(int*));
 
-  for (int i = 0; i < GAME_ROW; i++) {
-    game_space->space[i] = (int *)malloc(GAME_COL * sizeof(int));
+  for (int i = 0; i < HEIGHT; i++) {
+    game_space->space[i] = (int*)malloc(WIDTH * sizeof(int));
   }
 
-  for (int i = 0; i < GAME_ROW; i++) {
-    for (int j = 0; j < GAME_COL; j++) {
-      if (i == 0 || i == 21) {
-        game_space->space[i][j] = 1;
-      } else if (j == 0 || j == 11) {
-        game_space->space[i][j] = 2;
-      } else {
-        game_space->space[i][j] = 0;
-      }
+  for (int i = 0; i < HEIGHT; i++) {
+    for (int j = 0; j < WIDTH; j++) {
+      game_space->space[i][j] = 0;
     }
   }
 }
 
-void init_game_info(GameInfo_t *game_info) {
-  game_info->next = (int **)malloc(4 * sizeof(int *));
+void init_game_info(GameInfo_t* game_info) {
+  game_info->next = (int**)malloc(4 * sizeof(int*));
 
   for (int i = 0; i < 4; i++) {
-    game_info->next[i] = (int *)malloc(6 * sizeof(int));
+    game_info->next[i] = (int*)malloc(6 * sizeof(int));
   }
 
   for (int i = 0; i < 4; i++) {
@@ -1747,8 +1741,8 @@ void init_game_info(GameInfo_t *game_info) {
   }
 }
 
-void game_remove(Game_space *game_space, GameInfo_t *game_info) {
-  for (int i = 0; i < GAME_ROW; i++) {
+void game_remove(Game_space* game_space, GameInfo_t* game_info) {
+  for (int i = 0; i < HEIGHT; i++) {
     free(game_space->space[i]);
   }
   free(game_space->space);
