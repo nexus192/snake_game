@@ -56,7 +56,7 @@ void TetrisGameRender::Render_Field_T(QPainter &painter, int cellSize) {
                 QRect cell(i * cellSize, j * cellSize, cellSize, cellSize);
                 painter.fillRect(cell, Qt::white);
             }
-            if(j == 0 || j = GAME_ROW -1){
+            if(j == 0 || j == GAME_ROW -1){
                 QRect cell(i * cellSize, j * cellSize, cellSize, cellSize);
                 painter.fillRect(cell, Qt::white);
             }
