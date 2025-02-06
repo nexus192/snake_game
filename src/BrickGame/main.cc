@@ -47,7 +47,6 @@ int main() {
       case 'T':
       case 't':
         std::cout << "\nStarting Tetris...\n";
-        usleep(1000);
         init_game();
         break;
 

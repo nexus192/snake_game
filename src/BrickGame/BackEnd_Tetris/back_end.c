@@ -1648,7 +1648,7 @@ void game_level_and_speed(GameInfo_t* game_info) {
 }
 
 int readNumberFromFile() {
-  FILE* file = fopen("./game_state/state.txt", "r");
+  FILE* file = fopen("./src/game_state/state.txt", "r");
   int number = 0;
   fscanf(file, "%d", &number);
 
@@ -1657,7 +1657,7 @@ int readNumberFromFile() {
 }
 
 void writeNumberToFile(int number) {
-  FILE* file = fopen("./game_state/state.txt", "w");
+  FILE* file = fopen("./src/game_state/state.txt", "w");
 
   fprintf(file, "%d", number);
   fclose(file);
