@@ -1,5 +1,7 @@
 #include "front_end.h"
 
+#include <time.h>
+
 WINDOW *init_ncurses(void) {
   initscr();
   cbreak();
@@ -68,22 +70,29 @@ UserAction_t game_loop(WINDOW *window, WINDOW *Info_Window,
                        Game_space *game_space, GameInfo_t *game_info,
                        UserAction_t *user_actions, Figur *figur) {
   UserAction_t us_act = Start;
+  struct timespec start, end;
+  double elapsed;
+
   while (figur->move_triger == 0 && *user_actions == Start &&
          us_act != Terminate) {
     game_pause(window, &us_act);
     clean_game_info(game_info, window);
+
     if (conditions_of_falling_down(*figur, *game_space) == true) {
-      box(window, 0, 0);
-      box(Info_Window, 0, 0);
+      clock_gettime(CLOCK_MONOTONIC, &start);
+      do {
+        control_key(figur, window, game_space, &us_act);
+
+        clock_gettime(CLOCK_MONOTONIC, &end);
+        elapsed = (end.tv_sec - start.tv_sec) +
+                  (end.tv_nsec - start.tv_nsec) / 1000000000.0;
+      } while (elapsed < game_info->speed / 1000.0);
+
       print_figur_in_game_poly(game_space, figur);
-      napms(game_info->speed);
-      control_key(figur, window, game_space, &us_act);
       render_space_game(game_space, window);
       render_game_info(game_info, us_act, Info_Window);
       figur_falling_down(figur);
       remove_trash_on_poly(figur, game_space);
-      wrefresh(window);
-      wrefresh(Info_Window);
       flushinp();
     } else {
       figur->move_triger = 1;
@@ -93,6 +102,8 @@ UserAction_t game_loop(WINDOW *window, WINDOW *Info_Window,
 }
 
 void render_space_game(Game_space *game_space, WINDOW *win) {
+  werase(win);
+  box(win, 0, 0);
   for (int i = 0; i < HEIGHT; i++) {
     for (int j = 0; j < WIDTH; j++) {
       if (game_space->space[i][j] == 3) {
