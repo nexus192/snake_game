@@ -3,7 +3,7 @@ CC = gcc
 CXX = g++
 
 # Флаги для компиляции
-CFLAGS = -Wall -Wextra -Werror -std=c11
+CFLAGS = -Wall -Wextra -Werror
 CXXFLAGS = -Wall -Werror -Wextra -std=c++17
 
 # Директории
