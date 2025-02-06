@@ -1,5 +1,7 @@
 #include "Frontend_Snake.h"
 
+namespace s21 {
+
 WINDOW* init_ncurses() {
   initscr();
   noecho();
@@ -40,6 +42,32 @@ void Contol_Key(WINDOW* field, VectorDirection* Direction, StateGame* State) {
   } else {
     return;
   }
+}
+
+void start_game() {
+  srand(time(NULL));
+  WINDOW* field = init_ncurses();
+  WINDOW* info = newwin(12, 22, 0, 24);
+  Snake snake;
+  Apple apple;
+  GameParameters Parameters;
+  VectorDirection Direction = Down;
+  StateGame State = StartGame;
+  apple.generate_apple(snake, &State);
+
+  while ((State != End) && (State != Win)) {
+    usleep(Parameters.speed);
+    Contol_Key(field, &Direction, &State);
+    if (State != End) {
+      snake.eating_apple(&snake, apple, Direction, &State, &Parameters);
+      snake.move_snake(snake, Direction, &State);
+      Coliseum(snake, &State);
+      Render_Field(field, snake, apple);
+      Render_Info(info, snake, Parameters);
+    }
+  }
+  Parameters.set_high_score(snake.get_length_body() - INITIAL_BODY_LENGTH);
+  endwin();
 }
 
 void Game_Pausa(WINDOW* field) {
@@ -100,3 +128,5 @@ void Render_Info(WINDOW* info, Snake& snake, GameParameters& Parameters) {
   mvwprintw(info, 4, 1, "SPEED: %d", Parameters.speed);
   wrefresh(info);
 }
+
+}  // namespace s21

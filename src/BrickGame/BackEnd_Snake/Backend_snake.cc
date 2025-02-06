@@ -1,5 +1,7 @@
 #include "Snake.h"
 
+namespace s21 {
+
 HeadSnake::HeadSnake() : x{5}, y{10} {};
 HeadSnake::HeadSnake(int x, int y) : x(x), y(y) {}
 
@@ -143,3 +145,5 @@ void Coliseum(Snake& snake, StateGame* state_game) {
     }
   }
 }
+
+}  // namespace s21

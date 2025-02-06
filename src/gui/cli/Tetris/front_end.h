@@ -7,7 +7,12 @@
 
 #include "../../../BrickGame/BackEnd_Tetris/back_end.h"
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 WINDOW *init_ncurses(void);
+int init_game();
 
 UserAction_t game_loop(WINDOW *window, WINDOW *Info_Window,
                        Game_space *game_space, GameInfo_t *game_info,
@@ -21,5 +26,9 @@ void control_key(Figur *figur, WINDOW *window, Game_space *game_space,
                  UserAction_t *user_actions);
 void restart_game(UserAction_t *user_actions, GameInfo_t *game_info,
                   WINDOW *window);
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif  // SRC_FRONT_END_H_

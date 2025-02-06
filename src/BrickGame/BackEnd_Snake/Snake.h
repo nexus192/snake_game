@@ -10,6 +10,8 @@
 #include <utility>
 #include <vector>
 
+namespace s21 {
+
 #define WIDTH 10
 #define HEIGHT 20
 #define INITIAL_BODY_LENGTH 4
@@ -107,6 +109,6 @@ int get_random_y();
 
 void Coliseum(Snake& snake, StateGame* state_game);
 
-// temporary fanc debag
+}  // namespace s21
 
 #endif  // SNAKE_H_
