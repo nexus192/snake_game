@@ -1,5 +1,6 @@
 #include "front_end.h"
 
+// #include <linux/time.h>
 #include <time.h>
 
 WINDOW *init_ncurses(void) {
@@ -60,8 +61,6 @@ int init_game() {
     printf("\t\t\t\t\tGAME OVER");
   }
   game_remove(&game_space, &game_info);
-  delwin(window);
-  delwin(stdscr);
   endwin();
   return 0;
 }

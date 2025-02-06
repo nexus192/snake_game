@@ -4,14 +4,14 @@
 #include <stdlib.h>
 
 void init_figur(int number_figur, Figur* figur) {
-  Figur figur1 = {{1, 4, 1, 5, 1, 6, 1, 7}, 1, 0, 0, 3};  // палка
+  Figur figur1 = {{1, 3, 1, 4, 1, 5, 1, 6}, 1, 0, 0, 3};  // палка
   // Figur figur1 = {{1, 4, 2, 4, 3, 4, 4, 4}, 1, 0, 1, 3};  // палка
-  Figur figur2 = {{1, 5, 2, 5, 2, 6, 2, 7}, 2, 0, 0, 3};  // г
-  Figur figur3 = {{1, 7, 2, 7, 2, 6, 2, 5}, 3, 0, 0, 3};  // обратное г
-  Figur figur4 = {{1, 5, 1, 6, 2, 5, 2, 6}, 4, 0, 0, 3};  // квадрат
-  Figur figur5 = {{1, 7, 1, 6, 2, 6, 2, 5}, 5, 0, 0, 3};  // зигзаг как 5
-  Figur figur6 = {{1, 6, 2, 5, 2, 6, 2, 7}, 6, 0, 0, 3};  // как Т
-  Figur figur7 = {{1, 5, 1, 6, 2, 6, 2, 7}, 7, 0, 0, 3};  // зиграг как 2
+  Figur figur2 = {{1, 4, 2, 4, 2, 5, 2, 6}, 2, 0, 0, 3};  // г
+  Figur figur3 = {{1, 6, 2, 6, 2, 5, 2, 4}, 3, 0, 0, 3};  // обратное г
+  Figur figur4 = {{1, 4, 1, 5, 2, 4, 2, 5}, 4, 0, 0, 3};  // квадрат
+  Figur figur5 = {{1, 6, 1, 5, 2, 5, 2, 4}, 5, 0, 0, 3};  // зигзаг как 5
+  Figur figur6 = {{1, 5, 2, 4, 2, 5, 2, 6}, 6, 0, 0, 3};  // как Т
+  Figur figur7 = {{1, 4, 1, 5, 2, 5, 2, 6}, 7, 0, 0, 3};  // зиграг как 2
 
   switch (number_figur) {
     case 1:
@@ -127,13 +127,12 @@ void find_full_line(Game_space* game_space, GameInfo_t* game_info) {
 }
 
 bool check_on_game_over(Game_space game_space) {
-  bool result = true;
   for (int i = 0; i < GAME_COL - 2; i++) {
     if (game_space.space[0][i] == 3) {
-      result = false;
+      return true;
     }
   }
-  return result;
+  return false;
 }
 
 bool traffic_permit_left(Game_space* game_space, Figur* figur) {
