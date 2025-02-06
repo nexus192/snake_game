@@ -30,3 +30,16 @@
 *.exe
 *.out
 *.app
+
+*.idx
+*.qmake.stach
+*desktop.*
+*.txt
+*.json
+
+
+src/game_state/score_snake.txt
+src/gui/desktop/build/Desktop-Debug/.qmake.stash
+src/gui/desktop/build/Desktop-Debug/desktop
+build
+build-Desktop-Debug
