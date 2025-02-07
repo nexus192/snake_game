@@ -3,10 +3,12 @@
 
 #include <iostream>
 
-#include "../gui/cli/Snake/Frontend_Snake.h"
-#include "../gui/cli/Tetris/front_end.h"
-#include "./BackEnd_Snake/Snake.h"
-#include "./BackEnd_Tetris/back_end.h"
+// #include "../gui/cli/Snake/Frontend_Snake.h"
+#include "../gui/cli/controler_snake.h"
+#include "../gui/cli/controler_tetris.h"
+// #include "../gui/cli/front_end.h"
+// #include "./BackEnd_Snake/Snake.h"
+// #include "./BackEnd_Tetris/back_end.h"
 
 char mygetch() {
   struct termios oldt, newt;
@@ -41,7 +43,7 @@ int main() {
       case 's':
         std::cout << "\nStarting Snake...\n";
         usleep(1000);
-        s21::start_game();
+        start_game();
         break;
 
       case 'T':

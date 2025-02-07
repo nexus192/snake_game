@@ -1,22 +1,9 @@
+#include "controler_tetris.h"
+
 #include "front_end.h"
 
 // #include <linux/time.h>
 #include <time.h>
-
-WINDOW *init_ncurses(void) {
-  initscr();
-  cbreak();
-  refresh();
-  WINDOW *window = newwin(22, 12, 0, 0);
-  box(window, 0, 0);
-  nodelay(window, 1);
-  keypad(window, 1);
-  noecho();
-  curs_set(0);
-  scrollok(window, 1);
-  mouseinterval(1);
-  return window;
-}
 
 int init_game() {
   Game_space game_space = {0};
@@ -100,83 +87,6 @@ UserAction_t game_loop(WINDOW *window, WINDOW *Info_Window,
   return us_act;
 }
 
-void render_space_game(Game_space *game_space, WINDOW *win) {
-  werase(win);
-  box(win, 0, 0);
-  for (int i = 0; i < HEIGHT; i++) {
-    for (int j = 0; j < WIDTH; j++) {
-      if (game_space->space[i][j] == 3) {
-        mvwprintw(win, i + 1, j + 1, "@");
-      } else {
-        mvwprintw(win, i + 1, j + 1, " ");
-      }
-    }
-  }
-  wrefresh(win);
-}
-
-void render_game_info(GameInfo_t *game_info, UserAction_t user_act,
-                      WINDOW *win) {
-  werase(win);
-  box(win, 0, 0);
-  mvwprintw(win, 1, 17, "NEXT");
-  print_next_figur(game_info);
-
-  for (int i = 0; i < 4; i++) {
-    for (int j = 0; j < 6; j++) {
-      if (game_info->next[i][j] == 1) {
-        mvwprintw(win, i + 2, j + 1, "#");
-      } else if (game_info->next[i][j] == 3) {
-        mvwprintw(win, i + 2, j + 1, "@");
-      } else {
-        mvwprintw(win, i + 2, j + 1, " ");
-      }
-    }
-  }
-
-  mvwprintw(win, 7, 1, "HIGH SCORE");
-  if (game_info->score < game_info->high_score) {
-    mvwprintw(win, 8, 1, "%d", game_info->high_score);
-  } else {
-    mvwprintw(win, 8, 1, "%d", game_info->score);
-  }
-
-  mvwprintw(win, 10, 1, "SCORE");
-  mvwprintw(win, 11, 1, "%d", game_info->score);
-
-  mvwprintw(win, 13, 1, "LEVEL");
-  mvwprintw(win, 14, 1, "%d", game_info->level);
-
-  mvwprintw(win, 16, 1, "SPEED");
-  mvwprintw(win, 17, 1, "%d", game_info->speed);
-
-  if (user_act == Game_over) {
-    mvwprintw(win, 20, 15, "GAME_OVER");
-  } else if (user_act == Pause) {
-    mvwprintw(win, 20, 17, "PAUSE");
-  }
-
-  wrefresh(win);
-}
-
-void clean_game_info(GameInfo_t *game_info, WINDOW *win) {
-  for (int i = 1; i < 3; i++) {
-    for (int j = 0; j < 6; j++) {
-      game_info->next[i][j] = 0;
-    }
-  }
-  mvwprintw(win, 20, 15, "         ");
-}
-
-void game_pause(WINDOW *window, UserAction_t *us_sct) {
-  while (*us_sct == Pause) {
-    int ch1;
-    if ((ch1 = wgetch(window)) == 'p') {
-      *us_sct = Start;
-    }
-  }
-}
-
 void control_key(Figur *figur, WINDOW *window, Game_space *game_space,
                  UserAction_t *user_actions) {
   int ch = wgetch(window);
@@ -228,6 +138,15 @@ void restart_game(UserAction_t *user_actions, GameInfo_t *game_info,
       *user_actions = Restart;
     } else if ((ch1 = wgetch(window)) == 'q') {
       end = false;
+    }
+  }
+}
+
+void game_pause(WINDOW *window, UserAction_t *us_sct) {
+  while (*us_sct == Pause) {
+    int ch1;
+    if ((ch1 = wgetch(window)) == 'p') {
+      *us_sct = Start;
     }
   }
 }
