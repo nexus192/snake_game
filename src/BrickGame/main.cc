@@ -43,7 +43,7 @@ int main() {
       case 's':
         std::cout << "\nStarting Snake...\n";
         usleep(1000);
-        start_game();
+        InitGame();
         break;
 
       case 'T':

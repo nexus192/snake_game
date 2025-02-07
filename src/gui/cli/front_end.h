@@ -14,10 +14,12 @@ extern "C" {
 
 WINDOW *init_ncurses(void);
 
-void render_space_game(Game_space *game_space, WINDOW *win);
-void render_game_info(GameInfo_t *game_info, UserAction_t user_act,
-                      WINDOW *win);
-void clean_game_info(GameInfo_t *game_info, WINDOW *win);
+void DrawPixel(int y, int x, int color_pair, WINDOW *win);
+void RenderGameInfo(int high_score, int score, int level, int speed,
+                    bool is_paused, bool is_game_over, bool is_snake,
+                    WINDOW *win);
+void CleanGameInfo(GameInfo_t *game_info, WINDOW *win);
+void RenderNextFigure(GameInfo_t *game_info, WINDOW *win);
 
 #ifdef __cplusplus
 }
