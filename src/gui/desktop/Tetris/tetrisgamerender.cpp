@@ -37,29 +37,16 @@ void TetrisGameRender::paintEvent(QPaintEvent *event) {
 }
 
 void TetrisGameRender::Render_Field_T(QPainter &painter, int cellSize) {
-    QRect rect(0, 0, GAME_COL * cellSize, GAME_ROW * cellSize);
+    QRect rect(0, 0, WIDTH * cellSize, HEIGHT * cellSize);
     QPen pen(Qt::black, 2);
     painter.setPen(pen);
     painter.drawRect(rect);
 
     // Рисуем клетки поля
-    for (int i = 0; i < GAME_COL + 2; i++) {
-        for (int j = 0; j < GAME_ROW + 2; j++) {
+    for (int i = 0; i < WIDTH; i++) {
+        for (int j = 0; j < HEIGHT; j++) {
             QRect cell(i * cellSize, j * cellSize, cellSize, cellSize);
             painter.drawRect(cell);
-        }
-    }
-
-    for (int i = 0; i < GAME_COL + 2; i++) {
-        for (int j = 0; j < GAME_ROW + 2; j++) {
-            if(i == 0 || i == GAME_COL - 1){
-                QRect cell(i * cellSize, j * cellSize, cellSize, cellSize);
-                painter.fillRect(cell, Qt::white);
-            }
-            if(j == 0 || j == GAME_ROW -1){
-                QRect cell(i * cellSize, j * cellSize, cellSize, cellSize);
-                painter.fillRect(cell, Qt::white);
-            }
         }
     }
 
@@ -83,7 +70,7 @@ void TetrisGameRender::Render_Field_T(QPainter &painter, int cellSize) {
 
 void TetrisGameRender::Render_Info_T(QPainter &painter, int cellSize) {
     int windowHeight = this->height();
-    int textX = cellSize * GAME_COL + 45;
+    int textX = cellSize * WIDTH + 45;
     int fontSize = windowHeight / 25;
     QFont font;
     font.setPointSize(fontSize);
@@ -189,9 +176,9 @@ void TetrisGameRender::updateGame_T() {
         figur_falling_down(&figur);
     //     remove_trash_on_poly(&figur, &game_space);
     }
-    else {
-        figur.move_triger = 1;
-    }
+    // else {
+    //     figur.move_triger = 1;
+    // }
 
     find_full_line(&game_space, &game_info);
     game_level_and_speed(&game_info);

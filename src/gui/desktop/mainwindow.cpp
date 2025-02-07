@@ -5,6 +5,8 @@
 
 #include<QDebug>
 
+using namespace s21;
+
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)

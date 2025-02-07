@@ -48,18 +48,18 @@ int init_game() {
                                &user_actions, &figur);
       find_full_line(&game_space, &game_info);
       game_level_and_speed(&game_info);
-      if (check_on_game_over(game_space) == false) {
+      if (check_on_game_over(game_space) == true) {
         user_actions = Game_over;
       }
     }
-    restart_game(&user_actions, &game_info, window);
+    restart_game(&user_actions, &game_info, Info_Window);
   }
   if (game_info.score > game_info.high_score) {
     writeNumberToFile(game_info.score);
   }
-  if (user_actions == Game_over) {
-    printf("\t\t\t\t\tGAME OVER");
-  }
+  // if (user_actions == Game_over) {
+  //   printf("\t\t\t\t\tGAME OVER");
+  // }
   game_remove(&game_space, &game_info);
   endwin();
   return 0;
@@ -75,7 +75,7 @@ UserAction_t game_loop(WINDOW *window, WINDOW *Info_Window,
   while (figur->move_triger == 0 && *user_actions == Start &&
          us_act != Terminate) {
     game_pause(window, &us_act);
-    clean_game_info(game_info, window);
+    clean_game_info(game_info, Info_Window);
 
     if (conditions_of_falling_down(*figur, *game_space) == true) {
       clock_gettime(CLOCK_MONOTONIC, &start);

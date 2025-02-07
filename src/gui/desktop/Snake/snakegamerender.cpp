@@ -4,6 +4,8 @@
 #include <QRect>
 #include <QKeyEvent>
 
+using namespace s21;
+
 SnakeGameRender::SnakeGameRender(QWidget *parent) : QWidget(parent), Direction(Down), State(StartGame)
 {
     apple.generate_apple(snake, &State);

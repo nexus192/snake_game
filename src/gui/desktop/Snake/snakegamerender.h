@@ -8,6 +8,8 @@
 #include <QTimer>
 #include "../../../BrickGame/BackEnd_Snake/Snake.h"
 
+namespace s21 {
+
 class SnakeGameRender : public QWidget
 {
     Q_OBJECT
@@ -32,5 +34,7 @@ private:
     StateGame State;
     QTimer *timer;
 };
+
+}
 
 #endif // SNAKEGAMERENDER_H
