@@ -1,11 +1,13 @@
 #include "controler_snake.h"
 
+#include <iostream>
+
 #include "front_end.h"
 
 void InitGame() {
   srand(time(NULL));
   WINDOW* field = init_ncurses();
-  WINDOW* info = newwin(22, 12, 0, 22);
+  WINDOW* info_window = newwin(22, 12, 0, 22);
   Snake snake;
   Apple apple;
   GameParameters Parameters;
@@ -16,16 +18,19 @@ void InitGame() {
   while ((State != End) && (State != Win)) {
     usleep(Parameters.speed);
     ContolKey(field, &Direction, &State);
-    if (State != End) {
+    if (State != GameOver && State != End) {
       snake.eating_apple(&snake, apple, Direction, &State, &Parameters);
       snake.move_snake(snake, Direction, &State);
       Coliseum(snake, &State);
       RenderField(field, snake, apple);
-      // RenderInfo(info, snake, Parameters);
-      RenderGameInfo(Parameters.high_score,
-                     snake.get_length_body() - INITIAL_BODY_LENGTH, 0,
-                     Parameters.speed, false, false, true, info);
+      RenderGameInfo(
+          Parameters.high_score, snake.get_length_body() - INITIAL_BODY_LENGTH,
+          Parameters.level, Parameters.speed, false, false, true, info_window);
     }
+    if (State == GameOver) {
+      RestartGame(&State, &Parameters, snake, &Direction, info_window);
+    }
+    flushinp();
   }
   Parameters.set_high_score(snake.get_length_body() - INITIAL_BODY_LENGTH);
   endwin();
@@ -74,4 +79,29 @@ void RenderField(WINDOW* field, Snake& snake, Apple& apple) {
   }
 
   wrefresh(field);
+}
+
+void RestartGame(StateGame* state, GameParameters* parameters, Snake& snake,
+                 VectorDirection* direction, WINDOW* window) {
+  int ch1{};
+  bool end = true;
+  while (*state == GameOver && end == true) {
+    RenderGameInfo(
+        parameters->high_score, snake.get_length_body() - INITIAL_BODY_LENGTH,
+        parameters->level, parameters->speed, false, true, true, window);
+    ch1 = wgetch(window);
+    if (ch1 == 'r') {
+      *state = Rest;
+      snake.restart_snake();
+      snake.set_head_position(5, 10);
+      parameters->speed = STANDART_SPEED;
+      parameters->level = 0;
+      parameters->set_high_score(snake.get_length_body() - INITIAL_BODY_LENGTH);
+      *direction = Down;
+    } else if (ch1 == 'q') {
+      end = false;
+      *state = End;
+    }
+    flushinp();
+  }
 }

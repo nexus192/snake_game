@@ -20,6 +20,11 @@ void HeadSnake::move_haed(VectorDirection Direction) {
 int HeadSnake::get_head_x() const { return this->x; }
 int HeadSnake::get_head_y() const { return this->y; }
 
+void HeadSnake::set_head_position(int x_, int y_) {
+  this->x = x_;
+  this->y = y_;
+}
+
 BodySnake::BodySnake() {};
 BodySnake::BodySnake(int x, int y) : x_body{x}, y_body{y} {};
 int BodySnake::get_body_x() const { return x_body; }
@@ -59,11 +64,22 @@ void Snake::eating_apple(Snake* snake, Apple& apple, VectorDirection direction,
                                   INITIAL_BODY_LENGTH);
   }
 }
+
 void Snake::add_body_snake(Snake* snake, VectorDirection direction) {
   body_snake.insert(body_snake.begin(),
                     BodySnake(snake->get_head_x(), snake->get_head_y()));
   snake->move_haed(direction);
   snake->body_length++;
+}
+
+void Snake::restart_snake() {
+  this->body_snake.clear();
+  this->body_snake.push_back(BodySnake(5, 9));
+  this->body_snake.push_back(BodySnake(5, 8));
+  this->body_snake.push_back(BodySnake(5, 7));
+  this->body_snake.push_back(BodySnake(5, 6));
+  this->body_length = INITIAL_BODY_LENGTH;
+  // this->head_snake.set_head_position(5, 10);
 }
 
 int Snake::get_x_pixel_body(int pixel) const {
@@ -112,18 +128,21 @@ GameParameters::GameParameters() {
   high_score = 0;
   get_high_score();
 };
+
 void GameParameters::get_high_score() {
-  std::ifstream inputFile("./game_state/score_snake.txt");
+  std::ifstream inputFile("./src/game_state/score_snake.txt");
   inputFile >> high_score;
   inputFile.close();
 }
+
 void GameParameters::set_high_score(int score) {
   if (score > high_score) {
-    std::ofstream outputFile("./game_state/score_snake.txt");
+    std::ofstream outputFile("./src/game_state/score_snake.txt");
     outputFile << score;
     outputFile.close();
   }
 }
+
 void GameParameters::parameter_changes(int score) {
   if ((score % 5) == 0) {
     level++;
@@ -133,15 +152,15 @@ void GameParameters::parameter_changes(int score) {
 
 void Coliseum(Snake& snake, StateGame* state_game) {
   if (snake.get_head_x() < 0 || snake.get_head_x() > 9) {
-    *state_game = End;
+    *state_game = GameOver;
   }
   if (snake.get_head_y() < 0 || snake.get_head_y() > 19) {
-    *state_game = End;
+    *state_game = GameOver;
   }
   for (int i = 0; i < snake.get_length_body(); i++) {
     if ((snake.get_head_x() == snake.get_x_pixel_body(i)) &&
         (snake.get_head_y() == snake.get_y_pixel_body(i))) {
-      *state_game = End;
+      *state_game = GameOver;
     }
   }
 }

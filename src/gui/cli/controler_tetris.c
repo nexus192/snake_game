@@ -46,9 +46,6 @@ int init_game() {
   if (game_info.score > game_info.high_score) {
     writeNumberToFile(game_info.score);
   }
-  // if (user_actions == Game_over) {
-  //   printf("\t\t\t\t\tGAME OVER");
-  // }
   game_remove(&game_space, &game_info);
   endwin();
   return 0;
@@ -74,7 +71,7 @@ UserAction_t GameLoop(WINDOW *window, WINDOW *Info_Window,
         clock_gettime(CLOCK_MONOTONIC, &end);
         elapsed = (end.tv_sec - start.tv_sec) +
                   (end.tv_nsec - start.tv_nsec) / 1000000000.0;
-      } while (elapsed < game_info->speed / 1000.0);
+      } while (elapsed < game_info->speed / (1000.0 * game_info->level));
 
       print_figur_in_game_poly(game_space, figur);
       RanderField(game_space, window);
@@ -157,9 +154,10 @@ void RestartGame(UserAction_t *user_actions, GameInfo_t *game_info,
     RenderNextFigure(game_info, window);
     RenderGameInfo(game_info->high_score, game_info->score, game_info->level,
                    game_info->speed, false, true, false, window);
-    if ((ch1 = wgetch(window)) == 'r') {
+    ch1 = wgetch(window);
+    if (ch1 == 'r') {
       *user_actions = Restart;
-    } else if ((ch1 = wgetch(window)) == 'q') {
+    } else if (ch1 == 'q') {
       end = false;
     }
   }

@@ -26,7 +26,9 @@ typedef enum StateGame {
   Shifting,
   Eating,
   Pausa,
+  GameOver,
   End,
+  Rest,
   Win
 } StateGame;
 
@@ -47,6 +49,7 @@ class Apple {
   int get_y_apple() const;
   void generate_apple(Snake& snake, StateGame* State);
 };
+
 class HeadSnake {
  private:
   int x;
@@ -60,6 +63,8 @@ class HeadSnake {
 
   int get_head_x() const;
   int get_head_y() const;
+
+  void set_head_position(int x_, int y_);
 };
 
 class BodySnake {
@@ -86,11 +91,6 @@ class GameParameters {
 };
 
 class Snake : public HeadSnake, protected BodySnake {
- private:
-  std::vector<BodySnake> body_snake;
-  HeadSnake head_snake;
-  int body_length;
-
  public:
   Snake();
 
@@ -98,14 +98,17 @@ class Snake : public HeadSnake, protected BodySnake {
   void eating_apple(Snake* snake, Apple& apple, VectorDirection direction,
                     StateGame* State, GameParameters* Parameters);
   void add_body_snake(Snake* snake, VectorDirection direction);
+  void restart_snake();
 
   int get_x_pixel_body(int pixel) const;
   int get_y_pixel_body(int pixel) const;
   int get_length_body() const;
-};
 
-int get_random_x();
-int get_random_y();
+ private:
+  std::vector<BodySnake> body_snake;
+  HeadSnake head_snake;
+  int body_length;
+};
 
 void Coliseum(Snake& snake, StateGame* state_game);
 

@@ -78,7 +78,12 @@ void RenderGameInfo(int high_score, int score, int level, int speed,
   mvwprintw(win, 17, 1, "%d", speed);
 
   if (is_game_over == true) {
-    mvwprintw(win, 20, 15, "GAME_OVER");
+    werase(win);
+    box(win, 0, 0);
+    mvwprintw(win, 10, 1, "GAME_OVER");
+    mvwprintw(win, 15, 1, "[q]exit");
+    mvwprintw(win, 16, 1, "[r]restart");
+    wrefresh(win);
   } else if (is_paused == true) {
     mvwprintw(win, 20, 17, "PAUSE");
   }
