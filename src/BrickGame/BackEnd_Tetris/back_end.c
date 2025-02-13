@@ -1504,7 +1504,7 @@ void figur_falling_down(Figur* figur, UserAction_t* user_action,
     print_figur_in_game_poly(game_space, figur);
   }
   if (*user_action != Terminate && *user_action != Game_over) {
-    *user_action = Action;
+    *user_action = Start;
   }
 }
 
