@@ -11,7 +11,7 @@ CONFIG += c++17
 SOURCES += \
     main.cpp \
     mainwindow.cpp \
-    ../../BrickGame/BackEnd_Snake/Backend_snake.cpp \
+    ../../BrickGame/BackEnd_Snake/Backend_snake.cc \
     ../../BrickGame/BackEnd_Tetris/back_end.c \
     Snake/snakegamerender.cpp \
     Tetris/tetrisgamerender.cpp

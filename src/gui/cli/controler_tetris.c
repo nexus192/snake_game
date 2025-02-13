@@ -1,9 +1,8 @@
 #include "controler_tetris.h"
 
-#include "front_end.h"
-
-// #include <linux/time.h>
 #include <time.h>
+
+#include "front_end.h"
 
 int init_game() {
   Game_space game_space = {0};
@@ -62,7 +61,6 @@ UserAction_t GameLoop(WINDOW *window, WINDOW *Info_Window,
          us_act != Terminate) {
     GamePause(window, &us_act);
     CleanGameInfo(game_info, Info_Window);
-
     if (conditions_of_falling_down(*figur, *game_space) == true) {
       clock_gettime(CLOCK_MONOTONIC, &start);
       do {
@@ -71,15 +69,20 @@ UserAction_t GameLoop(WINDOW *window, WINDOW *Info_Window,
         clock_gettime(CLOCK_MONOTONIC, &end);
         elapsed = (end.tv_sec - start.tv_sec) +
                   (end.tv_nsec - start.tv_nsec) / 1000000000.0;
-      } while (elapsed < game_info->speed / (1000.0 * game_info->level));
-
+      } while (elapsed < START_SPEED /
+                             pow(VELOCITY_MULTIPLIER, game_info->level) /
+                             START_SPEED);
       print_figur_in_game_poly(game_space, figur);
+      print_next_figur(game_info);
       RanderField(game_space, window);
       RenderNextFigure(game_info, Info_Window);
-      RenderGameInfo(game_info->high_score, game_info->score, game_info->level,
-                     game_info->speed, false, false, false, Info_Window);
-      figur_falling_down(figur);
-      remove_trash_on_poly(figur, game_space);
+      // RenderGameInfo(game_info->high_score, game_info->score,
+      // game_info->level,
+      //                game_info->speed, false, false, false, Info_Window);
+      RenderGameInfo(game_info->high_score, game_info->next_figur,
+                     figur->figur_type, game_info->speed, false, false, false,
+                     Info_Window);
+      figur_falling_down(figur, &us_act, game_space);
       flushinp();
     } else {
       figur->move_triger = 1;
@@ -99,6 +102,7 @@ void ControlKey(Figur *figur, WINDOW *window, Game_space *game_space,
     figur->position[7]--;
     print_figur_in_game_poly(game_space, figur);
     RanderField(game_space, window);
+    *user_actions = TLeft;
   } else if (ch == KEY_RIGHT &&
              (traffic_permit_right(game_space, figur) == true)) {
     kill_figur(figur, game_space);
@@ -108,6 +112,7 @@ void ControlKey(Figur *figur, WINDOW *window, Game_space *game_space,
     figur->position[7]++;
     print_figur_in_game_poly(game_space, figur);
     RanderField(game_space, window);
+    *user_actions = TRight;
   } else if (ch == KEY_DOWN && traffic_permit_down(game_space, figur) == true) {
     kill_figur(figur, game_space);
     figur->position[0]++;
@@ -116,11 +121,13 @@ void ControlKey(Figur *figur, WINDOW *window, Game_space *game_space,
     figur->position[6]++;
     print_figur_in_game_poly(game_space, figur);
     RanderField(game_space, window);
+    *user_actions = TDown;
   } else if (ch == KEY_UP && traffic_permit_flip(game_space, figur) == true) {
     kill_figur(figur, game_space);
     rotation_figurs(figur);
     print_figur_in_game_poly(game_space, figur);
     RanderField(game_space, window);
+    *user_actions = TUp;
   } else if (ch == 'p') {
     *user_actions = Pause;
   } else if (ch == 'q') {
@@ -157,6 +164,8 @@ void RestartGame(UserAction_t *user_actions, GameInfo_t *game_info,
     ch1 = wgetch(window);
     if (ch1 == 'r') {
       *user_actions = Restart;
+      game_info->score = 0;
+      game_info->level = 1;
     } else if (ch1 == 'q') {
       end = false;
     }

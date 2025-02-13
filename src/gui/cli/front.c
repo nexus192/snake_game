@@ -36,7 +36,7 @@ void RenderNextFigure(GameInfo_t* game_info, WINDOW* win) {
   werase(win);
   box(win, 0, 0);
   mvwprintw(win, 1, 1, "NEXT");
-  print_next_figur(game_info);
+  // print_next_figur(game_info);
 
   for (int i = 0; i < 4; i++) {
     for (int j = 0; j < 6; j++) {

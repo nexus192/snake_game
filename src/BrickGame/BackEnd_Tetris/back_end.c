@@ -5,7 +5,6 @@
 
 void init_figur(int number_figur, Figur* figur) {
   Figur figur1 = {{0, 3, 0, 4, 0, 5, 0, 6}, 1, 0, 0, 3};  // палка
-  // Figur figur1 = {{1, 4, 2, 4, 3, 4, 4, 4}, 1, 0, 1, 3};  // палка
   Figur figur2 = {{0, 4, 1, 4, 1, 5, 1, 6}, 2, 0, 0, 3};  // г
   Figur figur3 = {{0, 6, 1, 6, 1, 5, 1, 4}, 3, 0, 0, 3};  // обратное г
   Figur figur4 = {{0, 4, 0, 5, 1, 4, 1, 5}, 4, 0, 0, 3};  // квадрат
@@ -40,7 +39,6 @@ void init_figur(int number_figur, Figur* figur) {
 
 void init_next_figur(int number_figur, Figur* figur) {
   Figur figur1 = {{1, 1, 1, 2, 1, 3, 1, 4}, 1, 0, 0, 3};  // палка
-  // Figur figur1 = {{1, 4, 2, 4, 3, 4, 4, 4}, 1, 0, 1, 3};  // палка
   Figur figur2 = {{1, 2, 2, 2, 2, 3, 2, 4}, 2, 0, 0, 3};  // г
   Figur figur3 = {{1, 4, 2, 4, 2, 3, 2, 2}, 3, 0, 0, 3};  // обратное г
   Figur figur4 = {{1, 2, 1, 3, 2, 2, 2, 3}, 4, 0, 0, 3};  // квадрат
@@ -182,9 +180,7 @@ bool traffic_permit_right(Game_space* game_space, Figur* figur) {
 
 bool traffic_permit_down(Game_space* game_space, Figur* figur) {
   bool code_result = false;
-  if ((figur->position[0] + 2 != 20 && figur->position[2] + 2 != 20 &&
-       figur->position[4] + 2 != 20 && figur->position[6] + 2 != 20) &&
-      (figur->position[0] + 1 != 20 && figur->position[2] + 1 != 20 &&
+  if ((figur->position[0] + 1 != 20 && figur->position[2] + 1 != 20 &&
        figur->position[4] + 1 != 20 && figur->position[6] + 1 != 20)) {
     if (figur->figur_type == 1) {
       code_result = traffic_permit_down_for_figur_1(game_space, figur);
@@ -237,26 +233,6 @@ void rotation_figurs(Figur* figur) {
     figure_rotation_6(figur);
   } else if (figur->figur_type == 7) {
     figure_rotation_7(figur);
-  }
-}
-
-void remove_trash_on_poly(Figur* figur, Game_space* game_space) {
-  if (end_space(figur) == false) {
-    if (figur->figur_type == 1) {
-      remove_trash_on_poly_for_figur_1(figur, game_space);
-    } else if (figur->figur_type == 2) {
-      remove_trash_on_poly_for_figur_2(figur, game_space);
-    } else if (figur->figur_type == 3) {
-      remove_trash_on_poly_for_figur_3(figur, game_space);
-    } else if (figur->figur_type == 4) {
-      remove_trash_on_poly_for_figur_4(figur, game_space);
-    } else if (figur->figur_type == 5) {
-      remove_trash_on_poly_for_figur_5(figur, game_space);
-    } else if (figur->figur_type == 6) {
-      remove_trash_on_poly_for_figur_6(figur, game_space);
-    } else {
-      remove_trash_on_poly_for_figur_7(figur, game_space);
-    }
   }
 }
 
@@ -519,16 +495,19 @@ bool conditions_of_falling_down_for_figur_1(Figur figur,
   bool code_result = true;
   if (figur.rotations_position == 0) {
     if ((end_space(&figur) == true) ||
-        (game_space.space[figur.position[0]][figur.position[1]] == figur.code ||
-         game_space.space[figur.position[2]][figur.position[3]] == figur.code ||
-         game_space.space[figur.position[4]][figur.position[5]] == figur.code ||
-         game_space.space[figur.position[6]][figur.position[7]] ==
+        (game_space.space[figur.position[0] + 1][figur.position[1]] ==
+             figur.code ||
+         game_space.space[figur.position[2] + 1][figur.position[3]] ==
+             figur.code ||
+         game_space.space[figur.position[4] + 1][figur.position[5]] ==
+             figur.code ||
+         game_space.space[figur.position[6] + 1][figur.position[7]] ==
              figur.code)) {
       code_result = false;
     }
   } else if (figur.rotations_position == 1) {
     if ((end_space(&figur) == true) ||
-        (game_space.space[figur.position[4] + 1][figur.position[5]] ==
+        (game_space.space[figur.position[6] + 1][figur.position[7]] ==
          figur.code)) {
       code_result = false;
     }
@@ -541,31 +520,37 @@ bool conditions_of_falling_down_for_figur_2(Figur figur,
   bool code_result = true;
   if (figur.rotations_position == 0) {
     if ((end_space(&figur) == true) ||
-        (game_space.space[figur.position[2]][figur.position[3]] == figur.code ||
-         game_space.space[figur.position[4]][figur.position[5]] == figur.code ||
-         game_space.space[figur.position[6]][figur.position[7]] ==
+        (game_space.space[figur.position[2] + 1][figur.position[3]] ==
+             figur.code ||
+         game_space.space[figur.position[4] + 1][figur.position[5]] ==
+             figur.code ||
+         game_space.space[figur.position[6] + 1][figur.position[7]] ==
              figur.code)) {
       code_result = false;
     }
   } else if (figur.rotations_position == 1) {
     if ((end_space(&figur) == true) ||
-        (game_space.space[figur.position[0]][figur.position[1]] == figur.code ||
-         game_space.space[figur.position[6]][figur.position[7]] ==
+        (game_space.space[figur.position[0] + 1][figur.position[1]] ==
+             figur.code ||
+         game_space.space[figur.position[6] + 1][figur.position[7]] ==
              figur.code)) {
       code_result = false;
     }
   } else if (figur.rotations_position == 2) {
     if ((end_space(&figur) == true) ||
-        (game_space.space[figur.position[0]][figur.position[1]] == figur.code ||
-         game_space.space[figur.position[4]][figur.position[5]] == figur.code ||
-         game_space.space[figur.position[6]][figur.position[7]] ==
+        (game_space.space[figur.position[0] + 1][figur.position[1]] ==
+             figur.code ||
+         game_space.space[figur.position[4] + 1][figur.position[5]] ==
+             figur.code ||
+         game_space.space[figur.position[6] + 1][figur.position[7]] ==
              figur.code)) {
       code_result = false;
     }
   } else {
     if ((end_space(&figur) == true) ||
-        (game_space.space[figur.position[0]][figur.position[1]] == figur.code ||
-         game_space.space[figur.position[2]][figur.position[3]] ==
+        (game_space.space[figur.position[0] + 1][figur.position[1]] ==
+             figur.code ||
+         game_space.space[figur.position[2] + 1][figur.position[3]] ==
              figur.code)) {
       code_result = false;
     }
@@ -578,31 +563,37 @@ bool conditions_of_falling_down_for_figur_3(Figur figur,
   bool code_result = true;
   if (figur.rotations_position == 0) {
     if ((end_space(&figur) == true) ||
-        (game_space.space[figur.position[2]][figur.position[3]] == figur.code ||
-         game_space.space[figur.position[4]][figur.position[5]] == figur.code ||
-         game_space.space[figur.position[6]][figur.position[7]] ==
+        (game_space.space[figur.position[2] + 1][figur.position[3]] ==
+             figur.code ||
+         game_space.space[figur.position[4] + 1][figur.position[5]] ==
+             figur.code ||
+         game_space.space[figur.position[6] + 1][figur.position[7]] ==
              figur.code)) {
       code_result = false;
     }
   } else if (figur.rotations_position == 1) {
     if ((end_space(&figur) == true) ||
-        (game_space.space[figur.position[0]][figur.position[1]] == figur.code ||
-         game_space.space[figur.position[2]][figur.position[3]] ==
+        (game_space.space[figur.position[0] + 1][figur.position[1]] ==
+             figur.code ||
+         game_space.space[figur.position[2] + 1][figur.position[3]] ==
              figur.code)) {
       code_result = false;
     }
   } else if (figur.rotations_position == 2) {
     if ((end_space(&figur) == true) ||
-        (game_space.space[figur.position[0]][figur.position[1]] == figur.code ||
-         game_space.space[figur.position[4]][figur.position[5]] == figur.code ||
-         game_space.space[figur.position[6]][figur.position[7]] ==
+        (game_space.space[figur.position[0] + 1][figur.position[1]] ==
+             figur.code ||
+         game_space.space[figur.position[4] + 1][figur.position[5]] ==
+             figur.code ||
+         game_space.space[figur.position[6] + 1][figur.position[7]] ==
              figur.code)) {
       code_result = false;
     }
   } else {
     if ((end_space(&figur) == true) ||
-        (game_space.space[figur.position[0]][figur.position[1]] == figur.code ||
-         game_space.space[figur.position[6]][figur.position[7]] ==
+        (game_space.space[figur.position[0] + 1][figur.position[1]] ==
+             figur.code ||
+         game_space.space[figur.position[6] + 1][figur.position[7]] ==
              figur.code)) {
       code_result = false;
     }
@@ -614,8 +605,10 @@ bool conditions_of_falling_down_for_figur_4(Figur figur,
                                             Game_space game_space) {
   bool code_result = true;
   if ((end_space(&figur) == true) ||
-      (game_space.space[figur.position[4]][figur.position[5]] == figur.code ||
-       game_space.space[figur.position[6]][figur.position[7]] == figur.code)) {
+      (game_space.space[figur.position[4] + 1][figur.position[5]] ==
+           figur.code ||
+       game_space.space[figur.position[6] + 1][figur.position[7]] ==
+           figur.code)) {
     code_result = false;
   }
   return code_result;
@@ -626,16 +619,19 @@ bool conditions_of_falling_down_for_figur_5(Figur figur,
   bool code_result = true;
   if (figur.rotations_position == 0) {
     if ((end_space(&figur) == true) ||
-        (game_space.space[figur.position[0]][figur.position[1]] == figur.code ||
-         game_space.space[figur.position[4]][figur.position[5]] == figur.code ||
-         game_space.space[figur.position[6]][figur.position[7]] ==
+        (game_space.space[figur.position[0] + 1][figur.position[1]] ==
+             figur.code ||
+         game_space.space[figur.position[4] + 1][figur.position[5]] ==
+             figur.code ||
+         game_space.space[figur.position[6] + 1][figur.position[7]] ==
              figur.code)) {
       code_result = false;
     }
   } else {
     if ((end_space(&figur) == true) ||
-        (game_space.space[figur.position[2]][figur.position[3]] == figur.code ||
-         game_space.space[figur.position[6]][figur.position[7]] ==
+        (game_space.space[figur.position[2] + 1][figur.position[3]] ==
+             figur.code ||
+         game_space.space[figur.position[6] + 1][figur.position[7]] ==
              figur.code)) {
       code_result = false;
     }
@@ -648,31 +644,37 @@ bool conditions_of_falling_down_for_figur_6(Figur figur,
   bool code_result = true;
   if (figur.rotations_position == 0) {
     if ((end_space(&figur) == true) ||
-        (game_space.space[figur.position[2]][figur.position[3]] == figur.code ||
-         game_space.space[figur.position[4]][figur.position[5]] == figur.code ||
-         game_space.space[figur.position[6]][figur.position[7]] ==
+        (game_space.space[figur.position[2] + 1][figur.position[3]] ==
+             figur.code ||
+         game_space.space[figur.position[4] + 1][figur.position[5]] ==
+             figur.code ||
+         game_space.space[figur.position[6] + 1][figur.position[7]] ==
              figur.code)) {
       code_result = false;
     }
   } else if (figur.rotations_position == 1) {
     if ((end_space(&figur) == true) ||
-        (game_space.space[figur.position[0]][figur.position[1]] == figur.code ||
-         game_space.space[figur.position[6]][figur.position[7]] ==
+        (game_space.space[figur.position[0] + 1][figur.position[1]] ==
+             figur.code ||
+         game_space.space[figur.position[6] + 1][figur.position[7]] ==
              figur.code)) {
       code_result = false;
     }
   } else if (figur.rotations_position == 2) {
     if ((end_space(&figur) == true) ||
-        (game_space.space[figur.position[0]][figur.position[1]] == figur.code ||
-         game_space.space[figur.position[2]][figur.position[3]] == figur.code ||
-         game_space.space[figur.position[6]][figur.position[7]] ==
+        (game_space.space[figur.position[0] + 1][figur.position[1]] ==
+             figur.code ||
+         game_space.space[figur.position[2] + 1][figur.position[3]] ==
+             figur.code ||
+         game_space.space[figur.position[6] + 1][figur.position[7]] ==
              figur.code)) {
       code_result = false;
     }
   } else {
     if ((end_space(&figur) == true) ||
-        (game_space.space[figur.position[0]][figur.position[1]] == figur.code ||
-         game_space.space[figur.position[2]][figur.position[3]] ==
+        (game_space.space[figur.position[0] + 1][figur.position[1]] ==
+             figur.code ||
+         game_space.space[figur.position[2] + 1][figur.position[3]] ==
              figur.code)) {
       code_result = false;
     }
@@ -685,16 +687,19 @@ bool conditions_of_falling_down_for_figur_7(Figur figur,
   bool code_result = true;
   if (figur.rotations_position == 0) {
     if ((end_space(&figur) == true) ||
-        (game_space.space[figur.position[0]][figur.position[1]] == figur.code ||
-         game_space.space[figur.position[4]][figur.position[5]] == figur.code ||
-         game_space.space[figur.position[6]][figur.position[7]] ==
+        (game_space.space[figur.position[0] + 1][figur.position[1]] ==
+             figur.code ||
+         game_space.space[figur.position[4] + 1][figur.position[5]] ==
+             figur.code ||
+         game_space.space[figur.position[6] + 1][figur.position[7]] ==
              figur.code)) {
       code_result = false;
     }
   } else {
     if ((end_space(&figur) == true) ||
-        (game_space.space[figur.position[2]][figur.position[3]] == figur.code ||
-         game_space.space[figur.position[6]][figur.position[7]] ==
+        (game_space.space[figur.position[2] + 1][figur.position[3]] ==
+             figur.code ||
+         game_space.space[figur.position[6] + 1][figur.position[7]] ==
              figur.code)) {
       code_result = false;
     }
@@ -1086,18 +1091,18 @@ bool traffic_permit_right_for_figur_7(Game_space* game_space, Figur* figur) {
 bool traffic_permit_down_for_figur_1(Game_space* game_space, Figur* figur) {
   bool result = false;
   if (figur->rotations_position == 0) {
-    if (game_space->space[figur->position[0] + 2][figur->position[1]] !=
+    if (game_space->space[figur->position[0] + 1][figur->position[1]] !=
             figur->code &&
-        game_space->space[figur->position[2] + 2][figur->position[3]] !=
+        game_space->space[figur->position[2] + 1][figur->position[3]] !=
             figur->code &&
-        game_space->space[figur->position[4] + 2][figur->position[5]] !=
+        game_space->space[figur->position[4] + 1][figur->position[5]] !=
             figur->code &&
-        game_space->space[figur->position[6] + 2][figur->position[7]] !=
+        game_space->space[figur->position[6] + 1][figur->position[7]] !=
             figur->code) {
       result = true;
     }
   } else {
-    if (game_space->space[figur->position[6] + 2][figur->position[7]] !=
+    if (game_space->space[figur->position[6] + 1][figur->position[7]] !=
         figur->code) {
       result = true;
     }
@@ -1107,34 +1112,34 @@ bool traffic_permit_down_for_figur_1(Game_space* game_space, Figur* figur) {
 bool traffic_permit_down_for_figur_2(Game_space* game_space, Figur* figur) {
   bool result = false;
   if (figur->rotations_position == 0) {
-    if (game_space->space[figur->position[2] + 2][figur->position[3]] !=
+    if (game_space->space[figur->position[2] + 1][figur->position[3]] !=
             figur->code &&
-        game_space->space[figur->position[4] + 2][figur->position[5]] !=
+        game_space->space[figur->position[4] + 1][figur->position[5]] !=
             figur->code &&
-        game_space->space[figur->position[6] + 2][figur->position[7]] !=
+        game_space->space[figur->position[6] + 1][figur->position[7]] !=
             figur->code) {
       result = true;
     }
   } else if (figur->rotations_position == 1) {
-    if (game_space->space[figur->position[0] + 2][figur->position[1]] !=
+    if (game_space->space[figur->position[0] + 1][figur->position[1]] !=
             figur->code &&
-        game_space->space[figur->position[6] + 2][figur->position[7]] !=
+        game_space->space[figur->position[6] + 1][figur->position[7]] !=
             figur->code) {
       result = true;
     }
   } else if (figur->rotations_position == 2) {
-    if (game_space->space[figur->position[0] + 2][figur->position[1]] !=
+    if (game_space->space[figur->position[0] + 1][figur->position[1]] !=
             figur->code &&
-        game_space->space[figur->position[4] + 2][figur->position[5]] !=
+        game_space->space[figur->position[4] + 1][figur->position[5]] !=
             figur->code &&
-        game_space->space[figur->position[6] + 2][figur->position[7]] !=
+        game_space->space[figur->position[6] + 1][figur->position[7]] !=
             figur->code) {
       result = true;
     }
   } else {
-    if (game_space->space[figur->position[0] + 2][figur->position[1]] !=
+    if (game_space->space[figur->position[0] + 1][figur->position[1]] !=
             figur->code &&
-        game_space->space[figur->position[2] + 2][figur->position[3]] !=
+        game_space->space[figur->position[2] + 1][figur->position[3]] !=
             figur->code) {
       result = true;
     }
@@ -1144,34 +1149,34 @@ bool traffic_permit_down_for_figur_2(Game_space* game_space, Figur* figur) {
 bool traffic_permit_down_for_figur_3(Game_space* game_space, Figur* figur) {
   bool result = false;
   if (figur->rotations_position == 0) {
-    if (game_space->space[figur->position[2] + 2][figur->position[3]] !=
+    if (game_space->space[figur->position[2] + 1][figur->position[3]] !=
             figur->code &&
-        game_space->space[figur->position[4] + 2][figur->position[5]] !=
+        game_space->space[figur->position[4] + 1][figur->position[5]] !=
             figur->code &&
-        game_space->space[figur->position[6] + 2][figur->position[7]] !=
+        game_space->space[figur->position[6] + 1][figur->position[7]] !=
             figur->code) {
       result = true;
     }
   } else if (figur->rotations_position == 1) {
-    if (game_space->space[figur->position[0] + 2][figur->position[1]] !=
+    if (game_space->space[figur->position[0] + 1][figur->position[1]] !=
             figur->code &&
-        game_space->space[figur->position[2] + 2][figur->position[3]] !=
+        game_space->space[figur->position[2] + 1][figur->position[3]] !=
             figur->code) {
       result = true;
     }
   } else if (figur->rotations_position == 2) {
-    if (game_space->space[figur->position[0] + 2][figur->position[1]] !=
+    if (game_space->space[figur->position[0] + 1][figur->position[1]] !=
             figur->code &&
-        game_space->space[figur->position[4] + 2][figur->position[5]] !=
+        game_space->space[figur->position[4] + 1][figur->position[5]] !=
             figur->code &&
-        game_space->space[figur->position[6] + 2][figur->position[7]] !=
+        game_space->space[figur->position[6] + 1][figur->position[7]] !=
             figur->code) {
       result = true;
     }
   } else {
-    if (game_space->space[figur->position[0] + 2][figur->position[1]] !=
+    if (game_space->space[figur->position[0] + 1][figur->position[1]] !=
             figur->code &&
-        game_space->space[figur->position[6] + 2][figur->position[7]] !=
+        game_space->space[figur->position[6] + 1][figur->position[7]] !=
             figur->code) {
       result = true;
     }
@@ -1180,9 +1185,9 @@ bool traffic_permit_down_for_figur_3(Game_space* game_space, Figur* figur) {
 }
 bool traffic_permit_down_for_figur_4(Game_space* game_space, Figur* figur) {
   bool result = false;
-  if (game_space->space[figur->position[4] + 2][figur->position[5]] !=
+  if (game_space->space[figur->position[4] + 1][figur->position[5]] !=
           figur->code &&
-      game_space->space[figur->position[6] + 2][figur->position[7]] !=
+      game_space->space[figur->position[6] + 1][figur->position[7]] !=
           figur->code) {
     result = true;
   }
@@ -1192,18 +1197,18 @@ bool traffic_permit_down_for_figur_4(Game_space* game_space, Figur* figur) {
 bool traffic_permit_down_for_figur_5(Game_space* game_space, Figur* figur) {
   bool result = false;
   if (figur->rotations_position == 0) {
-    if (game_space->space[figur->position[0] + 2][figur->position[1]] !=
+    if (game_space->space[figur->position[0] + 1][figur->position[1]] !=
             figur->code &&
-        game_space->space[figur->position[4] + 2][figur->position[5]] !=
+        game_space->space[figur->position[4] + 1][figur->position[5]] !=
             figur->code &&
-        game_space->space[figur->position[6] + 2][figur->position[7]] !=
+        game_space->space[figur->position[6] + 1][figur->position[7]] !=
             figur->code) {
       result = true;
     }
   } else {
-    if (game_space->space[figur->position[0] + 2][figur->position[1]] !=
+    if (game_space->space[figur->position[6] + 1][figur->position[7]] !=
             figur->code &&
-        game_space->space[figur->position[4] + 2][figur->position[5]] !=
+        game_space->space[figur->position[2] + 1][figur->position[3]] !=
             figur->code) {
       result = true;
     }
@@ -1213,34 +1218,34 @@ bool traffic_permit_down_for_figur_5(Game_space* game_space, Figur* figur) {
 bool traffic_permit_down_for_figur_6(Game_space* game_space, Figur* figur) {
   bool result = false;
   if (figur->rotations_position == 0) {
-    if (game_space->space[figur->position[2] + 2][figur->position[3]] !=
+    if (game_space->space[figur->position[2] + 1][figur->position[3]] !=
             figur->code &&
-        game_space->space[figur->position[4] + 2][figur->position[5]] !=
+        game_space->space[figur->position[4] + 1][figur->position[5]] !=
             figur->code &&
-        game_space->space[figur->position[6] + 2][figur->position[7]] !=
+        game_space->space[figur->position[6] + 1][figur->position[7]] !=
             figur->code) {
       result = true;
     }
   } else if (figur->rotations_position == 1) {
-    if (game_space->space[figur->position[0] + 2][figur->position[1]] !=
+    if (game_space->space[figur->position[0] + 1][figur->position[1]] !=
             figur->code &&
-        game_space->space[figur->position[6] + 2][figur->position[7]] !=
+        game_space->space[figur->position[6] + 1][figur->position[7]] !=
             figur->code) {
       result = true;
     }
   } else if (figur->rotations_position == 2) {
-    if (game_space->space[figur->position[0] + 2][figur->position[1]] !=
+    if (game_space->space[figur->position[0] + 1][figur->position[1]] !=
             figur->code &&
-        game_space->space[figur->position[2] + 2][figur->position[3]] !=
+        game_space->space[figur->position[2] + 1][figur->position[3]] !=
             figur->code &&
-        game_space->space[figur->position[6] + 2][figur->position[7]] !=
+        game_space->space[figur->position[6] + 1][figur->position[7]] !=
             figur->code) {
       result = true;
     }
   } else {
-    if (game_space->space[figur->position[0] + 2][figur->position[1]] !=
+    if (game_space->space[figur->position[0] + 1][figur->position[1]] !=
             figur->code &&
-        game_space->space[figur->position[2] + 2][figur->position[3]] !=
+        game_space->space[figur->position[2] + 1][figur->position[3]] !=
             figur->code) {
       result = true;
     }
@@ -1250,18 +1255,18 @@ bool traffic_permit_down_for_figur_6(Game_space* game_space, Figur* figur) {
 bool traffic_permit_down_for_figur_7(Game_space* game_space, Figur* figur) {
   bool result = false;
   if (figur->rotations_position == 0) {
-    if (game_space->space[figur->position[0] + 2][figur->position[1]] !=
+    if (game_space->space[figur->position[0] + 1][figur->position[1]] !=
             figur->code &&
-        game_space->space[figur->position[4] + 2][figur->position[5]] !=
+        game_space->space[figur->position[4] + 1][figur->position[5]] !=
             figur->code &&
-        game_space->space[figur->position[6] + 2][figur->position[7]] !=
+        game_space->space[figur->position[6] + 1][figur->position[7]] !=
             figur->code) {
       result = true;
     }
   } else {
-    if (game_space->space[figur->position[2] + 2][figur->position[3]] !=
+    if (game_space->space[figur->position[2] + 1][figur->position[3]] !=
             figur->code &&
-        game_space->space[figur->position[6] + 2][figur->position[7]] !=
+        game_space->space[figur->position[6] + 1][figur->position[7]] !=
             figur->code) {
       result = true;
     }
@@ -1272,21 +1277,25 @@ bool traffic_permit_down_for_figur_7(Game_space* game_space, Figur* figur) {
 bool traffic_permit_flip_for_figur_1(Game_space* game_space, Figur* figur) {
   bool result = false;
   if (figur->rotations_position == 0) {
-    if (game_space->space[figur->position[4] - 2][figur->position[5]] !=
-            figur->code &&
-        game_space->space[figur->position[4] - 1][figur->position[5]] !=
-            figur->code &&
-        game_space->space[figur->position[4] + 1][figur->position[5]] !=
-            figur->code) {
+    if ((figur->position[4] != 0 && figur->position[4] != 1) &&
+        (game_space->space[figur->position[4] - 2][figur->position[5]] !=
+             figur->code &&
+         game_space->space[figur->position[4] - 1][figur->position[5]] !=
+             figur->code &&
+         game_space->space[figur->position[4] + 1][figur->position[5]] !=
+             figur->code)) {
       result = true;
     }
   } else {
-    if (game_space->space[figur->position[4]][figur->position[5] - 2] !=
-            figur->code &&
-        game_space->space[figur->position[4]][figur->position[5] - 1] !=
-            figur->code &&
-        game_space->space[figur->position[4]][figur->position[5] + 1] !=
-            figur->code) {
+    if ((game_space->space[figur->position[4]][figur->position[5] - 2] !=
+             figur->code &&
+         game_space->space[figur->position[4]][figur->position[5] - 1] !=
+             figur->code &&
+         game_space->space[figur->position[4]][figur->position[5] + 1] !=
+             figur->code) &&
+        (figur->position[5] != 0 && figur->position[5] != 1 &&
+         figur->position[5] != 9 && figur->position[4] != 0 &&
+         figur->position[4] != 1)) {
       result = true;
     }
   }
@@ -1304,12 +1313,13 @@ bool traffic_permit_flip_for_figur_2(Game_space* game_space, Figur* figur) {
       result = true;
     }
   } else if (figur->rotations_position == 1) {
-    if (game_space->space[figur->position[4] + 1][figur->position[5] + 1] !=
-            figur->code &&
-        game_space->space[figur->position[4]][figur->position[5] + 1] !=
-            figur->code &&
-        game_space->space[figur->position[4]][figur->position[5] - 1] !=
-            figur->code) {
+    if ((figur->position[5] != 0) &&
+        (game_space->space[figur->position[4] + 1][figur->position[5] + 1] !=
+             figur->code &&
+         game_space->space[figur->position[4]][figur->position[5] + 1] !=
+             figur->code &&
+         game_space->space[figur->position[4]][figur->position[5] - 1] !=
+             figur->code)) {
       result = true;
     }
   } else if (figur->rotations_position == 2) {
@@ -1322,12 +1332,13 @@ bool traffic_permit_flip_for_figur_2(Game_space* game_space, Figur* figur) {
       result = true;
     }
   } else {
-    if (game_space->space[figur->position[4] - 1][figur->position[5] - 1] !=
-            figur->code &&
-        game_space->space[figur->position[4]][figur->position[5] - 1] !=
-            figur->code &&
-        game_space->space[figur->position[4]][figur->position[5] + 1] !=
-            figur->code) {
+    if ((figur->position[5] != 9) &&
+        (game_space->space[figur->position[4] - 1][figur->position[5] - 1] !=
+             figur->code &&
+         game_space->space[figur->position[4]][figur->position[5] - 1] !=
+             figur->code &&
+         game_space->space[figur->position[4]][figur->position[5] + 1] !=
+             figur->code)) {
       result = true;
     }
   }
@@ -1345,7 +1356,8 @@ bool traffic_permit_flip_for_figur_3(Game_space* game_space, Figur* figur) {
       result = true;
     }
   } else if (figur->rotations_position == 1) {
-    if (game_space->space[figur->position[4] + 1][figur->position[5] - 1] !=
+    if ((figur->position[5] != 0) &&
+        game_space->space[figur->position[4] + 1][figur->position[5] - 1] !=
             figur->code &&
         game_space->space[figur->position[4]][figur->position[5] - 1] !=
             figur->code &&
@@ -1363,7 +1375,8 @@ bool traffic_permit_flip_for_figur_3(Game_space* game_space, Figur* figur) {
       result = true;
     }
   } else {
-    if (game_space->space[figur->position[4] - 1][figur->position[5] + 1] !=
+    if ((figur->position[5] != 9) &&
+        game_space->space[figur->position[4] - 1][figur->position[5] + 1] !=
             figur->code &&
         game_space->space[figur->position[4]][figur->position[5] + 1] !=
             figur->code &&
@@ -1401,8 +1414,9 @@ bool traffic_permit_flip_for_figur_6(Game_space* game_space, Figur* figur) {
       result = true;
     }
   } else if (figur->rotations_position == 1) {
-    if (game_space->space[figur->position[4]][figur->position[5] - 1] !=
-        figur->code) {
+    if ((figur->position[5] != 0) &&
+        game_space->space[figur->position[4]][figur->position[5] - 1] !=
+            figur->code) {
       result = true;
     }
   } else if (figur->rotations_position == 2) {
@@ -1411,8 +1425,9 @@ bool traffic_permit_flip_for_figur_6(Game_space* game_space, Figur* figur) {
       result = true;
     }
   } else {
-    if (game_space->space[figur->position[4]][figur->position[5] + 1] !=
-        figur->code) {
+    if ((figur->position[5] != 9) &&
+        game_space->space[figur->position[4]][figur->position[5] + 1] !=
+            figur->code) {
       result = true;
     }
   }
@@ -1440,196 +1455,12 @@ bool traffic_permit_flip_for_figur_7(Game_space* game_space, Figur* figur) {
 
 bool end_space(Figur* figur) {
   bool code_result = false;
-  if (figur->position[0] == 20 || figur->position[2] == 20 ||
-      figur->position[4] == 20 || figur->position[6] == 20) {
+  if (figur->position[0] == 19 || figur->position[2] == 19 ||
+      figur->position[4] == 19 || figur->position[6] == 19) {
     code_result = true;
   }
 
   return code_result;
-}
-
-void remove_tresh(Figur* figur, Game_space* game_space) {
-  game_space->space[figur->position[0] - 1][figur->position[1]] = 0;
-  game_space->space[figur->position[2] - 1][figur->position[3]] = 0;
-  game_space->space[figur->position[4] - 1][figur->position[5]] = 0;
-  game_space->space[figur->position[6] - 1][figur->position[7]] = 0;
-}
-
-void remove_trash_on_poly_for_figur_1(Figur* figur, Game_space* game_space) {
-  if (figur->rotations_position == 0) {
-    if ((game_space->space[figur->position[0]][figur->position[1]] !=
-             figur->code &&
-         game_space->space[figur->position[2]][figur->position[3]] !=
-             figur->code &&
-         game_space->space[figur->position[4]][figur->position[5]] !=
-             figur->code &&
-         game_space->space[figur->position[6]][figur->position[7]] !=
-             figur->code)) {
-      remove_tresh(figur, game_space);
-    }
-  } else {
-    if ((game_space->space[figur->position[6]][figur->position[7]] !=
-         figur->code)) {
-      remove_tresh(figur, game_space);
-    }
-  }
-}
-
-void remove_trash_on_poly_for_figur_2(Figur* figur, Game_space* game_space) {
-  if (figur->rotations_position == 0) {
-    if ((game_space->space[figur->position[2]][figur->position[3]] !=
-             figur->code &&
-         game_space->space[figur->position[4]][figur->position[5]] !=
-             figur->code &&
-         game_space->space[figur->position[6]][figur->position[7]] !=
-             figur->code)) {
-      remove_tresh(figur, game_space);
-    }
-  } else if (figur->rotations_position == 1) {
-    if ((game_space->space[figur->position[0]][figur->position[1]] !=
-             figur->code &&
-         game_space->space[figur->position[6]][figur->position[7]] !=
-             figur->code)) {
-      remove_tresh(figur, game_space);
-    }
-  } else if (figur->rotations_position == 2) {
-    if ((game_space->space[figur->position[0]][figur->position[1]] !=
-             figur->code &&
-         game_space->space[figur->position[4]][figur->position[5]] !=
-             figur->code &&
-         game_space->space[figur->position[6]][figur->position[7]] !=
-             figur->code)) {
-      remove_tresh(figur, game_space);
-    }
-  } else {
-    if ((game_space->space[figur->position[0]][figur->position[1]] !=
-             figur->code &&
-         game_space->space[figur->position[2]][figur->position[3]] !=
-             figur->code)) {
-      remove_tresh(figur, game_space);
-    }
-  }
-}
-
-void remove_trash_on_poly_for_figur_3(Figur* figur, Game_space* game_space) {
-  if (figur->rotations_position == 0) {
-    if ((game_space->space[figur->position[2]][figur->position[3]] !=
-             figur->code &&
-         game_space->space[figur->position[4]][figur->position[5]] !=
-             figur->code &&
-         game_space->space[figur->position[6]][figur->position[7]] !=
-             figur->code)) {
-      remove_tresh(figur, game_space);
-    }
-  } else if (figur->rotations_position == 1) {
-    if ((game_space->space[figur->position[0]][figur->position[1]] !=
-             figur->code &&
-         game_space->space[figur->position[2]][figur->position[3]] !=
-             figur->code)) {
-      remove_tresh(figur, game_space);
-    }
-  } else if (figur->rotations_position == 2) {
-    if ((game_space->space[figur->position[0]][figur->position[1]] !=
-             figur->code &&
-         game_space->space[figur->position[4]][figur->position[5]] !=
-             figur->code &&
-         game_space->space[figur->position[6]][figur->position[7]] !=
-             figur->code)) {
-      remove_tresh(figur, game_space);
-    }
-  } else {
-    if ((game_space->space[figur->position[0]][figur->position[1]] !=
-             figur->code &&
-         game_space->space[figur->position[6]][figur->position[7]] !=
-             figur->code)) {
-      remove_tresh(figur, game_space);
-    }
-  }
-}
-
-void remove_trash_on_poly_for_figur_4(Figur* figur, Game_space* game_space) {
-  if ((game_space->space[figur->position[4]][figur->position[5]] !=
-           figur->code &&
-       game_space->space[figur->position[6]][figur->position[7]] !=
-           figur->code)) {
-    remove_tresh(figur, game_space);
-  }
-}
-
-void remove_trash_on_poly_for_figur_5(Figur* figur, Game_space* game_space) {
-  if (figur->rotations_position == 0) {
-    if ((game_space->space[figur->position[0]][figur->position[1]] !=
-             figur->code &&
-         game_space->space[figur->position[4]][figur->position[5]] !=
-             figur->code &&
-         game_space->space[figur->position[6]][figur->position[7]] !=
-             figur->code)) {
-      remove_tresh(figur, game_space);
-    }
-  } else {
-    if ((game_space->space[figur->position[2]][figur->position[3]] !=
-             figur->code &&
-         game_space->space[figur->position[6]][figur->position[7]] !=
-             figur->code)) {
-      remove_tresh(figur, game_space);
-    }
-  }
-}
-
-void remove_trash_on_poly_for_figur_6(Figur* figur, Game_space* game_space) {
-  if (figur->rotations_position == 0) {
-    if ((game_space->space[figur->position[2]][figur->position[3]] !=
-             figur->code &&
-         game_space->space[figur->position[4]][figur->position[5]] !=
-             figur->code &&
-         game_space->space[figur->position[6]][figur->position[7]] !=
-             figur->code)) {
-      remove_tresh(figur, game_space);
-    }
-  } else if (figur->rotations_position == 1) {
-    if ((game_space->space[figur->position[0]][figur->position[1]] !=
-             figur->code &&
-         game_space->space[figur->position[6]][figur->position[7]] !=
-             figur->code)) {
-      remove_tresh(figur, game_space);
-    }
-  } else if (figur->rotations_position == 2) {
-    if ((game_space->space[figur->position[0]][figur->position[1]] !=
-             figur->code &&
-         game_space->space[figur->position[2]][figur->position[3]] !=
-             figur->code &&
-         game_space->space[figur->position[6]][figur->position[7]] !=
-             figur->code)) {
-      remove_tresh(figur, game_space);
-    }
-  } else {
-    if ((game_space->space[figur->position[0]][figur->position[1]] !=
-             figur->code &&
-         game_space->space[figur->position[2]][figur->position[3]] !=
-             figur->code)) {
-      remove_tresh(figur, game_space);
-    }
-  }
-}
-
-void remove_trash_on_poly_for_figur_7(Figur* figur, Game_space* game_space) {
-  if (figur->rotations_position == 0) {
-    if ((game_space->space[figur->position[0]][figur->position[1]] !=
-             figur->code &&
-         game_space->space[figur->position[4]][figur->position[5]] !=
-             figur->code &&
-         game_space->space[figur->position[6]][figur->position[7]] !=
-             figur->code)) {
-      remove_tresh(figur, game_space);
-    }
-  } else {
-    if ((game_space->space[figur->position[2]][figur->position[3]] !=
-             figur->code &&
-         game_space->space[figur->position[6]][figur->position[7]] !=
-             figur->code)) {
-      remove_tresh(figur, game_space);
-    }
-  }
 }
 
 void game_level_and_speed(GameInfo_t* game_info) {
@@ -1662,11 +1493,19 @@ void writeNumberToFile(int number) {
   fclose(file);
 }
 
-void figur_falling_down(Figur* figur) {
-  figur->position[0]++;
-  figur->position[2]++;
-  figur->position[4]++;
-  figur->position[6]++;
+void figur_falling_down(Figur* figur, UserAction_t* user_action,
+                        Game_space* game_space) {
+  if (*user_action != TDown) {
+    kill_figur(figur, game_space);
+    figur->position[0]++;
+    figur->position[2]++;
+    figur->position[4]++;
+    figur->position[6]++;
+    print_figur_in_game_poly(game_space, figur);
+  }
+  if (*user_action != Terminate && *user_action != Game_over) {
+    *user_action = Action;
+  }
 }
 
 int get_random_number() {

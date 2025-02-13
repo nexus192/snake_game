@@ -172,9 +172,9 @@ void TetrisGameRender::updateGame_T() {
 
 
     if (conditions_of_falling_down(figur, game_space) == true) {
-        // print_figur_in_game_poly(&game_space, &figur);
+        print_figur_in_game_poly(&game_space, &figur);
         figur_falling_down(&figur);
-    //     remove_trash_on_poly(&figur, &game_space);
+        remove_trash_on_poly(&figur, &game_space);
     }
     // else {
     //     figur.move_triger = 1;

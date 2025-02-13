@@ -18,7 +18,8 @@ extern "C" {
 
 #define COUNT_BLOCS_IN_FIGUR 4
 
-#define START_SPEED 500
+#define START_SPEED 800
+#define VELOCITY_MULTIPLIER 1.2
 #define START_LEVEL 1
 #define LEVEL_UP 600
 
@@ -68,18 +69,19 @@ void kill_line(Game_space* game_space, int i, int* count_full_line,
                int* check_line);
 bool check_on_game_over(Game_space game_space);
 void rotation_figurs(Figur* figur);
-void remove_trash_on_poly(Figur* figur, Game_space* game_space);
+// void remove_trash_on_poly(Figur* figur, Game_space* game_space);
 bool conditions_of_falling_down(Figur figur, Game_space game_space);
 bool traffic_permit_left(Game_space* game_space, Figur* figur);
 bool traffic_permit_right(Game_space* game_space, Figur* figur);
 bool traffic_permit_down(Game_space* game_space, Figur* figur);
 bool traffic_permit_flip(Game_space* game_space, Figur* figur);
 bool end_space(Figur* figur);
-void remove_tresh(Figur* figur, Game_space* game_space);
+// void remove_tresh(Figur* figur, Game_space* game_space);
 void game_level_and_speed(GameInfo_t* game_info);
 int readNumberFromFile();
 void writeNumberToFile(int number);
-void figur_falling_down(Figur* figur);
+void figur_falling_down(Figur* figur, UserAction_t* user_action,
+                        Game_space* game_space);
 int get_random_number();
 void get_figur(Figur* figur, GameInfo_t game_info);
 void print_figur_in_game_poly(Game_space* game_space, Figur* figur);
@@ -134,14 +136,6 @@ bool conditions_of_falling_down_for_figur_4(Figur figur, Game_space game_space);
 bool conditions_of_falling_down_for_figur_5(Figur figur, Game_space game_space);
 bool conditions_of_falling_down_for_figur_6(Figur figur, Game_space game_space);
 bool conditions_of_falling_down_for_figur_7(Figur figur, Game_space game_space);
-
-void remove_trash_on_poly_for_figur_1(Figur* figur, Game_space* game_space);
-void remove_trash_on_poly_for_figur_2(Figur* figur, Game_space* game_space);
-void remove_trash_on_poly_for_figur_3(Figur* figur, Game_space* game_space);
-void remove_trash_on_poly_for_figur_4(Figur* figur, Game_space* game_space);
-void remove_trash_on_poly_for_figur_5(Figur* figur, Game_space* game_space);
-void remove_trash_on_poly_for_figur_6(Figur* figur, Game_space* game_space);
-void remove_trash_on_poly_for_figur_7(Figur* figur, Game_space* game_space);
 
 #ifdef __cplusplus
 }
