@@ -76,12 +76,8 @@ UserAction_t GameLoop(WINDOW *window, WINDOW *Info_Window,
       print_next_figur(game_info);
       RanderField(game_space, window);
       RenderNextFigure(game_info, Info_Window);
-      // RenderGameInfo(game_info->high_score, game_info->score,
-      // game_info->level,
-      //                game_info->speed, false, false, false, Info_Window);
-      RenderGameInfo(game_info->high_score, game_info->next_figur,
-                     figur->figur_type, game_info->speed, false, false, false,
-                     Info_Window);
+      RenderGameInfo(game_info->high_score, game_info->score, game_info->level,
+                     game_info->speed, false, false, false, Info_Window);
       figur_falling_down(figur, &us_act, game_space);
       flushinp();
     } else {
