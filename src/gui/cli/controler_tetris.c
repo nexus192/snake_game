@@ -61,6 +61,12 @@ UserAction_t GameLoop(WINDOW *window, WINDOW *Info_Window,
          us_act != Terminate) {
     GamePause(window, &us_act);
     CleanGameInfo(game_info, Info_Window);
+    print_figur_in_game_poly(game_space, figur);
+    print_next_figur(game_info);
+    RanderField(game_space, window);
+    RenderNextFigure(game_info, Info_Window);
+    RenderGameInfo(game_info->high_score, game_info->score, game_info->level,
+                   game_info->speed, false, false, false, Info_Window);
     if (conditions_of_falling_down(*figur, *game_space) == true) {
       clock_gettime(CLOCK_MONOTONIC, &start);
       do {
@@ -72,12 +78,6 @@ UserAction_t GameLoop(WINDOW *window, WINDOW *Info_Window,
       } while (elapsed < START_SPEED /
                              pow(VELOCITY_MULTIPLIER, game_info->level) /
                              START_SPEED);
-      print_figur_in_game_poly(game_space, figur);
-      print_next_figur(game_info);
-      RanderField(game_space, window);
-      RenderNextFigure(game_info, Info_Window);
-      RenderGameInfo(game_info->high_score, game_info->score, game_info->level,
-                     game_info->speed, false, false, false, Info_Window);
       figur_falling_down(figur, &us_act, game_space);
       flushinp();
     } else {
