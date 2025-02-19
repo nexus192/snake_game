@@ -13,12 +13,12 @@ TETRIS_OBJ_DIR = $(BUILD_DIR)/object_files_for_tetris
 SNAKE_OBJ_DIR = $(BUILD_DIR)/object_files_for_snake
 
 # Исходные файлы
-TETRIS_BACKEND_FILE = $(SRC_DIR)/BrickGame/BackEnd_Tetris/back_end.c
+TETRIS_BACKEND_FILE = $(SRC_DIR)/BrickGame/tetris/back_end.c
 TETRIS_FRONTEND_FILE = $(SRC_DIR)/gui/cli/front.c
 TETRIS_CONTROLER_FILE = $(SRC_DIR)/controller/controller_tetris.c
-SNAKE_BACKEND_FILE = $(SRC_DIR)/BrickGame/BackEnd_Snake/Backend_snake.cc
+SNAKE_BACKEND_FILE = $(SRC_DIR)/BrickGame/snake/Backend_snake.cc
 SNAKE_CONTROLER_FILE = $(SRC_DIR)/controller/controller_snake.cc
-MAIN_FILE = $(SRC_DIR)/BrickGame/main.cc
+CLI_MAIN_FILE = $(SRC_DIR)/cli_main.cc
 
 # Объектные файлы
 TETRIS_OBJ_FILES = $(TETRIS_OBJ_DIR)/back_end.o
@@ -58,7 +58,7 @@ $(SNAKE_LIB): $(SNAKE_OBJ_FILES)
 	ar rcs $@ $^
 
 install: $(TETRIS_FRONTEND_OBJ) $(TETRIS_CONTROLER_OBJ) $(TETRIS_LIB) $(SNAKE_LIB)
-	$(CXX) $(CXXFLAGS) -o $(BUILD_DIR)/tetris $(MAIN_FILE) $(TETRIS_CONTROLER_OBJ)  $(TETRIS_FRONTEND_OBJ) $(SNAKE_CONTROLER_FILE) $(TETRIS_LIB) $(SNAKE_LIB) -lncurses -lm
+	$(CXX) $(CXXFLAGS) -o $(BUILD_DIR)/BrickGame $(CLI_MAIN_FILE) $(TETRIS_CONTROLER_OBJ)  $(TETRIS_FRONTEND_OBJ) $(SNAKE_CONTROLER_FILE) $(TETRIS_LIB) $(SNAKE_LIB) -lncurses -lm
 
 clean:
 	rm -rf $(BUILD_DIR)
