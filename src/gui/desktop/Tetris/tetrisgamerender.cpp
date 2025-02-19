@@ -168,11 +168,9 @@ void TetrisGameRender::keyPressEvent(QKeyEvent *event) {
     } else if (event->key() == Qt::Key_Up && traffic_permit_flip(&game_space, &figur)) {
         kill_figur(&figur, &game_space);
         rotation_figurs(&figur);
-    }
-    // else if (Qt::Key_Escape){
-    //     this->close();
-    // }
-    else if (Qt::Key_P) {
+    } else if (event->key() ==Qt::Key_Escape){
+        this->close();
+    } else if (event->key() == Qt::Key_P) {
         if (user_actions != Pause) {
             user_actions = Pause;
             timer->stop();
