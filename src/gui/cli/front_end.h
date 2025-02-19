@@ -9,16 +9,13 @@
 extern "C" {
 #endif
 
-// #include "../../BrickGame/BackEnd_Snake/Snake.h"
-#include "../../BrickGame/BackEnd_Tetris/back_end.h"
+WINDOW* init_ncurses(void);
 
-WINDOW *init_ncurses(void);
-
-void DrawPixel(int y, int x, int color_pair, WINDOW *win);
+void DrawPixel(int y, int x, int color_pair, WINDOW* win);
 void RenderGameInfo(int high_score, int score, int level, int speed,
                     bool is_paused, bool is_game_over, bool is_snake,
-                    WINDOW *win);
-void RenderNextFigure(GameInfo_t *game_info, WINDOW *win);
+                    WINDOW* win);
+void RenderNextFigure(int** game_info, WINDOW* win);
 
 #ifdef __cplusplus
 }

@@ -123,8 +123,8 @@ int Apple::get_x_apple() const { return this->x; }
 int Apple::get_y_apple() const { return this->y; }
 
 GameParameters::GameParameters() {
-  speed = STANDART_SPEED;
-  level = 0;
+  speed = 500000;
+  level = START_LEVEL;
   high_score = 0;
   get_high_score();
 };
@@ -144,7 +144,7 @@ void GameParameters::set_high_score(int score) {
 }
 
 void GameParameters::parameter_changes(int score) {
-  if ((score % 5) == 0) {
+  if ((score % 5) == 0 && level <= 10) {
     level++;
     speed -= 25000;
   }

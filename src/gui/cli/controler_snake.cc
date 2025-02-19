@@ -15,9 +15,17 @@ void InitGame() {
   StateGame State = StartGame;
   apple.generate_apple(snake, &State);
 
+  int temp_speed = Parameters.speed;
+
   while ((State != End) && (State != Win)) {
-    usleep(Parameters.speed);
     ContolKey(field, &Direction, &State);
+
+    if (State == Fast) {
+      temp_speed = Parameters.speed / 3;
+    } else {
+      temp_speed = Parameters.speed;
+    }
+
     if (State != GameOver && State != End) {
       snake.eating_apple(&snake, apple, Direction, &State, &Parameters);
       snake.move_snake(snake, Direction, &State);
@@ -27,11 +35,15 @@ void InitGame() {
           Parameters.high_score, snake.get_length_body() - INITIAL_BODY_LENGTH,
           Parameters.level, Parameters.speed, false, false, true, info_window);
     }
+
     if (State == GameOver) {
       RestartGame(&State, &Parameters, snake, &Direction, info_window);
     }
+
     flushinp();
+    usleep(temp_speed);
   }
+
   Parameters.set_high_score(snake.get_length_body() - INITIAL_BODY_LENGTH);
   endwin();
 }
@@ -57,6 +69,8 @@ void ContolKey(WINDOW* field, VectorDirection* Direction, StateGame* State) {
   } else if (ch == KEY_LEFT && *Direction != Right) {
     *Direction = Left;
     *State = Shifting;
+  } else if (ch == 'g') {
+    *State = Fast;
   } else if (ch == 'p') {
     *State = Pausa;
     GamePausa(field);
@@ -94,7 +108,7 @@ void RestartGame(StateGame* state, GameParameters* parameters, Snake& snake,
       *state = Rest;
       snake.restart_snake();
       snake.set_head_position(5, 10);
-      parameters->speed = STANDART_SPEED;
+      parameters->speed = START_SPEED;
       parameters->level = 0;
       parameters->set_high_score(snake.get_length_body() - INITIAL_BODY_LENGTH);
       *direction = Down;

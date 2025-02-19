@@ -10,17 +10,17 @@
 #include <utility>
 #include <vector>
 
+#include "./../common/common.h"
+
 namespace s21 {
 
-#define WIDTH 10
-#define HEIGHT 20
 #define INITIAL_BODY_LENGTH 4
-#define STANDART_SPEED 500000
 
 typedef enum VectorDirection { Up, Down, Right, Left } VectorDirection;
 
 typedef enum StateGame {
   StartGame,
+  Fast,
   Spawn,
   Moving,
   Shifting,
@@ -37,27 +37,21 @@ class HeadSnake;
 class Snake;
 
 class Apple {
- private:
-  int x;
-  int y;
-
-  // int get_random_x();
-  // int get_random_y();
-
  public:
   int get_x_apple() const;
   int get_y_apple() const;
   void generate_apple(Snake& snake, StateGame* State);
-};
 
-class HeadSnake {
  private:
   int x;
   int y;
+};
 
+class HeadSnake {
  public:
   HeadSnake();
   HeadSnake(int x, int y);
+  ~HeadSnake() = default;
 
   void move_haed(VectorDirection Direction);
 
@@ -65,18 +59,23 @@ class HeadSnake {
   int get_head_y() const;
 
   void set_head_position(int x_, int y_);
+
+ private:
+  int x;
+  int y;
 };
 
 class BodySnake {
- private:
-  int x_body;
-  int y_body;
-
  public:
   BodySnake();
   BodySnake(int x, int y);
+  ~BodySnake() = default;
   int get_body_x() const;
   int get_body_y() const;
+
+ private:
+  int x_body;
+  int y_body;
 };
 
 class GameParameters {
@@ -85,6 +84,7 @@ class GameParameters {
   int speed;
   int high_score;
   GameParameters();
+  ~GameParameters() = default;
   void get_high_score();
   void set_high_score(int score);
   void parameter_changes(int score);

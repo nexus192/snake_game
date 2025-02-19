@@ -7,20 +7,10 @@ extern "C" {
 #include <math.h>
 #include <stdbool.h>
 
-#define GAME_ROW 22
-#define GAME_COL 12
-
-#define WIDTH 10
-#define HEIGHT 20
-
-#define START_POS_FIGUR_X 1
-#define START_POS_FIGUR_Y 6
+#include "./../common/common.h"
 
 #define COUNT_BLOCS_IN_FIGUR 4
 
-#define START_SPEED 800
-#define VELOCITY_MULTIPLIER 1.2
-#define START_LEVEL 1
 #define LEVEL_UP 600
 
 typedef enum UserAction_t {

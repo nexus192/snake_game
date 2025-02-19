@@ -21,8 +21,8 @@ int init_game() {
   while (end == true && (user_actions == Start || user_actions == Restart)) {
     if (user_actions == Restart) {
       clean_space_game(&game_space);
-      CleanGameInfo(&game_info, Info_Window);
-      RenderNextFigure(&game_info, Info_Window);
+      CleanGameInfo(&game_info);
+      RenderNextFigure(game_info.next, Info_Window);
       RenderGameInfo(game_info.high_score, game_info.score, game_info.level,
                      game_info.speed, false, false, false, Info_Window);
     }
@@ -31,7 +31,7 @@ int init_game() {
       Figur figur;
       get_figur(&figur, game_info);
       game_info.next_figur = get_random_number();
-      CleanGameInfo(&game_info, Info_Window);
+      CleanGameInfo(&game_info);
       user_actions = GameLoop(window, Info_Window, &game_space, &game_info,
                               &user_actions, &figur);
       find_full_line(&game_space, &game_info);
@@ -60,11 +60,11 @@ UserAction_t GameLoop(WINDOW *window, WINDOW *Info_Window,
   while (figur->move_triger == 0 && *user_actions == Start &&
          us_act != Terminate) {
     GamePause(window, &us_act);
-    CleanGameInfo(game_info, Info_Window);
+    CleanGameInfo(game_info);
     print_figur_in_game_poly(game_space, figur);
     print_next_figur(game_info);
     RanderField(game_space, window);
-    RenderNextFigure(game_info, Info_Window);
+    RenderNextFigure(game_info->next, Info_Window);
     RenderGameInfo(game_info->high_score, game_info->score, game_info->level,
                    game_info->speed, false, false, false, Info_Window);
     if (conditions_of_falling_down(*figur, *game_space) == true) {
@@ -154,7 +154,7 @@ void RestartGame(UserAction_t *user_actions, GameInfo_t *game_info,
   int ch1;
   bool end = true;
   while (*user_actions == Game_over && end == true) {
-    RenderNextFigure(game_info, window);
+    RenderNextFigure(game_info->next, window);
     RenderGameInfo(game_info->high_score, game_info->score, game_info->level,
                    game_info->speed, false, true, false, window);
     ch1 = wgetch(window);

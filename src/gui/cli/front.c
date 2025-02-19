@@ -32,16 +32,16 @@ void DrawPixel(int y, int x, int color_pair, WINDOW* win) {  // cli
 
 /////////////////////////////////
 
-void RenderNextFigure(GameInfo_t* game_info, WINDOW* win) {
+void RenderNextFigure(int** game_info, WINDOW* win) {
   werase(win);
   box(win, 0, 0);
   mvwprintw(win, 1, 1, "NEXT");
 
   for (int i = 0; i < 4; i++) {
     for (int j = 0; j < 6; j++) {
-      if (game_info->next[i][j] == 1) {
+      if (game_info[i][j] == 1) {
         mvwprintw(win, i + 2, j + 1, "#");
-      } else if (game_info->next[i][j] == 3) {
+      } else if (game_info[i][j] == 3) {
         mvwprintw(win, i + 2, j + 1, "@");
       } else {
         mvwprintw(win, i + 2, j + 1, " ");
