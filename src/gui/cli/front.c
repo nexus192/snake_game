@@ -1,8 +1,6 @@
-// #include "./Snake/Frontend_Snake.h"
-#include "front_end.h"
-
-// #include <linux/time.h>
 #include <time.h>
+
+#include "front_end.h"
 
 WINDOW* init_ncurses() {
   initscr();
@@ -22,15 +20,12 @@ WINDOW* init_ncurses() {
   return field;
 }
 
-void DrawPixel(int y, int x, int color_pair, WINDOW* win) {  // cli
-
+void DrawPixel(int y, int x, int color_pair, WINDOW* win) {
   wattron(win, COLOR_PAIR(color_pair));
   mvwaddch(win, y + 1, x * 2 + 1, ' ');
   mvwaddch(win, y + 1, x * 2 + 2, ' ');
   wattroff(win, COLOR_PAIR(color_pair));
 };
-
-/////////////////////////////////
 
 void RenderNextFigure(int** game_info, WINDOW* win) {
   werase(win);
@@ -48,8 +43,6 @@ void RenderNextFigure(int** game_info, WINDOW* win) {
       }
     }
   }
-
-  // wrefresh(win);
 }
 
 void RenderGameInfo(int high_score, int score, int level, int speed,

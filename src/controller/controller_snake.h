@@ -3,7 +3,7 @@
 
 #include <ncurses.h>
 
-#include "../../BrickGame/BackEnd_Snake/Snake.h"
+#include "../BrickGame/BackEnd_Snake/Snake.h"
 
 using namespace s21;
 

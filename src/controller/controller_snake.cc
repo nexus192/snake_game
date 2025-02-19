@@ -1,8 +1,8 @@
-#include "controler_snake.h"
+#include "controller_snake.h"
 
 #include <iostream>
 
-#include "front_end.h"
+#include "../gui/cli/front_end.h"
 
 void InitGame() {
   srand(time(NULL));

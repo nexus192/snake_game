@@ -125,7 +125,7 @@ void find_full_line(Game_space* game_space, GameInfo_t* game_info) {
 }
 
 bool check_on_game_over(Game_space game_space) {
-  for (int i = 0; i < GAME_COL - 2; i++) {
+  for (int i = 0; i < WIDTH; i++) {
     if (game_space.space[0][i] == 3) {
       return true;
     }

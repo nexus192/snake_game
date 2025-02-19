@@ -1,14 +1,10 @@
-#include <termios.h>  // Linux/macOS: для getch() без Enter
+#include <termios.h>  // Linux/macOS
 #include <unistd.h>
 
 #include <iostream>
 
-// #include "../gui/cli/Snake/Frontend_Snake.h"
-#include "../gui/cli/controler_snake.h"
-#include "../gui/cli/controler_tetris.h"
-// #include "../gui/cli/front_end.h"
-// #include "./BackEnd_Snake/Snake.h"
-// #include "./BackEnd_Tetris/back_end.h"
+#include "../controller/controller_snake.h"
+#include "../controller/controller_tetris.h"
 
 char mygetch() {
   struct termios oldt, newt;
