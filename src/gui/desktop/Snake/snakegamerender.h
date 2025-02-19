@@ -21,6 +21,7 @@ public:
     void Render_Info(QPainter &painter, int cellSize);
     void Control_Key(QKeyEvent *event); // Method to handle key press
     void updateGame();
+    void GameRestart();
 
 protected:
     void paintEvent(QPaintEvent *event) override;

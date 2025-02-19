@@ -4,6 +4,9 @@
 #include <QRect>
 #include <QKeyEvent>
 
+#include <QApplication>
+#include <QMessageBox>
+
 using namespace s21;
 
 SnakeGameRender::SnakeGameRender(QWidget *parent) : QWidget(parent), Direction(Down), State(StartGame)
@@ -138,6 +141,7 @@ void SnakeGameRender::Control_Key(QKeyEvent *event)
             State = Pausa;
             timer->stop();
         } else if(State == Pausa) {
+            State = Moving;
             timer->start(Parameters.speed);
         }
         break;
@@ -161,7 +165,33 @@ void SnakeGameRender::updateGame()
         snake.move_snake(snake, Direction, &State);
         Coliseum(snake, &State);
     }
+    if(State == GameOver){
+        GameRestart();
+    }
     Parameters.set_high_score(snake.get_length_body() - INITIAL_BODY_LENGTH);
 
     update();
+}
+
+void SnakeGameRender::GameRestart() {
+    QMessageBox msgBox;
+    msgBox.setText("Игра окончена!");
+    msgBox.setInformativeText("Начать заново или выйти?");
+    msgBox.setStandardButtons(QMessageBox::Retry | QMessageBox::Close);
+    msgBox.setDefaultButton(QMessageBox::Retry);
+
+    int ret = msgBox.exec();
+
+    if (ret == QMessageBox::Retry) {
+        State = Rest;
+        snake.restart_snake();
+        snake.set_head_position(5, 10);
+        Parameters.speed = STANDART_SPEED;
+        Parameters.level = 0;
+        // Parameters.set_high_score(snake.get_length_body() - INITIAL_BODY_LENGTH);
+        Direction = Down;
+        update();
+    } else {
+        QApplication::quit();
+    }
 }

@@ -1,5 +1,7 @@
 #include "tetrisgamerender.h"
 #include <QKeyEvent>
+#include <QMessageBox>
+#include <QApplication>
 
 TetrisGameRender::TetrisGameRender(QWidget *parent)
     : QWidget(parent), user_actions(Start), timer(new QTimer(this)) {
@@ -74,14 +76,13 @@ void TetrisGameRender::Render_Info_T(QPainter &painter, int cellSize) {
         for (int j = 0; j < 6; j++) {
             QRect cell(nextFigureX + j * cellSize, nextFigureY + i * cellSize, cellSize, cellSize);
             painter.drawRect(cell);
-
            if (game_info.next[i][j] == 3) {
                 painter.fillRect(cell, Qt::red);
             }
         }
     }
 
-    textY = nextFigureY + 6 * cellSize + 10; // Смещаем текст ниже фигуры
+    textY = nextFigureY + 6 * cellSize + 10;
 
     painter.drawText(textX, textY, "Score: " + QString::number(game_info.score));
     textY += fontSize + 5;
@@ -112,11 +113,37 @@ void TetrisGameRender::updateGame_T() {
 
     if (check_on_game_over(game_space)) {
         timer->stop();
+        GameRestart();
         return;
     }
-
+    CleanGameInfo(&game_info);
     print_next_figur(&game_info);
     update();
+}
+
+void TetrisGameRender::GameRestart() {
+    QMessageBox msgBox;
+    msgBox.setText("Игра окончена!");
+    msgBox.setInformativeText("Начать заново или выйти?");
+    msgBox.setStandardButtons(QMessageBox::Retry | QMessageBox::Close);
+    msgBox.setDefaultButton(QMessageBox::Retry);
+
+    int ret = msgBox.exec();
+
+    if (ret == QMessageBox::Retry) {
+        init_space_game(&game_space);
+        init_game_info(&game_info);
+        game_info.next_figur = get_random_number();
+        game_info.speed = START_SPEED;
+        game_info.level = START_LEVEL;
+        init_figur(game_info.next_figur, &figur);
+        user_actions = Start;
+
+        timer->start(500);
+        update();
+    } else {
+        QApplication::quit();
+    }
 }
 
 void TetrisGameRender::keyPressEvent(QKeyEvent *event) {
@@ -141,6 +168,18 @@ void TetrisGameRender::keyPressEvent(QKeyEvent *event) {
     } else if (event->key() == Qt::Key_Up && traffic_permit_flip(&game_space, &figur)) {
         kill_figur(&figur, &game_space);
         rotation_figurs(&figur);
+    }
+    // else if (Qt::Key_Escape){
+    //     this->close();
+    // }
+    else if (Qt::Key_P) {
+        if (user_actions != Pause) {
+            user_actions = Pause;
+            timer->stop();
+        } else if(user_actions == Pause) {
+            user_actions = Start;
+            timer->start(game_info.speed);
+        }
     }
     print_figur_in_game_poly(&game_space, &figur);
     update();

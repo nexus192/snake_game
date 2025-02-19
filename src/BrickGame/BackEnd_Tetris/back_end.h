@@ -89,6 +89,7 @@ void print_next_figur(GameInfo_t* game_info);
 void clean_space_game(Game_space* game_space);
 void init_space_game(Game_space* game_space);
 void init_game_info(GameInfo_t* game_info);
+void CleanGameInfo(GameInfo_t* game_info);
 void game_remove(Game_space* game_space, GameInfo_t* game_info);
 
 bool traffic_permit_left_for_figur_1(Game_space* game_space, Figur* figur);

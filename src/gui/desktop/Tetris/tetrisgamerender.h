@@ -19,6 +19,7 @@ public:
     void Render_Field_T(QPainter &painter, int cellSize);
     void Render_Info_T(QPainter &painter, int cellSize);
     void Control_Key_T(QKeyEvent *event); // Method to handle key press
+    void GameRestart();
     void updateGame_T();
 
 protected:

@@ -89,12 +89,3 @@ void RenderGameInfo(int high_score, int score, int level, int speed,
 
   wrefresh(win);
 }
-
-void CleanGameInfo(GameInfo_t* game_info, WINDOW* win) {
-  for (int i = 1; i < 3; i++) {
-    for (int j = 0; j < 6; j++) {
-      game_info->next[i][j] = 0;
-    }
-  }
-  mvwprintw(win, 20, 15, "         ");
-}  // cli

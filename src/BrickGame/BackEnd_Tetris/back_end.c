@@ -1579,6 +1579,14 @@ void init_game_info(GameInfo_t* game_info) {
   }
 }
 
+void CleanGameInfo(GameInfo_t* game_info) {
+  for (int i = 1; i < 3; i++) {
+    for (int j = 0; j < 6; j++) {
+      game_info->next[i][j] = 0;
+    }
+  }
+}
+
 void game_remove(Game_space* game_space, GameInfo_t* game_info) {
   for (int i = 0; i < HEIGHT; i++) {
     free(game_space->space[i]);

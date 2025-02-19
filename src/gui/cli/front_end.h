@@ -18,7 +18,6 @@ void DrawPixel(int y, int x, int color_pair, WINDOW *win);
 void RenderGameInfo(int high_score, int score, int level, int speed,
                     bool is_paused, bool is_game_over, bool is_snake,
                     WINDOW *win);
-void CleanGameInfo(GameInfo_t *game_info, WINDOW *win);
 void RenderNextFigure(GameInfo_t *game_info, WINDOW *win);
 
 #ifdef __cplusplus
