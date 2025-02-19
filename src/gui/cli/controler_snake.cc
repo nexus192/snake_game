@@ -69,7 +69,7 @@ void ContolKey(WINDOW* field, VectorDirection* Direction, StateGame* State) {
   } else if (ch == KEY_LEFT && *Direction != Right) {
     *Direction = Left;
     *State = Shifting;
-  } else if (ch == 'g') {
+  } else if (ch == ' ') {
     *State = Fast;
   } else if (ch == 'p') {
     *State = Pausa;
