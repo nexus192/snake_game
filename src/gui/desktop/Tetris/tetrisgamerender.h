@@ -7,7 +7,7 @@
 #include <QPaintEvent>
 #include <QTimer>
 
-#include "../../../BrickGame/BackEnd_Tetris/back_end.h"
+#include "../../../BrickGame/tetris/back_end.h"
 
 class TetrisGameRender : public QWidget
 {
@@ -30,6 +30,7 @@ private:
     Game_space game_space;
     GameInfo_t game_info;
     UserAction_t user_actions;
+    VectorDirection direction;
     Figur figur;
     bool end = true;
     QTimer *timer;

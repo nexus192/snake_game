@@ -1,6 +1,6 @@
 #include <gtest/gtest.h>
 
-#include "../../src/BrickGame/BackEnd_Snake/Snake.h"
+#include "../../src/BrickGame/snake/Snake.h"
 
 using namespace s21;
 

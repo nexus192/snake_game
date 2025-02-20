@@ -17,6 +17,8 @@ MainWindow::MainWindow(QWidget *parent)
 
     connect(ui->TetrisButton, &QPushButton::clicked, this, &MainWindow::Push_Button_Tetris);
     connect(ui->SnakeButton, &QPushButton::clicked, this, &MainWindow::Push_Button_Snake);
+
+
 }
 
 MainWindow::~MainWindow()

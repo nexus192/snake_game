@@ -1,4 +1,4 @@
-#include "../../src/BrickGame/BackEnd_Tetris/back_end.h"
+#include "../../src/BrickGame/tetris/back_end.h"
 #include "run_tests.h"
 
 START_TEST(test_backend_1) {
@@ -246,13 +246,14 @@ START_TEST(test_tetris_1_1) {
   Figur test_figur = {0};
   Game_space game_spase = {0};
   GameInfo_t game_info = {0};
+  VectorDirection direction = Dormant;
   init_game_info(&game_info);
   init_space_game(&game_spase);
   init_figur(1, &test_figur);
   while (test_figur.move_triger == 0 && us_act == Start &&
          us_act != Terminate) {
     if (conditions_of_falling_down(test_figur, game_spase) == true) {
-      figur_falling_down(&test_figur, &us_act, &game_spase);
+      figur_falling_down(&test_figur, &game_spase, &direction);
 
     } else {
       test_figur.move_triger = 1;
@@ -267,16 +268,17 @@ START_TEST(test_tetris_1_2) {
   Figur test_figur = {0};
   Game_space game_spase = {0};
   GameInfo_t game_info = {0};
+  VectorDirection direction = Dormant;
   init_game_info(&game_info);
   init_space_game(&game_spase);
   init_figur(1, &test_figur);
-  figur_falling_down(&test_figur, &us_act, &game_spase);
-  figur_falling_down(&test_figur, &us_act, &game_spase);
+  figur_falling_down(&test_figur, &game_spase, &direction);
+  figur_falling_down(&test_figur, &game_spase, &direction);
   rotation_figurs(&test_figur);
   while (test_figur.move_triger == 0 && us_act == Start &&
          us_act != Terminate) {
     if (conditions_of_falling_down(test_figur, game_spase) == true) {
-      figur_falling_down(&test_figur, &us_act, &game_spase);
+      figur_falling_down(&test_figur, &game_spase, &direction);
 
     } else {
       test_figur.move_triger = 1;
@@ -291,13 +293,14 @@ START_TEST(test_tetris_2_1) {
   Figur test_figur = {0};
   Game_space game_spase = {0};
   GameInfo_t game_info = {0};
+  VectorDirection direction = Dormant;
   init_game_info(&game_info);
   init_space_game(&game_spase);
   init_figur(2, &test_figur);
   while (test_figur.move_triger == 0 && us_act == Start &&
          us_act != Terminate) {
     if (conditions_of_falling_down(test_figur, game_spase) == true) {
-      figur_falling_down(&test_figur, &us_act, &game_spase);
+      figur_falling_down(&test_figur, &game_spase, &direction);
 
     } else {
       test_figur.move_triger = 1;
@@ -312,6 +315,7 @@ START_TEST(test_tetris_2_2) {
   Figur test_figur = {0};
   Game_space game_spase = {0};
   GameInfo_t game_info = {0};
+  VectorDirection direction = Dormant;
   init_game_info(&game_info);
   init_space_game(&game_spase);
   init_figur(2, &test_figur);
@@ -319,7 +323,7 @@ START_TEST(test_tetris_2_2) {
   while (test_figur.move_triger == 0 && us_act == Start &&
          us_act != Terminate) {
     if (conditions_of_falling_down(test_figur, game_spase) == true) {
-      figur_falling_down(&test_figur, &us_act, &game_spase);
+      figur_falling_down(&test_figur, &game_spase, &direction);
 
     } else {
       test_figur.move_triger = 1;
@@ -334,6 +338,7 @@ START_TEST(test_tetris_2_3) {
   Figur test_figur = {0};
   Game_space game_spase = {0};
   GameInfo_t game_info = {0};
+  VectorDirection direction = Dormant;
   init_game_info(&game_info);
   init_space_game(&game_spase);
   init_figur(2, &test_figur);
@@ -342,7 +347,7 @@ START_TEST(test_tetris_2_3) {
   while (test_figur.move_triger == 0 && us_act == Start &&
          us_act != Terminate) {
     if (conditions_of_falling_down(test_figur, game_spase) == true) {
-      figur_falling_down(&test_figur, &us_act, &game_spase);
+      figur_falling_down(&test_figur, &game_spase, &direction);
 
     } else {
       test_figur.move_triger = 1;
@@ -357,6 +362,7 @@ START_TEST(test_tetris_2_4) {
   Figur test_figur = {0};
   Game_space game_spase = {0};
   GameInfo_t game_info = {0};
+  VectorDirection direction = Dormant;
   init_game_info(&game_info);
   init_space_game(&game_spase);
   init_figur(2, &test_figur);
@@ -366,7 +372,7 @@ START_TEST(test_tetris_2_4) {
   while (test_figur.move_triger == 0 && us_act == Start &&
          us_act != Terminate) {
     if (conditions_of_falling_down(test_figur, game_spase) == true) {
-      figur_falling_down(&test_figur, &us_act, &game_spase);
+      figur_falling_down(&test_figur, &game_spase, &direction);
 
     } else {
       test_figur.move_triger = 1;
@@ -381,13 +387,14 @@ START_TEST(test_tetris_3_1) {
   Figur test_figur = {0};
   Game_space game_spase = {0};
   GameInfo_t game_info = {0};
+  VectorDirection direction = Dormant;
   init_game_info(&game_info);
   init_space_game(&game_spase);
   init_figur(3, &test_figur);
   while (test_figur.move_triger == 0 && us_act == Start &&
          us_act != Terminate) {
     if (conditions_of_falling_down(test_figur, game_spase) == true) {
-      figur_falling_down(&test_figur, &us_act, &game_spase);
+      figur_falling_down(&test_figur, &game_spase, &direction);
 
     } else {
       test_figur.move_triger = 1;
@@ -402,6 +409,7 @@ START_TEST(test_tetris_3_2) {
   Figur test_figur = {0};
   Game_space game_spase = {0};
   GameInfo_t game_info = {0};
+  VectorDirection direction = Dormant;
   init_game_info(&game_info);
   init_space_game(&game_spase);
   init_figur(3, &test_figur);
@@ -409,7 +417,7 @@ START_TEST(test_tetris_3_2) {
   while (test_figur.move_triger == 0 && us_act == Start &&
          us_act != Terminate) {
     if (conditions_of_falling_down(test_figur, game_spase) == true) {
-      figur_falling_down(&test_figur, &us_act, &game_spase);
+      figur_falling_down(&test_figur, &game_spase, &direction);
 
     } else {
       test_figur.move_triger = 1;
@@ -424,6 +432,7 @@ START_TEST(test_tetris_3_3) {
   Figur test_figur = {0};
   Game_space game_spase = {0};
   GameInfo_t game_info = {0};
+  VectorDirection direction = Dormant;
   init_game_info(&game_info);
   init_space_game(&game_spase);
   init_figur(3, &test_figur);
@@ -432,7 +441,7 @@ START_TEST(test_tetris_3_3) {
   while (test_figur.move_triger == 0 && us_act == Start &&
          us_act != Terminate) {
     if (conditions_of_falling_down(test_figur, game_spase) == true) {
-      figur_falling_down(&test_figur, &us_act, &game_spase);
+      figur_falling_down(&test_figur, &game_spase, &direction);
 
     } else {
       test_figur.move_triger = 1;
@@ -447,6 +456,7 @@ START_TEST(test_tetris_3_4) {
   Figur test_figur = {0};
   Game_space game_spase = {0};
   GameInfo_t game_info = {0};
+  VectorDirection direction = Dormant;
   init_game_info(&game_info);
   init_space_game(&game_spase);
   init_figur(3, &test_figur);
@@ -456,7 +466,7 @@ START_TEST(test_tetris_3_4) {
   while (test_figur.move_triger == 0 && us_act == Start &&
          us_act != Terminate) {
     if (conditions_of_falling_down(test_figur, game_spase) == true) {
-      figur_falling_down(&test_figur, &us_act, &game_spase);
+      figur_falling_down(&test_figur, &game_spase, &direction);
 
     } else {
       test_figur.move_triger = 1;
@@ -471,13 +481,14 @@ START_TEST(test_tetris_4) {
   Figur test_figur = {0};
   Game_space game_spase = {0};
   GameInfo_t game_info = {0};
+  VectorDirection direction = Dormant;
   init_game_info(&game_info);
   init_space_game(&game_spase);
   init_figur(4, &test_figur);
   while (test_figur.move_triger == 0 && us_act == Start &&
          us_act != Terminate) {
     if (conditions_of_falling_down(test_figur, game_spase) == true) {
-      figur_falling_down(&test_figur, &us_act, &game_spase);
+      figur_falling_down(&test_figur, &game_spase, &direction);
 
     } else {
       test_figur.move_triger = 1;
@@ -492,13 +503,14 @@ START_TEST(test_tetris_5_1) {
   Figur test_figur = {0};
   Game_space game_spase = {0};
   GameInfo_t game_info = {0};
+  VectorDirection direction = Dormant;
   init_game_info(&game_info);
   init_space_game(&game_spase);
   init_figur(5, &test_figur);
   while (test_figur.move_triger == 0 && us_act == Start &&
          us_act != Terminate) {
     if (conditions_of_falling_down(test_figur, game_spase) == true) {
-      figur_falling_down(&test_figur, &us_act, &game_spase);
+      figur_falling_down(&test_figur, &game_spase, &direction);
 
     } else {
       test_figur.move_triger = 1;
@@ -513,16 +525,17 @@ START_TEST(test_tetris_5_2) {
   Figur test_figur = {0};
   Game_space game_spase = {0};
   GameInfo_t game_info = {0};
+  VectorDirection direction = Dormant;
   init_game_info(&game_info);
   init_space_game(&game_spase);
   init_figur(5, &test_figur);
-  figur_falling_down(&test_figur, &us_act, &game_spase);
-  figur_falling_down(&test_figur, &us_act, &game_spase);
+  figur_falling_down(&test_figur, &game_spase, &direction);
+  figur_falling_down(&test_figur, &game_spase, &direction);
   rotation_figurs(&test_figur);
   while (test_figur.move_triger == 0 && us_act == Start &&
          us_act != Terminate) {
     if (conditions_of_falling_down(test_figur, game_spase) == true) {
-      figur_falling_down(&test_figur, &us_act, &game_spase);
+      figur_falling_down(&test_figur, &game_spase, &direction);
 
     } else {
       test_figur.move_triger = 1;
@@ -537,13 +550,14 @@ START_TEST(test_tetris_6_1) {
   Figur test_figur = {0};
   Game_space game_spase = {0};
   GameInfo_t game_info = {0};
+  VectorDirection direction = Dormant;
   init_game_info(&game_info);
   init_space_game(&game_spase);
   init_figur(6, &test_figur);
   while (test_figur.move_triger == 0 && us_act == Start &&
          us_act != Terminate) {
     if (conditions_of_falling_down(test_figur, game_spase) == true) {
-      figur_falling_down(&test_figur, &us_act, &game_spase);
+      figur_falling_down(&test_figur, &game_spase, &direction);
 
     } else {
       test_figur.move_triger = 1;
@@ -558,6 +572,7 @@ START_TEST(test_tetris_6_2) {
   Figur test_figur = {0};
   Game_space game_spase = {0};
   GameInfo_t game_info = {0};
+  VectorDirection direction = Dormant;
   init_game_info(&game_info);
   init_space_game(&game_spase);
   init_figur(6, &test_figur);
@@ -565,7 +580,7 @@ START_TEST(test_tetris_6_2) {
   while (test_figur.move_triger == 0 && us_act == Start &&
          us_act != Terminate) {
     if (conditions_of_falling_down(test_figur, game_spase) == true) {
-      figur_falling_down(&test_figur, &us_act, &game_spase);
+      figur_falling_down(&test_figur, &game_spase, &direction);
 
     } else {
       test_figur.move_triger = 1;
@@ -580,6 +595,7 @@ START_TEST(test_tetris_6_3) {
   Figur test_figur = {0};
   Game_space game_spase = {0};
   GameInfo_t game_info = {0};
+  VectorDirection direction = Dormant;
   init_game_info(&game_info);
   init_space_game(&game_spase);
   init_figur(6, &test_figur);
@@ -588,7 +604,7 @@ START_TEST(test_tetris_6_3) {
   while (test_figur.move_triger == 0 && us_act == Start &&
          us_act != Terminate) {
     if (conditions_of_falling_down(test_figur, game_spase) == true) {
-      figur_falling_down(&test_figur, &us_act, &game_spase);
+      figur_falling_down(&test_figur, &game_spase, &direction);
 
     } else {
       test_figur.move_triger = 1;
@@ -603,13 +619,14 @@ START_TEST(test_tetris_7_1) {
   Figur test_figur = {0};
   Game_space game_spase = {0};
   GameInfo_t game_info = {0};
+  VectorDirection direction = Dormant;
   init_game_info(&game_info);
   init_space_game(&game_spase);
   init_figur(7, &test_figur);
   while (test_figur.move_triger == 0 && us_act == Start &&
          us_act != Terminate) {
     if (conditions_of_falling_down(test_figur, game_spase) == true) {
-      figur_falling_down(&test_figur, &us_act, &game_spase);
+      figur_falling_down(&test_figur, &game_spase, &direction);
 
     } else {
       test_figur.move_triger = 1;
@@ -624,16 +641,17 @@ START_TEST(test_tetris_7_2) {
   Figur test_figur = {0};
   Game_space game_spase = {0};
   GameInfo_t game_info = {0};
+  VectorDirection direction = Dormant;
   init_game_info(&game_info);
   init_space_game(&game_spase);
   init_figur(7, &test_figur);
-  figur_falling_down(&test_figur, &us_act, &game_spase);
-  figur_falling_down(&test_figur, &us_act, &game_spase);
+  figur_falling_down(&test_figur, &game_spase, &direction);
+  figur_falling_down(&test_figur, &game_spase, &direction);
   rotation_figurs(&test_figur);
   while (test_figur.move_triger == 0 && us_act == Start &&
          us_act != Terminate) {
     if (conditions_of_falling_down(test_figur, game_spase) == true) {
-      figur_falling_down(&test_figur, &us_act, &game_spase);
+      figur_falling_down(&test_figur, &game_spase, &direction);
 
     } else {
       test_figur.move_triger = 1;
@@ -648,6 +666,7 @@ START_TEST(test_tetris_6_4) {
   Figur test_figur = {0};
   Game_space game_spase = {0};
   GameInfo_t game_info = {0};
+  VectorDirection direction = Dormant;
   init_game_info(&game_info);
   init_space_game(&game_spase);
   init_figur(6, &test_figur);
@@ -657,7 +676,7 @@ START_TEST(test_tetris_6_4) {
   while (test_figur.move_triger == 0 && us_act == Start &&
          us_act != Terminate) {
     if (conditions_of_falling_down(test_figur, game_spase) == true) {
-      figur_falling_down(&test_figur, &us_act, &game_spase);
+      figur_falling_down(&test_figur, &game_spase, &direction);
 
     } else {
       test_figur.move_triger = 1;
@@ -673,11 +692,12 @@ START_TEST(test_tetris_traffic_permit_left_1_1) {
   Figur test_figur = {0};
   Game_space game_spase = {0};
   GameInfo_t game_info = {0};
+  VectorDirection direction = Dormant;
   init_game_info(&game_info);
   init_space_game(&game_spase);
   init_figur(1, &test_figur);
-  figur_falling_down(&test_figur, &us_act, &game_spase);
-  figur_falling_down(&test_figur, &us_act, &game_spase);
+  figur_falling_down(&test_figur, &game_spase, &direction);
+  figur_falling_down(&test_figur, &game_spase, &direction);
   // rotation_figurs(&test_figur);
   while (test_figur.move_triger == 0 && us_act == Start &&
          us_act != Terminate) {
@@ -691,7 +711,7 @@ START_TEST(test_tetris_traffic_permit_left_1_1) {
         test_figur.position[7]--;
         print_figur_in_game_poly(&game_spase, &test_figur);
       }
-      figur_falling_down(&test_figur, &us_act, &game_spase);
+      figur_falling_down(&test_figur, &game_spase, &direction);
 
     } else {
       test_figur.move_triger = 1;
@@ -709,11 +729,12 @@ START_TEST(test_tetris_traffic_permit_left_1_2) {
   Figur test_figur = {0};
   Game_space game_spase = {0};
   GameInfo_t game_info = {0};
+  VectorDirection direction = Dormant;
   init_game_info(&game_info);
   init_space_game(&game_spase);
   init_figur(1, &test_figur);
-  figur_falling_down(&test_figur, &us_act, &game_spase);
-  figur_falling_down(&test_figur, &us_act, &game_spase);
+  figur_falling_down(&test_figur, &game_spase, &direction);
+  figur_falling_down(&test_figur, &game_spase, &direction);
   rotation_figurs(&test_figur);
   while (test_figur.move_triger == 0 && us_act == Start &&
          us_act != Terminate) {
@@ -727,7 +748,7 @@ START_TEST(test_tetris_traffic_permit_left_1_2) {
         test_figur.position[7]--;
         print_figur_in_game_poly(&game_spase, &test_figur);
       }
-      figur_falling_down(&test_figur, &us_act, &game_spase);
+      figur_falling_down(&test_figur, &game_spase, &direction);
 
     } else {
       test_figur.move_triger = 1;
@@ -745,6 +766,7 @@ START_TEST(test_tetris_traffic_permit_left_2_1) {
   Figur test_figur = {0};
   Game_space game_spase = {0};
   GameInfo_t game_info = {0};
+  VectorDirection direction = Dormant;
   init_game_info(&game_info);
   init_space_game(&game_spase);
   init_figur(2, &test_figur);
@@ -760,7 +782,7 @@ START_TEST(test_tetris_traffic_permit_left_2_1) {
         test_figur.position[7]--;
         print_figur_in_game_poly(&game_spase, &test_figur);
       }
-      figur_falling_down(&test_figur, &us_act, &game_spase);
+      figur_falling_down(&test_figur, &game_spase, &direction);
 
     } else {
       test_figur.move_triger = 1;
@@ -778,6 +800,7 @@ START_TEST(test_tetris_traffic_permit_left_2_2) {
   Figur test_figur = {0};
   Game_space game_spase = {0};
   GameInfo_t game_info = {0};
+  VectorDirection direction = Dormant;
   init_game_info(&game_info);
   init_space_game(&game_spase);
   init_figur(2, &test_figur);
@@ -794,7 +817,7 @@ START_TEST(test_tetris_traffic_permit_left_2_2) {
         test_figur.position[7]--;
         print_figur_in_game_poly(&game_spase, &test_figur);
       }
-      figur_falling_down(&test_figur, &us_act, &game_spase);
+      figur_falling_down(&test_figur, &game_spase, &direction);
 
     } else {
       test_figur.move_triger = 1;
@@ -812,6 +835,7 @@ START_TEST(test_tetris_traffic_permit_left_2_3) {
   Figur test_figur = {0};
   Game_space game_spase = {0};
   GameInfo_t game_info = {0};
+  VectorDirection direction = Dormant;
   init_game_info(&game_info);
   init_space_game(&game_spase);
   init_figur(2, &test_figur);
@@ -829,7 +853,7 @@ START_TEST(test_tetris_traffic_permit_left_2_3) {
         test_figur.position[7]--;
         print_figur_in_game_poly(&game_spase, &test_figur);
       }
-      figur_falling_down(&test_figur, &us_act, &game_spase);
+      figur_falling_down(&test_figur, &game_spase, &direction);
 
     } else {
       test_figur.move_triger = 1;
@@ -847,6 +871,7 @@ START_TEST(test_tetris_traffic_permit_left_2_4) {
   Figur test_figur = {0};
   Game_space game_spase = {0};
   GameInfo_t game_info = {0};
+  VectorDirection direction = Dormant;
   init_game_info(&game_info);
   init_space_game(&game_spase);
   init_figur(2, &test_figur);
@@ -865,7 +890,7 @@ START_TEST(test_tetris_traffic_permit_left_2_4) {
         test_figur.position[7]--;
         print_figur_in_game_poly(&game_spase, &test_figur);
       }
-      figur_falling_down(&test_figur, &us_act, &game_spase);
+      figur_falling_down(&test_figur, &game_spase, &direction);
 
     } else {
       test_figur.move_triger = 1;
@@ -883,6 +908,7 @@ START_TEST(test_tetris_traffic_permit_left_3_1) {
   Figur test_figur = {0};
   Game_space game_spase = {0};
   GameInfo_t game_info = {0};
+  VectorDirection direction = Dormant;
   init_game_info(&game_info);
   init_space_game(&game_spase);
   init_figur(3, &test_figur);
@@ -898,7 +924,7 @@ START_TEST(test_tetris_traffic_permit_left_3_1) {
         test_figur.position[7]--;
         print_figur_in_game_poly(&game_spase, &test_figur);
       }
-      figur_falling_down(&test_figur, &us_act, &game_spase);
+      figur_falling_down(&test_figur, &game_spase, &direction);
 
     } else {
       test_figur.move_triger = 1;
@@ -916,6 +942,7 @@ START_TEST(test_tetris_traffic_permit_left_3_2) {
   Figur test_figur = {0};
   Game_space game_spase = {0};
   GameInfo_t game_info = {0};
+  VectorDirection direction = Dormant;
   init_game_info(&game_info);
   init_space_game(&game_spase);
   init_figur(3, &test_figur);
@@ -932,7 +959,7 @@ START_TEST(test_tetris_traffic_permit_left_3_2) {
         test_figur.position[7]--;
         print_figur_in_game_poly(&game_spase, &test_figur);
       }
-      figur_falling_down(&test_figur, &us_act, &game_spase);
+      figur_falling_down(&test_figur, &game_spase, &direction);
 
     } else {
       test_figur.move_triger = 1;
@@ -950,6 +977,7 @@ START_TEST(test_tetris_traffic_permit_left_3_3) {
   Figur test_figur = {0};
   Game_space game_spase = {0};
   GameInfo_t game_info = {0};
+  VectorDirection direction = Dormant;
   init_game_info(&game_info);
   init_space_game(&game_spase);
   init_figur(3, &test_figur);
@@ -967,7 +995,7 @@ START_TEST(test_tetris_traffic_permit_left_3_3) {
         test_figur.position[7]--;
         print_figur_in_game_poly(&game_spase, &test_figur);
       }
-      figur_falling_down(&test_figur, &us_act, &game_spase);
+      figur_falling_down(&test_figur, &game_spase, &direction);
 
     } else {
       test_figur.move_triger = 1;
@@ -985,6 +1013,7 @@ START_TEST(test_tetris_traffic_permit_left_3_4) {
   Figur test_figur = {0};
   Game_space game_spase = {0};
   GameInfo_t game_info = {0};
+  VectorDirection direction = Dormant;
   init_game_info(&game_info);
   init_space_game(&game_spase);
   init_figur(3, &test_figur);
@@ -1003,7 +1032,7 @@ START_TEST(test_tetris_traffic_permit_left_3_4) {
         test_figur.position[7]--;
         print_figur_in_game_poly(&game_spase, &test_figur);
       }
-      figur_falling_down(&test_figur, &us_act, &game_spase);
+      figur_falling_down(&test_figur, &game_spase, &direction);
 
     } else {
       test_figur.move_triger = 1;
@@ -1021,11 +1050,12 @@ START_TEST(test_tetris_traffic_permit_left_4) {
   Figur test_figur = {0};
   Game_space game_spase = {0};
   GameInfo_t game_info = {0};
+  VectorDirection direction = Dormant;
   init_game_info(&game_info);
   init_space_game(&game_spase);
   init_figur(4, &test_figur);
-  // figur_falling_down(&test_figur, &us_act, &game_spase);
-  // figur_falling_down(&test_figur, &us_act, &game_spase);
+  // figur_falling_down(&test_figur, &game_spase, &direction);
+  // figur_falling_down(&test_figur, &game_spase, &direction);
   // rotation_figurs(&test_figur);
   while (test_figur.move_triger == 0 && us_act == Start &&
          us_act != Terminate) {
@@ -1039,7 +1069,7 @@ START_TEST(test_tetris_traffic_permit_left_4) {
         test_figur.position[7]--;
         print_figur_in_game_poly(&game_spase, &test_figur);
       }
-      figur_falling_down(&test_figur, &us_act, &game_spase);
+      figur_falling_down(&test_figur, &game_spase, &direction);
 
     } else {
       test_figur.move_triger = 1;
@@ -1057,6 +1087,7 @@ START_TEST(test_tetris_traffic_permit_left_5_1) {
   Figur test_figur = {0};
   Game_space game_spase = {0};
   GameInfo_t game_info = {0};
+  VectorDirection direction = Dormant;
   init_game_info(&game_info);
   init_space_game(&game_spase);
   init_figur(5, &test_figur);
@@ -1072,7 +1103,7 @@ START_TEST(test_tetris_traffic_permit_left_5_1) {
         test_figur.position[7]--;
         print_figur_in_game_poly(&game_spase, &test_figur);
       }
-      figur_falling_down(&test_figur, &us_act, &game_spase);
+      figur_falling_down(&test_figur, &game_spase, &direction);
 
     } else {
       test_figur.move_triger = 1;
@@ -1090,11 +1121,12 @@ START_TEST(test_tetris_traffic_permit_left_5_2) {
   Figur test_figur = {0};
   Game_space game_spase = {0};
   GameInfo_t game_info = {0};
+  VectorDirection direction = Dormant;
   init_game_info(&game_info);
   init_space_game(&game_spase);
   init_figur(5, &test_figur);
-  figur_falling_down(&test_figur, &us_act, &game_spase);
-  figur_falling_down(&test_figur, &us_act, &game_spase);
+  figur_falling_down(&test_figur, &game_spase, &direction);
+  figur_falling_down(&test_figur, &game_spase, &direction);
   rotation_figurs(&test_figur);
   while (test_figur.move_triger == 0 && us_act == Start &&
          us_act != Terminate) {
@@ -1108,7 +1140,7 @@ START_TEST(test_tetris_traffic_permit_left_5_2) {
         test_figur.position[7]--;
         print_figur_in_game_poly(&game_spase, &test_figur);
       }
-      figur_falling_down(&test_figur, &us_act, &game_spase);
+      figur_falling_down(&test_figur, &game_spase, &direction);
 
     } else {
       test_figur.move_triger = 1;
@@ -1126,6 +1158,7 @@ START_TEST(test_tetris_traffic_permit_left_6_1) {
   Figur test_figur = {0};
   Game_space game_spase = {0};
   GameInfo_t game_info = {0};
+  VectorDirection direction = Dormant;
   init_game_info(&game_info);
   init_space_game(&game_spase);
   init_figur(6, &test_figur);
@@ -1141,7 +1174,7 @@ START_TEST(test_tetris_traffic_permit_left_6_1) {
         test_figur.position[7]--;
         print_figur_in_game_poly(&game_spase, &test_figur);
       }
-      figur_falling_down(&test_figur, &us_act, &game_spase);
+      figur_falling_down(&test_figur, &game_spase, &direction);
 
     } else {
       test_figur.move_triger = 1;
@@ -1159,6 +1192,7 @@ START_TEST(test_tetris_traffic_permit_left_6_2) {
   Figur test_figur = {0};
   Game_space game_spase = {0};
   GameInfo_t game_info = {0};
+  VectorDirection direction = Dormant;
   init_game_info(&game_info);
   init_space_game(&game_spase);
   init_figur(6, &test_figur);
@@ -1175,7 +1209,7 @@ START_TEST(test_tetris_traffic_permit_left_6_2) {
         test_figur.position[7]--;
         print_figur_in_game_poly(&game_spase, &test_figur);
       }
-      figur_falling_down(&test_figur, &us_act, &game_spase);
+      figur_falling_down(&test_figur, &game_spase, &direction);
 
     } else {
       test_figur.move_triger = 1;
@@ -1193,6 +1227,7 @@ START_TEST(test_tetris_traffic_permit_left_6_3) {
   Figur test_figur = {0};
   Game_space game_spase = {0};
   GameInfo_t game_info = {0};
+  VectorDirection direction = Dormant;
   init_game_info(&game_info);
   init_space_game(&game_spase);
   init_figur(6, &test_figur);
@@ -1210,7 +1245,7 @@ START_TEST(test_tetris_traffic_permit_left_6_3) {
         test_figur.position[7]--;
         print_figur_in_game_poly(&game_spase, &test_figur);
       }
-      figur_falling_down(&test_figur, &us_act, &game_spase);
+      figur_falling_down(&test_figur, &game_spase, &direction);
 
     } else {
       test_figur.move_triger = 1;
@@ -1228,6 +1263,7 @@ START_TEST(test_tetris_traffic_permit_left_6_4) {
   Figur test_figur = {0};
   Game_space game_spase = {0};
   GameInfo_t game_info = {0};
+  VectorDirection direction = Dormant;
   init_game_info(&game_info);
   init_space_game(&game_spase);
   init_figur(6, &test_figur);
@@ -1246,7 +1282,7 @@ START_TEST(test_tetris_traffic_permit_left_6_4) {
         test_figur.position[7]--;
         print_figur_in_game_poly(&game_spase, &test_figur);
       }
-      figur_falling_down(&test_figur, &us_act, &game_spase);
+      figur_falling_down(&test_figur, &game_spase, &direction);
 
     } else {
       test_figur.move_triger = 1;
@@ -1264,6 +1300,7 @@ START_TEST(test_tetris_traffic_permit_left_7_1) {
   Figur test_figur = {0};
   Game_space game_spase = {0};
   GameInfo_t game_info = {0};
+  VectorDirection direction = Dormant;
   init_game_info(&game_info);
   init_space_game(&game_spase);
   init_figur(7, &test_figur);
@@ -1279,7 +1316,7 @@ START_TEST(test_tetris_traffic_permit_left_7_1) {
         test_figur.position[7]--;
         print_figur_in_game_poly(&game_spase, &test_figur);
       }
-      figur_falling_down(&test_figur, &us_act, &game_spase);
+      figur_falling_down(&test_figur, &game_spase, &direction);
 
     } else {
       test_figur.move_triger = 1;
@@ -1297,11 +1334,12 @@ START_TEST(test_tetris_traffic_permit_left_7_2) {
   Figur test_figur = {0};
   Game_space game_spase = {0};
   GameInfo_t game_info = {0};
+  VectorDirection direction = Dormant;
   init_game_info(&game_info);
   init_space_game(&game_spase);
   init_figur(7, &test_figur);
-  figur_falling_down(&test_figur, &us_act, &game_spase);
-  figur_falling_down(&test_figur, &us_act, &game_spase);
+  figur_falling_down(&test_figur, &game_spase, &direction);
+  figur_falling_down(&test_figur, &game_spase, &direction);
   rotation_figurs(&test_figur);
   while (test_figur.move_triger == 0 && us_act == Start &&
          us_act != Terminate) {
@@ -1315,7 +1353,7 @@ START_TEST(test_tetris_traffic_permit_left_7_2) {
         test_figur.position[7]--;
         print_figur_in_game_poly(&game_spase, &test_figur);
       }
-      figur_falling_down(&test_figur, &us_act, &game_spase);
+      figur_falling_down(&test_figur, &game_spase, &direction);
 
     } else {
       test_figur.move_triger = 1;
@@ -1333,6 +1371,7 @@ START_TEST(test_tetris_traffic_permit_left_loop_1) {
   Figur test_figur = {0};
   Game_space game_spase = {0};
   GameInfo_t game_info = {0};
+  VectorDirection direction = Dormant;
   init_game_info(&game_info);
   init_space_game(&game_spase);
   for (int i = 1; i < 9; i++) {
@@ -1355,7 +1394,7 @@ START_TEST(test_tetris_traffic_permit_left_loop_1) {
           test_figur.position[7]--;
           print_figur_in_game_poly(&game_spase, &test_figur);
         }
-        figur_falling_down(&test_figur, &us_act, &game_spase);
+        figur_falling_down(&test_figur, &game_spase, &direction);
 
       } else {
         test_figur.move_triger = 1;
@@ -1374,6 +1413,7 @@ START_TEST(test_tetris_traffic_permit_left_loop_2) {
   Figur test_figur = {0};
   Game_space game_spase = {0};
   GameInfo_t game_info = {0};
+  VectorDirection direction = Dormant;
   init_game_info(&game_info);
   init_space_game(&game_spase);
   for (int i = 1; i < 10; i++) {
@@ -1384,8 +1424,8 @@ START_TEST(test_tetris_traffic_permit_left_loop_2) {
   }
   for (int i = 1; i < 8; i++) {
     init_figur(i, &test_figur);
-    figur_falling_down(&test_figur, &us_act, &game_spase);
-    figur_falling_down(&test_figur, &us_act, &game_spase);
+    figur_falling_down(&test_figur, &game_spase, &direction);
+    figur_falling_down(&test_figur, &game_spase, &direction);
     rotation_figurs(&test_figur);
     while (test_figur.move_triger == 0 && us_act == Start &&
            us_act != Terminate) {
@@ -1399,7 +1439,7 @@ START_TEST(test_tetris_traffic_permit_left_loop_2) {
           test_figur.position[7]--;
           print_figur_in_game_poly(&game_spase, &test_figur);
         }
-        figur_falling_down(&test_figur, &us_act, &game_spase);
+        figur_falling_down(&test_figur, &game_spase, &direction);
 
       } else {
         test_figur.move_triger = 1;
@@ -1418,6 +1458,7 @@ START_TEST(test_tetris_traffic_permit_left_loop_3) {
   Figur test_figur = {0};
   Game_space game_spase = {0};
   GameInfo_t game_info = {0};
+  VectorDirection direction = Dormant;
   init_game_info(&game_info);
   init_space_game(&game_spase);
   for (int i = 1; i < 10; i++) {
@@ -1428,8 +1469,8 @@ START_TEST(test_tetris_traffic_permit_left_loop_3) {
   }
   for (int i = 1; i < 8; i++) {
     init_figur(i, &test_figur);
-    figur_falling_down(&test_figur, &us_act, &game_spase);
-    figur_falling_down(&test_figur, &us_act, &game_spase);
+    figur_falling_down(&test_figur, &game_spase, &direction);
+    figur_falling_down(&test_figur, &game_spase, &direction);
     rotation_figurs(&test_figur);
     rotation_figurs(&test_figur);
     while (test_figur.move_triger == 0 && us_act == Start &&
@@ -1444,7 +1485,7 @@ START_TEST(test_tetris_traffic_permit_left_loop_3) {
           test_figur.position[7]--;
           print_figur_in_game_poly(&game_spase, &test_figur);
         }
-        figur_falling_down(&test_figur, &us_act, &game_spase);
+        figur_falling_down(&test_figur, &game_spase, &direction);
 
       } else {
         test_figur.move_triger = 1;
@@ -1463,6 +1504,7 @@ START_TEST(test_tetris_traffic_permit_left_loop_4) {
   Figur test_figur = {0};
   Game_space game_spase = {0};
   GameInfo_t game_info = {0};
+  VectorDirection direction = Dormant;
   init_game_info(&game_info);
   init_space_game(&game_spase);
   for (int i = 1; i < 10; i++) {
@@ -1473,8 +1515,8 @@ START_TEST(test_tetris_traffic_permit_left_loop_4) {
   }
   for (int i = 1; i < 8; i++) {
     init_figur(i, &test_figur);
-    figur_falling_down(&test_figur, &us_act, &game_spase);
-    figur_falling_down(&test_figur, &us_act, &game_spase);
+    figur_falling_down(&test_figur, &game_spase, &direction);
+    figur_falling_down(&test_figur, &game_spase, &direction);
     rotation_figurs(&test_figur);
     rotation_figurs(&test_figur);
     rotation_figurs(&test_figur);
@@ -1490,7 +1532,7 @@ START_TEST(test_tetris_traffic_permit_left_loop_4) {
           test_figur.position[7]--;
           print_figur_in_game_poly(&game_spase, &test_figur);
         }
-        figur_falling_down(&test_figur, &us_act, &game_spase);
+        figur_falling_down(&test_figur, &game_spase, &direction);
 
       } else {
         test_figur.move_triger = 1;
@@ -1511,6 +1553,7 @@ START_TEST(test_tetris_traffic_permit_right_1_1) {
   Figur test_figur = {0};
   Game_space game_spase = {0};
   GameInfo_t game_info = {0};
+  VectorDirection direction = Dormant;
   init_game_info(&game_info);
   init_space_game(&game_spase);
   init_figur(1, &test_figur);
@@ -1526,7 +1569,7 @@ START_TEST(test_tetris_traffic_permit_right_1_1) {
         test_figur.position[7]++;
         print_figur_in_game_poly(&game_spase, &test_figur);
       }
-      figur_falling_down(&test_figur, &us_act, &game_spase);
+      figur_falling_down(&test_figur, &game_spase, &direction);
 
     } else {
       test_figur.move_triger = 1;
@@ -1544,11 +1587,12 @@ START_TEST(test_tetris_traffic_permit_right_1_2) {
   Figur test_figur = {0};
   Game_space game_spase = {0};
   GameInfo_t game_info = {0};
+  VectorDirection direction = Dormant;
   init_game_info(&game_info);
   init_space_game(&game_spase);
   init_figur(1, &test_figur);
-  figur_falling_down(&test_figur, &us_act, &game_spase);
-  figur_falling_down(&test_figur, &us_act, &game_spase);
+  figur_falling_down(&test_figur, &game_spase, &direction);
+  figur_falling_down(&test_figur, &game_spase, &direction);
   rotation_figurs(&test_figur);
   while (test_figur.move_triger == 0 && us_act == Start &&
          us_act != Terminate) {
@@ -1562,7 +1606,7 @@ START_TEST(test_tetris_traffic_permit_right_1_2) {
         test_figur.position[7]++;
         print_figur_in_game_poly(&game_spase, &test_figur);
       }
-      figur_falling_down(&test_figur, &us_act, &game_spase);
+      figur_falling_down(&test_figur, &game_spase, &direction);
 
     } else {
       test_figur.move_triger = 1;
@@ -1580,6 +1624,7 @@ START_TEST(test_tetris_traffic_permit_right_2_1) {
   Figur test_figur = {0};
   Game_space game_spase = {0};
   GameInfo_t game_info = {0};
+  VectorDirection direction = Dormant;
   init_game_info(&game_info);
   init_space_game(&game_spase);
   init_figur(2, &test_figur);
@@ -1595,7 +1640,7 @@ START_TEST(test_tetris_traffic_permit_right_2_1) {
         test_figur.position[7]++;
         print_figur_in_game_poly(&game_spase, &test_figur);
       }
-      figur_falling_down(&test_figur, &us_act, &game_spase);
+      figur_falling_down(&test_figur, &game_spase, &direction);
 
     } else {
       test_figur.move_triger = 1;
@@ -1613,6 +1658,7 @@ START_TEST(test_tetris_traffic_permit_right_2_2) {
   Figur test_figur = {0};
   Game_space game_spase = {0};
   GameInfo_t game_info = {0};
+  VectorDirection direction = Dormant;
   init_game_info(&game_info);
   init_space_game(&game_spase);
   init_figur(2, &test_figur);
@@ -1629,7 +1675,7 @@ START_TEST(test_tetris_traffic_permit_right_2_2) {
         test_figur.position[7]++;
         print_figur_in_game_poly(&game_spase, &test_figur);
       }
-      figur_falling_down(&test_figur, &us_act, &game_spase);
+      figur_falling_down(&test_figur, &game_spase, &direction);
 
     } else {
       test_figur.move_triger = 1;
@@ -1647,6 +1693,7 @@ START_TEST(test_tetris_traffic_permit_right_2_3) {
   Figur test_figur = {0};
   Game_space game_spase = {0};
   GameInfo_t game_info = {0};
+  VectorDirection direction = Dormant;
   init_game_info(&game_info);
   init_space_game(&game_spase);
   init_figur(2, &test_figur);
@@ -1664,7 +1711,7 @@ START_TEST(test_tetris_traffic_permit_right_2_3) {
         test_figur.position[7]++;
         print_figur_in_game_poly(&game_spase, &test_figur);
       }
-      figur_falling_down(&test_figur, &us_act, &game_spase);
+      figur_falling_down(&test_figur, &game_spase, &direction);
 
     } else {
       test_figur.move_triger = 1;
@@ -1682,6 +1729,7 @@ START_TEST(test_tetris_traffic_permit_right_2_4) {
   Figur test_figur = {0};
   Game_space game_spase = {0};
   GameInfo_t game_info = {0};
+  VectorDirection direction = Dormant;
   init_game_info(&game_info);
   init_space_game(&game_spase);
   init_figur(2, &test_figur);
@@ -1700,7 +1748,7 @@ START_TEST(test_tetris_traffic_permit_right_2_4) {
         test_figur.position[7]++;
         print_figur_in_game_poly(&game_spase, &test_figur);
       }
-      figur_falling_down(&test_figur, &us_act, &game_spase);
+      figur_falling_down(&test_figur, &game_spase, &direction);
 
     } else {
       test_figur.move_triger = 1;
@@ -1718,6 +1766,7 @@ START_TEST(test_tetris_traffic_permit_right_3_1) {
   Figur test_figur = {0};
   Game_space game_spase = {0};
   GameInfo_t game_info = {0};
+  VectorDirection direction = Dormant;
   init_game_info(&game_info);
   init_space_game(&game_spase);
   init_figur(3, &test_figur);
@@ -1733,7 +1782,7 @@ START_TEST(test_tetris_traffic_permit_right_3_1) {
         test_figur.position[7]++;
         print_figur_in_game_poly(&game_spase, &test_figur);
       }
-      figur_falling_down(&test_figur, &us_act, &game_spase);
+      figur_falling_down(&test_figur, &game_spase, &direction);
 
     } else {
       test_figur.move_triger = 1;
@@ -1751,6 +1800,7 @@ START_TEST(test_tetris_traffic_permit_right_3_2) {
   Figur test_figur = {0};
   Game_space game_spase = {0};
   GameInfo_t game_info = {0};
+  VectorDirection direction = Dormant;
   init_game_info(&game_info);
   init_space_game(&game_spase);
   init_figur(3, &test_figur);
@@ -1767,7 +1817,7 @@ START_TEST(test_tetris_traffic_permit_right_3_2) {
         test_figur.position[7]++;
         print_figur_in_game_poly(&game_spase, &test_figur);
       }
-      figur_falling_down(&test_figur, &us_act, &game_spase);
+      figur_falling_down(&test_figur, &game_spase, &direction);
 
     } else {
       test_figur.move_triger = 1;
@@ -1785,6 +1835,7 @@ START_TEST(test_tetris_traffic_permit_right_3_3) {
   Figur test_figur = {0};
   Game_space game_spase = {0};
   GameInfo_t game_info = {0};
+  VectorDirection direction = Dormant;
   init_game_info(&game_info);
   init_space_game(&game_spase);
   init_figur(3, &test_figur);
@@ -1802,7 +1853,7 @@ START_TEST(test_tetris_traffic_permit_right_3_3) {
         test_figur.position[7]++;
         print_figur_in_game_poly(&game_spase, &test_figur);
       }
-      figur_falling_down(&test_figur, &us_act, &game_spase);
+      figur_falling_down(&test_figur, &game_spase, &direction);
 
     } else {
       test_figur.move_triger = 1;
@@ -1820,6 +1871,7 @@ START_TEST(test_tetris_traffic_permit_right_3_4) {
   Figur test_figur = {0};
   Game_space game_spase = {0};
   GameInfo_t game_info = {0};
+  VectorDirection direction = Dormant;
   init_game_info(&game_info);
   init_space_game(&game_spase);
   init_figur(3, &test_figur);
@@ -1838,7 +1890,7 @@ START_TEST(test_tetris_traffic_permit_right_3_4) {
         test_figur.position[7]++;
         print_figur_in_game_poly(&game_spase, &test_figur);
       }
-      figur_falling_down(&test_figur, &us_act, &game_spase);
+      figur_falling_down(&test_figur, &game_spase, &direction);
 
     } else {
       test_figur.move_triger = 1;
@@ -1856,6 +1908,7 @@ START_TEST(test_tetris_traffic_permit_right_4) {
   Figur test_figur = {0};
   Game_space game_spase = {0};
   GameInfo_t game_info = {0};
+  VectorDirection direction = Dormant;
   init_game_info(&game_info);
   init_space_game(&game_spase);
   init_figur(4, &test_figur);
@@ -1871,7 +1924,7 @@ START_TEST(test_tetris_traffic_permit_right_4) {
         test_figur.position[7]++;
         print_figur_in_game_poly(&game_spase, &test_figur);
       }
-      figur_falling_down(&test_figur, &us_act, &game_spase);
+      figur_falling_down(&test_figur, &game_spase, &direction);
 
     } else {
       test_figur.move_triger = 1;
@@ -1889,6 +1942,7 @@ START_TEST(test_tetris_traffic_permit_right_5_1) {
   Figur test_figur = {0};
   Game_space game_spase = {0};
   GameInfo_t game_info = {0};
+  VectorDirection direction = Dormant;
   init_game_info(&game_info);
   init_space_game(&game_spase);
   init_figur(5, &test_figur);
@@ -1904,7 +1958,7 @@ START_TEST(test_tetris_traffic_permit_right_5_1) {
         test_figur.position[7]++;
         print_figur_in_game_poly(&game_spase, &test_figur);
       }
-      figur_falling_down(&test_figur, &us_act, &game_spase);
+      figur_falling_down(&test_figur, &game_spase, &direction);
 
     } else {
       test_figur.move_triger = 1;
@@ -1922,11 +1976,12 @@ START_TEST(test_tetris_traffic_permit_right_5_2) {
   Figur test_figur = {0};
   Game_space game_spase = {0};
   GameInfo_t game_info = {0};
+  VectorDirection direction = Dormant;
   init_game_info(&game_info);
   init_space_game(&game_spase);
   init_figur(5, &test_figur);
-  figur_falling_down(&test_figur, &us_act, &game_spase);
-  figur_falling_down(&test_figur, &us_act, &game_spase);
+  figur_falling_down(&test_figur, &game_spase, &direction);
+  figur_falling_down(&test_figur, &game_spase, &direction);
   rotation_figurs(&test_figur);
   while (test_figur.move_triger == 0 && us_act == Start &&
          us_act != Terminate) {
@@ -1940,7 +1995,7 @@ START_TEST(test_tetris_traffic_permit_right_5_2) {
         test_figur.position[7]++;
         print_figur_in_game_poly(&game_spase, &test_figur);
       }
-      figur_falling_down(&test_figur, &us_act, &game_spase);
+      figur_falling_down(&test_figur, &game_spase, &direction);
 
     } else {
       test_figur.move_triger = 1;
@@ -1958,6 +2013,7 @@ START_TEST(test_tetris_traffic_permit_right_6_1) {
   Figur test_figur = {0};
   Game_space game_spase = {0};
   GameInfo_t game_info = {0};
+  VectorDirection direction = Dormant;
   init_game_info(&game_info);
   init_space_game(&game_spase);
   init_figur(6, &test_figur);
@@ -1973,7 +2029,7 @@ START_TEST(test_tetris_traffic_permit_right_6_1) {
         test_figur.position[7]++;
         print_figur_in_game_poly(&game_spase, &test_figur);
       }
-      figur_falling_down(&test_figur, &us_act, &game_spase);
+      figur_falling_down(&test_figur, &game_spase, &direction);
 
     } else {
       test_figur.move_triger = 1;
@@ -1991,6 +2047,7 @@ START_TEST(test_tetris_traffic_permit_right_6_2) {
   Figur test_figur = {0};
   Game_space game_spase = {0};
   GameInfo_t game_info = {0};
+  VectorDirection direction = Dormant;
   init_game_info(&game_info);
   init_space_game(&game_spase);
   init_figur(6, &test_figur);
@@ -2007,7 +2064,7 @@ START_TEST(test_tetris_traffic_permit_right_6_2) {
         test_figur.position[7]++;
         print_figur_in_game_poly(&game_spase, &test_figur);
       }
-      figur_falling_down(&test_figur, &us_act, &game_spase);
+      figur_falling_down(&test_figur, &game_spase, &direction);
 
     } else {
       test_figur.move_triger = 1;
@@ -2025,6 +2082,7 @@ START_TEST(test_tetris_traffic_permit_right_6_3) {
   Figur test_figur = {0};
   Game_space game_spase = {0};
   GameInfo_t game_info = {0};
+  VectorDirection direction = Dormant;
   init_game_info(&game_info);
   init_space_game(&game_spase);
   init_figur(6, &test_figur);
@@ -2042,7 +2100,7 @@ START_TEST(test_tetris_traffic_permit_right_6_3) {
         test_figur.position[7]++;
         print_figur_in_game_poly(&game_spase, &test_figur);
       }
-      figur_falling_down(&test_figur, &us_act, &game_spase);
+      figur_falling_down(&test_figur, &game_spase, &direction);
 
     } else {
       test_figur.move_triger = 1;
@@ -2060,6 +2118,7 @@ START_TEST(test_tetris_traffic_permit_right_6_4) {
   Figur test_figur = {0};
   Game_space game_spase = {0};
   GameInfo_t game_info = {0};
+  VectorDirection direction = Dormant;
   init_game_info(&game_info);
   init_space_game(&game_spase);
   init_figur(6, &test_figur);
@@ -2078,7 +2137,7 @@ START_TEST(test_tetris_traffic_permit_right_6_4) {
         test_figur.position[7]++;
         print_figur_in_game_poly(&game_spase, &test_figur);
       }
-      figur_falling_down(&test_figur, &us_act, &game_spase);
+      figur_falling_down(&test_figur, &game_spase, &direction);
 
     } else {
       test_figur.move_triger = 1;
@@ -2096,6 +2155,7 @@ START_TEST(test_tetris_traffic_permit_right_7_1) {
   Figur test_figur = {0};
   Game_space game_spase = {0};
   GameInfo_t game_info = {0};
+  VectorDirection direction = Dormant;
   init_game_info(&game_info);
   init_space_game(&game_spase);
   init_figur(7, &test_figur);
@@ -2111,7 +2171,7 @@ START_TEST(test_tetris_traffic_permit_right_7_1) {
         test_figur.position[7]++;
         print_figur_in_game_poly(&game_spase, &test_figur);
       }
-      figur_falling_down(&test_figur, &us_act, &game_spase);
+      figur_falling_down(&test_figur, &game_spase, &direction);
 
     } else {
       test_figur.move_triger = 1;
@@ -2129,11 +2189,12 @@ START_TEST(test_tetris_traffic_permit_right_7_2) {
   Figur test_figur = {0};
   Game_space game_spase = {0};
   GameInfo_t game_info = {0};
+  VectorDirection direction = Dormant;
   init_game_info(&game_info);
   init_space_game(&game_spase);
   init_figur(7, &test_figur);
-  figur_falling_down(&test_figur, &us_act, &game_spase);
-  figur_falling_down(&test_figur, &us_act, &game_spase);
+  figur_falling_down(&test_figur, &game_spase, &direction);
+  figur_falling_down(&test_figur, &game_spase, &direction);
   rotation_figurs(&test_figur);
   while (test_figur.move_triger == 0 && us_act == Start &&
          us_act != Terminate) {
@@ -2147,7 +2208,7 @@ START_TEST(test_tetris_traffic_permit_right_7_2) {
         test_figur.position[7]++;
         print_figur_in_game_poly(&game_spase, &test_figur);
       }
-      figur_falling_down(&test_figur, &us_act, &game_spase);
+      figur_falling_down(&test_figur, &game_spase, &direction);
 
     } else {
       test_figur.move_triger = 1;
@@ -2165,6 +2226,7 @@ START_TEST(test_tetris_traffic_permit_right_loop_1) {
   Figur test_figur = {0};
   Game_space game_spase = {0};
   GameInfo_t game_info = {0};
+  VectorDirection direction = Dormant;
   init_game_info(&game_info);
   init_space_game(&game_spase);
   for (int i = 2; i < 10; i++) {
@@ -2187,7 +2249,7 @@ START_TEST(test_tetris_traffic_permit_right_loop_1) {
           test_figur.position[7]++;
           print_figur_in_game_poly(&game_spase, &test_figur);
         }
-        figur_falling_down(&test_figur, &us_act, &game_spase);
+        figur_falling_down(&test_figur, &game_spase, &direction);
 
       } else {
         test_figur.move_triger = 1;
@@ -2206,6 +2268,7 @@ START_TEST(test_tetris_traffic_permit_right_loop_2) {
   Figur test_figur = {0};
   Game_space game_spase = {0};
   GameInfo_t game_info = {0};
+  VectorDirection direction = Dormant;
   init_game_info(&game_info);
   init_space_game(&game_spase);
   for (int i = 2; i < 10; i++) {
@@ -2216,8 +2279,8 @@ START_TEST(test_tetris_traffic_permit_right_loop_2) {
   }
   for (int i = 1; i < 8; i++) {
     init_figur(i, &test_figur);
-    figur_falling_down(&test_figur, &us_act, &game_spase);
-    figur_falling_down(&test_figur, &us_act, &game_spase);
+    figur_falling_down(&test_figur, &game_spase, &direction);
+    figur_falling_down(&test_figur, &game_spase, &direction);
     rotation_figurs(&test_figur);
     while (test_figur.move_triger == 0 && us_act == Start &&
            us_act != Terminate) {
@@ -2231,7 +2294,7 @@ START_TEST(test_tetris_traffic_permit_right_loop_2) {
           test_figur.position[7]++;
           print_figur_in_game_poly(&game_spase, &test_figur);
         }
-        figur_falling_down(&test_figur, &us_act, &game_spase);
+        figur_falling_down(&test_figur, &game_spase, &direction);
 
       } else {
         test_figur.move_triger = 1;
@@ -2250,6 +2313,7 @@ START_TEST(test_tetris_traffic_permit_right_loop_3) {
   Figur test_figur = {0};
   Game_space game_spase = {0};
   GameInfo_t game_info = {0};
+  VectorDirection direction = Dormant;
   init_game_info(&game_info);
   init_space_game(&game_spase);
   for (int i = 2; i < 10; i++) {
@@ -2260,8 +2324,8 @@ START_TEST(test_tetris_traffic_permit_right_loop_3) {
   }
   for (int i = 1; i < 8; i++) {
     init_figur(i, &test_figur);
-    figur_falling_down(&test_figur, &us_act, &game_spase);
-    figur_falling_down(&test_figur, &us_act, &game_spase);
+    figur_falling_down(&test_figur, &game_spase, &direction);
+    figur_falling_down(&test_figur, &game_spase, &direction);
     rotation_figurs(&test_figur);
     rotation_figurs(&test_figur);
     while (test_figur.move_triger == 0 && us_act == Start &&
@@ -2276,7 +2340,7 @@ START_TEST(test_tetris_traffic_permit_right_loop_3) {
           test_figur.position[7]++;
           print_figur_in_game_poly(&game_spase, &test_figur);
         }
-        figur_falling_down(&test_figur, &us_act, &game_spase);
+        figur_falling_down(&test_figur, &game_spase, &direction);
 
       } else {
         test_figur.move_triger = 1;
@@ -2295,6 +2359,7 @@ START_TEST(test_tetris_traffic_permit_right_loop_4) {
   Figur test_figur = {0};
   Game_space game_spase = {0};
   GameInfo_t game_info = {0};
+  VectorDirection direction = Dormant;
   init_game_info(&game_info);
   init_space_game(&game_spase);
   for (int i = 2; i < 10; i++) {
@@ -2305,8 +2370,8 @@ START_TEST(test_tetris_traffic_permit_right_loop_4) {
   }
   for (int i = 1; i < 8; i++) {
     init_figur(i, &test_figur);
-    figur_falling_down(&test_figur, &us_act, &game_spase);
-    figur_falling_down(&test_figur, &us_act, &game_spase);
+    figur_falling_down(&test_figur, &game_spase, &direction);
+    figur_falling_down(&test_figur, &game_spase, &direction);
     rotation_figurs(&test_figur);
     rotation_figurs(&test_figur);
     rotation_figurs(&test_figur);
@@ -2322,7 +2387,7 @@ START_TEST(test_tetris_traffic_permit_right_loop_4) {
           test_figur.position[7]++;
           print_figur_in_game_poly(&game_spase, &test_figur);
         }
-        figur_falling_down(&test_figur, &us_act, &game_spase);
+        figur_falling_down(&test_figur, &game_spase, &direction);
 
       } else {
         test_figur.move_triger = 1;
@@ -2374,11 +2439,12 @@ START_TEST(test_tetris_traffic_permit_down_1_2) {
   Figur test_figur = {0};
   Game_space game_spase = {0};
   GameInfo_t game_info = {0};
+  VectorDirection direction = Dormant;
   init_game_info(&game_info);
   init_space_game(&game_spase);
   init_figur(1, &test_figur);
-  figur_falling_down(&test_figur, &us_act, &game_spase);
-  figur_falling_down(&test_figur, &us_act, &game_spase);
+  figur_falling_down(&test_figur, &game_spase, &direction);
+  figur_falling_down(&test_figur, &game_spase, &direction);
   rotation_figurs(&test_figur);
   while (test_figur.move_triger == 0 && us_act == Start &&
          us_act != Terminate) {
@@ -2680,8 +2746,8 @@ START_TEST(test_tetris_traffic_permit_down_4) {
   init_game_info(&game_info);
   init_space_game(&game_spase);
   init_figur(4, &test_figur);
-  // figur_falling_down(&test_figur, &us_act, &game_spase);
-  // figur_falling_down(&test_figur, &us_act, &game_spase);
+  // figur_falling_down(&test_figur, &game_spase, &direction);
+  // figur_falling_down(&test_figur, &game_spase, &direction);
   // rotation_figurs(&test_figur);
   while (test_figur.move_triger == 0 && us_act == Start &&
          us_act != Terminate) {
@@ -2715,8 +2781,8 @@ START_TEST(test_tetris_traffic_permit_down_5_1) {
   init_game_info(&game_info);
   init_space_game(&game_spase);
   init_figur(5, &test_figur);
-  // figur_falling_down(&test_figur, &us_act, &game_spase);
-  // figur_falling_down(&test_figur, &us_act, &game_spase);
+  // figur_falling_down(&test_figur, &game_spase, &direction);
+  // figur_falling_down(&test_figur, &game_spase, &direction);
   // rotation_figurs(&test_figur);
   while (test_figur.move_triger == 0 && us_act == Start &&
          us_act != Terminate) {
@@ -2747,11 +2813,12 @@ START_TEST(test_tetris_traffic_permit_down_5_2) {
   Figur test_figur = {0};
   Game_space game_spase = {0};
   GameInfo_t game_info = {0};
+  VectorDirection direction = Dormant;
   init_game_info(&game_info);
   init_space_game(&game_spase);
   init_figur(5, &test_figur);
-  figur_falling_down(&test_figur, &us_act, &game_spase);
-  figur_falling_down(&test_figur, &us_act, &game_spase);
+  figur_falling_down(&test_figur, &game_spase, &direction);
+  figur_falling_down(&test_figur, &game_spase, &direction);
   rotation_figurs(&test_figur);
   while (test_figur.move_triger == 0 && us_act == Start &&
          us_act != Terminate) {
@@ -2919,8 +2986,8 @@ START_TEST(test_tetris_traffic_permit_down_7_1) {
   init_game_info(&game_info);
   init_space_game(&game_spase);
   init_figur(7, &test_figur);
-  // figur_falling_down(&test_figur, &us_act, &game_spase);
-  // figur_falling_down(&test_figur, &us_act, &game_spase);
+  // figur_falling_down(&test_figur, &game_spase, &direction);
+  // figur_falling_down(&test_figur, &game_spase, &direction);
   // rotation_figurs(&test_figur);
   while (test_figur.move_triger == 0 && us_act == Start &&
          us_act != Terminate) {
@@ -2951,11 +3018,12 @@ START_TEST(test_tetris_traffic_permit_down_7_2) {
   Figur test_figur = {0};
   Game_space game_spase = {0};
   GameInfo_t game_info = {0};
+  VectorDirection direction = Dormant;
   init_game_info(&game_info);
   init_space_game(&game_spase);
   init_figur(7, &test_figur);
-  figur_falling_down(&test_figur, &us_act, &game_spase);
-  figur_falling_down(&test_figur, &us_act, &game_spase);
+  figur_falling_down(&test_figur, &game_spase, &direction);
+  figur_falling_down(&test_figur, &game_spase, &direction);
   rotation_figurs(&test_figur);
   while (test_figur.move_triger == 0 && us_act == Start &&
          us_act != Terminate) {
@@ -3026,6 +3094,7 @@ START_TEST(test_tetris_traffic_permit_down_loop_2) {
   Figur test_figur = {0};
   Game_space game_spase = {0};
   GameInfo_t game_info = {0};
+  VectorDirection direction = Dormant;
   init_game_info(&game_info);
   init_space_game(&game_spase);
   for (int i = 2; i < 10; i++) {
@@ -3036,8 +3105,8 @@ START_TEST(test_tetris_traffic_permit_down_loop_2) {
   }
   for (int i = 1; i < 8; i++) {
     init_figur(i, &test_figur);
-    figur_falling_down(&test_figur, &us_act, &game_spase);
-    figur_falling_down(&test_figur, &us_act, &game_spase);
+    figur_falling_down(&test_figur, &game_spase, &direction);
+    figur_falling_down(&test_figur, &game_spase, &direction);
     rotation_figurs(&test_figur);
     while (test_figur.move_triger == 0 && us_act == Start &&
            us_act != Terminate) {
@@ -3069,6 +3138,7 @@ START_TEST(test_tetris_traffic_permit_down_loop_3) {
   Figur test_figur = {0};
   Game_space game_spase = {0};
   GameInfo_t game_info = {0};
+  VectorDirection direction = Dormant;
   init_game_info(&game_info);
   init_space_game(&game_spase);
   for (int i = 2; i < 10; i++) {
@@ -3079,8 +3149,8 @@ START_TEST(test_tetris_traffic_permit_down_loop_3) {
   }
   for (int i = 1; i < 8; i++) {
     init_figur(i, &test_figur);
-    figur_falling_down(&test_figur, &us_act, &game_spase);
-    figur_falling_down(&test_figur, &us_act, &game_spase);
+    figur_falling_down(&test_figur, &game_spase, &direction);
+    figur_falling_down(&test_figur, &game_spase, &direction);
     rotation_figurs(&test_figur);
     rotation_figurs(&test_figur);
     while (test_figur.move_triger == 0 && us_act == Start &&
@@ -3113,6 +3183,7 @@ START_TEST(test_tetris_traffic_permit_down_loop_4) {
   Figur test_figur = {0};
   Game_space game_spase = {0};
   GameInfo_t game_info = {0};
+  VectorDirection direction = Dormant;
   init_game_info(&game_info);
   init_space_game(&game_spase);
   for (int i = 2; i < 10; i++) {
@@ -3123,8 +3194,8 @@ START_TEST(test_tetris_traffic_permit_down_loop_4) {
   }
   for (int i = 1; i < 8; i++) {
     init_figur(i, &test_figur);
-    figur_falling_down(&test_figur, &us_act, &game_spase);
-    figur_falling_down(&test_figur, &us_act, &game_spase);
+    figur_falling_down(&test_figur, &game_spase, &direction);
+    figur_falling_down(&test_figur, &game_spase, &direction);
     rotation_figurs(&test_figur);
     rotation_figurs(&test_figur);
     rotation_figurs(&test_figur);
@@ -3158,6 +3229,7 @@ START_TEST(test_tetris_traffic_permit_down_loop_5) {
   Figur test_figur = {0};
   Game_space game_spase = {0};
   GameInfo_t game_info = {0};
+  VectorDirection direction = Dormant;
   init_game_info(&game_info);
   init_space_game(&game_spase);
   for (int i = 2; i < 10; i++) {
@@ -3168,8 +3240,8 @@ START_TEST(test_tetris_traffic_permit_down_loop_5) {
   }
   for (int i = 1; i < 8; i++) {
     init_figur(3, &test_figur);
-    figur_falling_down(&test_figur, &us_act, &game_spase);
-    figur_falling_down(&test_figur, &us_act, &game_spase);
+    figur_falling_down(&test_figur, &game_spase, &direction);
+    figur_falling_down(&test_figur, &game_spase, &direction);
     rotation_figurs(&test_figur);
     rotation_figurs(&test_figur);
     rotation_figurs(&test_figur);
@@ -3203,6 +3275,7 @@ START_TEST(test_tetris_traffic_permit_down_loop_6) {
   Figur test_figur = {0};
   Game_space game_spase = {0};
   GameInfo_t game_info = {0};
+  VectorDirection direction = Dormant;
   init_game_info(&game_info);
   init_space_game(&game_spase);
   for (int i = 2; i < 10; i++) {
@@ -3213,8 +3286,8 @@ START_TEST(test_tetris_traffic_permit_down_loop_6) {
   }
   for (int i = 1; i < 8; i++) {
     init_figur(2, &test_figur);
-    figur_falling_down(&test_figur, &us_act, &game_spase);
-    figur_falling_down(&test_figur, &us_act, &game_spase);
+    figur_falling_down(&test_figur, &game_spase, &direction);
+    figur_falling_down(&test_figur, &game_spase, &direction);
     rotation_figurs(&test_figur);
     rotation_figurs(&test_figur);
     rotation_figurs(&test_figur);
@@ -3248,6 +3321,7 @@ START_TEST(test_tetris_traffic_permit_down_loop_7) {
   Figur test_figur = {0};
   Game_space game_spase = {0};
   GameInfo_t game_info = {0};
+  VectorDirection direction = Dormant;
   init_game_info(&game_info);
   init_space_game(&game_spase);
   for (int i = 2; i < 10; i++) {
@@ -3258,8 +3332,8 @@ START_TEST(test_tetris_traffic_permit_down_loop_7) {
   }
   for (int i = 1; i < 8; i++) {
     init_figur(1, &test_figur);
-    figur_falling_down(&test_figur, &us_act, &game_spase);
-    figur_falling_down(&test_figur, &us_act, &game_spase);
+    figur_falling_down(&test_figur, &game_spase, &direction);
+    figur_falling_down(&test_figur, &game_spase, &direction);
     rotation_figurs(&test_figur);
     rotation_figurs(&test_figur);
     rotation_figurs(&test_figur);
@@ -3293,6 +3367,7 @@ START_TEST(test_tetris_traffic_permit_down_loop_8) {
   Figur test_figur = {0};
   Game_space game_spase = {0};
   GameInfo_t game_info = {0};
+  VectorDirection direction = Dormant;
   init_game_info(&game_info);
   init_space_game(&game_spase);
   for (int i = 2; i < 10; i++) {
@@ -3303,8 +3378,8 @@ START_TEST(test_tetris_traffic_permit_down_loop_8) {
   }
   for (int i = 1; i < 8; i++) {
     init_figur(5, &test_figur);
-    figur_falling_down(&test_figur, &us_act, &game_spase);
-    figur_falling_down(&test_figur, &us_act, &game_spase);
+    figur_falling_down(&test_figur, &game_spase, &direction);
+    figur_falling_down(&test_figur, &game_spase, &direction);
     rotation_figurs(&test_figur);
     rotation_figurs(&test_figur);
     rotation_figurs(&test_figur);
@@ -3338,6 +3413,7 @@ START_TEST(test_tetris_traffic_permit_down_loop_9) {
   Figur test_figur = {0};
   Game_space game_spase = {0};
   GameInfo_t game_info = {0};
+  VectorDirection direction = Dormant;
   init_game_info(&game_info);
   init_space_game(&game_spase);
   for (int i = 2; i < 10; i++) {
@@ -3348,8 +3424,8 @@ START_TEST(test_tetris_traffic_permit_down_loop_9) {
   }
   for (int i = 1; i < 8; i++) {
     init_figur(6, &test_figur);
-    figur_falling_down(&test_figur, &us_act, &game_spase);
-    figur_falling_down(&test_figur, &us_act, &game_spase);
+    figur_falling_down(&test_figur, &game_spase, &direction);
+    figur_falling_down(&test_figur, &game_spase, &direction);
     rotation_figurs(&test_figur);
     rotation_figurs(&test_figur);
     rotation_figurs(&test_figur);
@@ -3385,12 +3461,13 @@ START_TEST(test_tetris_traffic_permit_flip_1_1) {
   Figur test_figur = {0};
   Game_space game_spase = {0};
   GameInfo_t game_info = {0};
+  VectorDirection direction = Dormant;
   init_game_info(&game_info);
   init_space_game(&game_spase);
   init_figur(1, &test_figur);
-  figur_falling_down(&test_figur, &us_act, &game_spase);
-  figur_falling_down(&test_figur, &us_act, &game_spase);
-  figur_falling_down(&test_figur, &us_act, &game_spase);
+  figur_falling_down(&test_figur, &game_spase, &direction);
+  figur_falling_down(&test_figur, &game_spase, &direction);
+  figur_falling_down(&test_figur, &game_spase, &direction);
   while (test_figur.move_triger == 0 && us_act == Start &&
          us_act != Terminate) {
     if (conditions_of_falling_down(test_figur, game_spase) == true) {
@@ -3400,7 +3477,7 @@ START_TEST(test_tetris_traffic_permit_flip_1_1) {
         rotation_figurs(&test_figur);
         print_figur_in_game_poly(&game_spase, &test_figur);
       }
-      figur_falling_down(&test_figur, &us_act, &game_spase);
+      figur_falling_down(&test_figur, &game_spase, &direction);
 
     } else {
       test_figur.move_triger = 1;
@@ -3418,12 +3495,13 @@ START_TEST(test_tetris_traffic_permit_flip_1_2) {
   Figur test_figur = {0};
   Game_space game_spase = {0};
   GameInfo_t game_info = {0};
+  VectorDirection direction = Dormant;
   init_game_info(&game_info);
   init_space_game(&game_spase);
   init_figur(1, &test_figur);
-  figur_falling_down(&test_figur, &us_act, &game_spase);
-  figur_falling_down(&test_figur, &us_act, &game_spase);
-  figur_falling_down(&test_figur, &us_act, &game_spase);
+  figur_falling_down(&test_figur, &game_spase, &direction);
+  figur_falling_down(&test_figur, &game_spase, &direction);
+  figur_falling_down(&test_figur, &game_spase, &direction);
   rotation_figurs(&test_figur);
   while (test_figur.move_triger == 0 && us_act == Start &&
          us_act != Terminate) {
@@ -3434,7 +3512,7 @@ START_TEST(test_tetris_traffic_permit_flip_1_2) {
         rotation_figurs(&test_figur);
         print_figur_in_game_poly(&game_spase, &test_figur);
       }
-      figur_falling_down(&test_figur, &us_act, &game_spase);
+      figur_falling_down(&test_figur, &game_spase, &direction);
 
     } else {
       test_figur.move_triger = 1;
@@ -3452,6 +3530,7 @@ START_TEST(test_tetris_traffic_permit_flip_2_1) {
   Figur test_figur = {0};
   Game_space game_spase = {0};
   GameInfo_t game_info = {0};
+  VectorDirection direction = Dormant;
   init_game_info(&game_info);
   init_space_game(&game_spase);
   init_figur(2, &test_figur);
@@ -3464,7 +3543,7 @@ START_TEST(test_tetris_traffic_permit_flip_2_1) {
         rotation_figurs(&test_figur);
         print_figur_in_game_poly(&game_spase, &test_figur);
       }
-      figur_falling_down(&test_figur, &us_act, &game_spase);
+      figur_falling_down(&test_figur, &game_spase, &direction);
 
     } else {
       test_figur.move_triger = 1;
@@ -3482,6 +3561,7 @@ START_TEST(test_tetris_traffic_permit_flip_2_2) {
   Figur test_figur = {0};
   Game_space game_spase = {0};
   GameInfo_t game_info = {0};
+  VectorDirection direction = Dormant;
   init_game_info(&game_info);
   init_space_game(&game_spase);
   init_figur(2, &test_figur);
@@ -3495,7 +3575,7 @@ START_TEST(test_tetris_traffic_permit_flip_2_2) {
         rotation_figurs(&test_figur);
         print_figur_in_game_poly(&game_spase, &test_figur);
       }
-      figur_falling_down(&test_figur, &us_act, &game_spase);
+      figur_falling_down(&test_figur, &game_spase, &direction);
 
     } else {
       test_figur.move_triger = 1;
@@ -3513,6 +3593,7 @@ START_TEST(test_tetris_traffic_permit_flip_2_3) {
   Figur test_figur = {0};
   Game_space game_spase = {0};
   GameInfo_t game_info = {0};
+  VectorDirection direction = Dormant;
   init_game_info(&game_info);
   init_space_game(&game_spase);
   init_figur(2, &test_figur);
@@ -3527,7 +3608,7 @@ START_TEST(test_tetris_traffic_permit_flip_2_3) {
         rotation_figurs(&test_figur);
         print_figur_in_game_poly(&game_spase, &test_figur);
       }
-      figur_falling_down(&test_figur, &us_act, &game_spase);
+      figur_falling_down(&test_figur, &game_spase, &direction);
 
     } else {
       test_figur.move_triger = 1;
@@ -3545,10 +3626,11 @@ START_TEST(test_tetris_traffic_permit_flip_2_4) {
   Figur test_figur = {0};
   Game_space game_spase = {0};
   GameInfo_t game_info = {0};
+  VectorDirection direction = Dormant;
   init_game_info(&game_info);
   init_space_game(&game_spase);
   init_figur(2, &test_figur);
-  figur_falling_down(&test_figur, &us_act, &game_spase);
+  figur_falling_down(&test_figur, &game_spase, &direction);
   rotation_figurs(&test_figur);
   rotation_figurs(&test_figur);
   rotation_figurs(&test_figur);
@@ -3561,7 +3643,7 @@ START_TEST(test_tetris_traffic_permit_flip_2_4) {
         rotation_figurs(&test_figur);
         print_figur_in_game_poly(&game_spase, &test_figur);
       }
-      figur_falling_down(&test_figur, &us_act, &game_spase);
+      figur_falling_down(&test_figur, &game_spase, &direction);
 
     } else {
       test_figur.move_triger = 1;
@@ -3579,6 +3661,7 @@ START_TEST(test_tetris_traffic_permit_flip_3_1) {
   Figur test_figur = {0};
   Game_space game_spase = {0};
   GameInfo_t game_info = {0};
+  VectorDirection direction = Dormant;
   init_game_info(&game_info);
   init_space_game(&game_spase);
   init_figur(3, &test_figur);
@@ -3591,7 +3674,7 @@ START_TEST(test_tetris_traffic_permit_flip_3_1) {
         rotation_figurs(&test_figur);
         print_figur_in_game_poly(&game_spase, &test_figur);
       }
-      figur_falling_down(&test_figur, &us_act, &game_spase);
+      figur_falling_down(&test_figur, &game_spase, &direction);
 
     } else {
       test_figur.move_triger = 1;
@@ -3609,6 +3692,7 @@ START_TEST(test_tetris_traffic_permit_flip_3_2) {
   Figur test_figur = {0};
   Game_space game_spase = {0};
   GameInfo_t game_info = {0};
+  VectorDirection direction = Dormant;
   init_game_info(&game_info);
   init_space_game(&game_spase);
   init_figur(3, &test_figur);
@@ -3617,13 +3701,12 @@ START_TEST(test_tetris_traffic_permit_flip_3_2) {
          us_act != Terminate) {
     if (conditions_of_falling_down(test_figur, game_spase) == true) {
       print_figur_in_game_poly(&game_spase, &test_figur);
-      ControlKey(&test_figur, window, &game_spase, &us_act);
       if (traffic_permit_flip(&game_spase, &test_figur) == true) {
         kill_figur(&test_figur, &game_spase);
         rotation_figurs(&test_figur);
         print_figur_in_game_poly(&game_spase, &test_figur);
       }
-      figur_falling_down(&test_figur, &us_act, &game_spase);
+      figur_falling_down(&test_figur, &game_spase, &direction);
 
     } else {
       test_figur.move_triger = 1;
@@ -3641,6 +3724,7 @@ START_TEST(test_tetris_traffic_permit_flip_3_3) {
   Figur test_figur = {0};
   Game_space game_spase = {0};
   GameInfo_t game_info = {0};
+  VectorDirection direction = Dormant;
   init_game_info(&game_info);
   init_space_game(&game_spase);
   init_figur(3, &test_figur);
@@ -3655,7 +3739,7 @@ START_TEST(test_tetris_traffic_permit_flip_3_3) {
         rotation_figurs(&test_figur);
         print_figur_in_game_poly(&game_spase, &test_figur);
       }
-      figur_falling_down(&test_figur, &us_act, &game_spase);
+      figur_falling_down(&test_figur, &game_spase, &direction);
 
     } else {
       test_figur.move_triger = 1;
@@ -3673,10 +3757,11 @@ START_TEST(test_tetris_traffic_permit_flip_3_4) {
   Figur test_figur = {0};
   Game_space game_spase = {0};
   GameInfo_t game_info = {0};
+  VectorDirection direction = Dormant;
   init_game_info(&game_info);
   init_space_game(&game_spase);
   init_figur(3, &test_figur);
-  figur_falling_down(&test_figur, &us_act, &game_spase);
+  figur_falling_down(&test_figur, &game_spase, &direction);
   rotation_figurs(&test_figur);
   rotation_figurs(&test_figur);
   rotation_figurs(&test_figur);
@@ -3689,7 +3774,7 @@ START_TEST(test_tetris_traffic_permit_flip_3_4) {
         rotation_figurs(&test_figur);
         print_figur_in_game_poly(&game_spase, &test_figur);
       }
-      figur_falling_down(&test_figur, &us_act, &game_spase);
+      figur_falling_down(&test_figur, &game_spase, &direction);
 
     } else {
       test_figur.move_triger = 1;
@@ -3707,6 +3792,7 @@ START_TEST(test_tetris_traffic_permit_flip_4) {
   Figur test_figur = {0};
   Game_space game_spase = {0};
   GameInfo_t game_info = {0};
+  VectorDirection direction = Dormant;
   init_game_info(&game_info);
   init_space_game(&game_spase);
   init_figur(4, &test_figur);
@@ -3719,7 +3805,7 @@ START_TEST(test_tetris_traffic_permit_flip_4) {
         rotation_figurs(&test_figur);
         print_figur_in_game_poly(&game_spase, &test_figur);
       }
-      figur_falling_down(&test_figur, &us_act, &game_spase);
+      figur_falling_down(&test_figur, &game_spase, &direction);
 
     } else {
       test_figur.move_triger = 1;
@@ -3737,6 +3823,7 @@ START_TEST(test_tetris_traffic_permit_flip_5_1) {
   Figur test_figur = {0};
   Game_space game_spase = {0};
   GameInfo_t game_info = {0};
+  VectorDirection direction = Dormant;
   init_game_info(&game_info);
   init_space_game(&game_spase);
   init_figur(5, &test_figur);
@@ -3749,7 +3836,7 @@ START_TEST(test_tetris_traffic_permit_flip_5_1) {
         rotation_figurs(&test_figur);
         print_figur_in_game_poly(&game_spase, &test_figur);
       }
-      figur_falling_down(&test_figur, &us_act, &game_spase);
+      figur_falling_down(&test_figur, &game_spase, &direction);
 
     } else {
       test_figur.move_triger = 1;
@@ -3767,11 +3854,12 @@ START_TEST(test_tetris_traffic_permit_flip_5_2) {
   Figur test_figur = {0};
   Game_space game_spase = {0};
   GameInfo_t game_info = {0};
+  VectorDirection direction = Dormant;
   init_game_info(&game_info);
   init_space_game(&game_spase);
   init_figur(5, &test_figur);
-  figur_falling_down(&test_figur, &us_act, &game_spase);
-  figur_falling_down(&test_figur, &us_act, &game_spase);
+  figur_falling_down(&test_figur, &game_spase, &direction);
+  figur_falling_down(&test_figur, &game_spase, &direction);
   rotation_figurs(&test_figur);
   while (test_figur.move_triger == 0 && us_act == Start &&
          us_act != Terminate) {
@@ -3782,7 +3870,7 @@ START_TEST(test_tetris_traffic_permit_flip_5_2) {
         rotation_figurs(&test_figur);
         print_figur_in_game_poly(&game_spase, &test_figur);
       }
-      figur_falling_down(&test_figur, &us_act, &game_spase);
+      figur_falling_down(&test_figur, &game_spase, &direction);
 
     } else {
       test_figur.move_triger = 1;
@@ -3800,6 +3888,7 @@ START_TEST(test_tetris_traffic_permit_flip_6_1) {
   Figur test_figur = {0};
   Game_space game_spase = {0};
   GameInfo_t game_info = {0};
+  VectorDirection direction = Dormant;
   init_game_info(&game_info);
   init_space_game(&game_spase);
   init_figur(6, &test_figur);
@@ -3812,7 +3901,7 @@ START_TEST(test_tetris_traffic_permit_flip_6_1) {
         rotation_figurs(&test_figur);
         print_figur_in_game_poly(&game_spase, &test_figur);
       }
-      figur_falling_down(&test_figur, &us_act, &game_spase);
+      figur_falling_down(&test_figur, &game_spase, &direction);
 
     } else {
       test_figur.move_triger = 1;
@@ -3830,6 +3919,7 @@ START_TEST(test_tetris_traffic_permit_flip_6_2) {
   Figur test_figur = {0};
   Game_space game_spase = {0};
   GameInfo_t game_info = {0};
+  VectorDirection direction = Dormant;
   init_game_info(&game_info);
   init_space_game(&game_spase);
   init_figur(6, &test_figur);
@@ -3843,7 +3933,7 @@ START_TEST(test_tetris_traffic_permit_flip_6_2) {
         rotation_figurs(&test_figur);
         print_figur_in_game_poly(&game_spase, &test_figur);
       }
-      figur_falling_down(&test_figur, &us_act, &game_spase);
+      figur_falling_down(&test_figur, &game_spase, &direction);
 
     } else {
       test_figur.move_triger = 1;
@@ -3861,6 +3951,7 @@ START_TEST(test_tetris_traffic_permit_flip_6_3) {
   Figur test_figur = {0};
   Game_space game_spase = {0};
   GameInfo_t game_info = {0};
+  VectorDirection direction = Dormant;
   init_game_info(&game_info);
   init_space_game(&game_spase);
   init_figur(6, &test_figur);
@@ -3875,7 +3966,7 @@ START_TEST(test_tetris_traffic_permit_flip_6_3) {
         rotation_figurs(&test_figur);
         print_figur_in_game_poly(&game_spase, &test_figur);
       }
-      figur_falling_down(&test_figur, &us_act, &game_spase);
+      figur_falling_down(&test_figur, &game_spase, &direction);
 
     } else {
       test_figur.move_triger = 1;
@@ -3893,10 +3984,11 @@ START_TEST(test_tetris_traffic_permit_flip_6_4) {
   Figur test_figur = {0};
   Game_space game_spase = {0};
   GameInfo_t game_info = {0};
+  VectorDirection direction = Dormant;
   init_game_info(&game_info);
   init_space_game(&game_spase);
   init_figur(6, &test_figur);
-  figur_falling_down(&test_figur, &us_act, &game_spase);
+  figur_falling_down(&test_figur, &game_spase, &direction);
   rotation_figurs(&test_figur);
   rotation_figurs(&test_figur);
   rotation_figurs(&test_figur);
@@ -3909,7 +4001,7 @@ START_TEST(test_tetris_traffic_permit_flip_6_4) {
         rotation_figurs(&test_figur);
         print_figur_in_game_poly(&game_spase, &test_figur);
       }
-      figur_falling_down(&test_figur, &us_act, &game_spase);
+      figur_falling_down(&test_figur, &game_spase, &direction);
 
     } else {
       test_figur.move_triger = 1;
@@ -3927,6 +4019,7 @@ START_TEST(test_tetris_traffic_permit_flip_7_1) {
   Figur test_figur = {0};
   Game_space game_spase = {0};
   GameInfo_t game_info = {0};
+  VectorDirection direction = Dormant;
   init_game_info(&game_info);
   init_space_game(&game_spase);
   init_figur(7, &test_figur);
@@ -3939,7 +4032,7 @@ START_TEST(test_tetris_traffic_permit_flip_7_1) {
         rotation_figurs(&test_figur);
         print_figur_in_game_poly(&game_spase, &test_figur);
       }
-      figur_falling_down(&test_figur, &us_act, &game_spase);
+      figur_falling_down(&test_figur, &game_spase, &direction);
 
     } else {
       test_figur.move_triger = 1;
@@ -3957,11 +4050,12 @@ START_TEST(test_tetris_traffic_permit_flip_7_2) {
   Figur test_figur = {0};
   Game_space game_spase = {0};
   GameInfo_t game_info = {0};
+  VectorDirection direction = Dormant;
   init_game_info(&game_info);
   init_space_game(&game_spase);
   init_figur(7, &test_figur);
-  figur_falling_down(&test_figur, &us_act, &game_spase);
-  figur_falling_down(&test_figur, &us_act, &game_spase);
+  figur_falling_down(&test_figur, &game_spase, &direction);
+  figur_falling_down(&test_figur, &game_spase, &direction);
   rotation_figurs(&test_figur);
   while (test_figur.move_triger == 0 && us_act == Start &&
          us_act != Terminate) {
@@ -3971,7 +4065,7 @@ START_TEST(test_tetris_traffic_permit_flip_7_2) {
         rotation_figurs(&test_figur);
         print_figur_in_game_poly(&game_spase, &test_figur);
       }
-      figur_falling_down(&test_figur, &us_act, &game_spase);
+      figur_falling_down(&test_figur, &game_spase, &direction);
 
     } else {
       test_figur.move_triger = 1;
@@ -3989,6 +4083,7 @@ START_TEST(test_conditions_of_falling_down_1) {
   Figur test_figur = {0};
   Game_space game_spase = {0};
   GameInfo_t game_info = {0};
+  VectorDirection direction = Dormant;
   init_game_info(&game_info);
   init_space_game(&game_spase);
   init_figur(1, &test_figur);
@@ -4000,7 +4095,7 @@ START_TEST(test_conditions_of_falling_down_1) {
          us_act != Terminate) {
     if (conditions_of_falling_down(test_figur, game_spase) == true) {
       print_figur_in_game_poly(&game_spase, &test_figur);
-      figur_falling_down(&test_figur, &us_act, &game_spase);
+      figur_falling_down(&test_figur, &game_spase, &direction);
 
     } else {
       test_figur.move_triger = 1;
@@ -4018,6 +4113,7 @@ START_TEST(test_conditions_of_falling_down_2) {
   Figur test_figur = {0};
   Game_space game_spase = {0};
   GameInfo_t game_info = {0};
+  VectorDirection direction = Dormant;
   init_game_info(&game_info);
   init_space_game(&game_spase);
   init_figur(1, &test_figur);
@@ -4029,7 +4125,7 @@ START_TEST(test_conditions_of_falling_down_2) {
          us_act != Terminate) {
     if (conditions_of_falling_down(test_figur, game_spase) == true) {
       print_figur_in_game_poly(&game_spase, &test_figur);
-      figur_falling_down(&test_figur, &us_act, &game_spase);
+      figur_falling_down(&test_figur, &game_spase, &direction);
 
     } else {
       test_figur.move_triger = 1;
@@ -4047,6 +4143,7 @@ START_TEST(test_conditions_of_falling_down_3) {
   Figur test_figur = {0};
   Game_space game_spase = {0};
   GameInfo_t game_info = {0};
+  VectorDirection direction = Dormant;
   init_game_info(&game_info);
   init_space_game(&game_spase);
   // init_figur(1, &test_figur);
@@ -4060,7 +4157,7 @@ START_TEST(test_conditions_of_falling_down_3) {
            us_act != Terminate) {
       if (conditions_of_falling_down(test_figur, game_spase) == true) {
         print_figur_in_game_poly(&game_spase, &test_figur);
-        figur_falling_down(&test_figur, &us_act, &game_spase);
+        figur_falling_down(&test_figur, &game_spase, &direction);
 
       } else {
         test_figur.move_triger = 1;
@@ -4105,6 +4202,7 @@ END_TEST
 //   WINDOW* win = newwin(24, 27, 0, 0);
 //   Game_space game_space = {0};
 //   GameInfo_t game_info = {0};
+VectorDirection direction = Dormant;
 //   UserAction_t user_actions = Start;
 //   init_space_game(&game_space);
 //   init_game_info(&game_info);

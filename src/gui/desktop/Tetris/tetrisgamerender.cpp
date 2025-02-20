@@ -5,7 +5,7 @@
 #include <QMessageBox>
 
 TetrisGameRender::TetrisGameRender(QWidget *parent)
-    : QWidget(parent), user_actions(Start), timer(new QTimer(this)) {
+    : QWidget(parent), user_actions(Start), timer(new QTimer(this)), direction(Dormant) {
   setFocusPolicy(Qt::StrongFocus);
   init_space_game(&game_space);
   init_game_info(&game_info);
@@ -101,7 +101,7 @@ void TetrisGameRender::Render_Info_T(QPainter &painter, int cellSize) {
 
 void TetrisGameRender::updateGame_T() {
   if (conditions_of_falling_down(figur, game_space)) {
-    figur_falling_down(&figur, &user_actions, &game_space);
+    figur_falling_down(&figur, &game_space, &direction);
   } else {
     figur.move_triger = 1;
 

@@ -6,7 +6,7 @@
 #include <QObject>
 #include <QPaintEvent>
 #include <QTimer>
-#include "../../../BrickGame/BackEnd_Snake/Snake.h"
+#include "../../../BrickGame/snake/Snake.h"
 
 namespace s21 {
 

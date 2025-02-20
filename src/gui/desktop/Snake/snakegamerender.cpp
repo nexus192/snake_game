@@ -181,7 +181,7 @@ void SnakeGameRender::GameRestart() {
     State = Rest;
     snake.restart_snake();
     snake.set_head_position(5, 10);
-    Parameters.speed = STANDART_SPEED;
+    Parameters.speed = START_SPEED;
     Parameters.level = 0;
     // Parameters.set_high_score(snake.get_length_body() - INITIAL_BODY_LENGTH);
     Direction = Down;

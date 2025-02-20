@@ -2,7 +2,7 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
-#include "../../BrickGame/BackEnd_Snake/Snake.h"
+#include "../../BrickGame/snake/Snake.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui {
