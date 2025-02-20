@@ -236,6 +236,27 @@ void rotation_figurs(Figur* figur) {
   }
 }
 
+void MoveFigurLeft(Figur* figur) {
+  figur->position[1]--;
+  figur->position[3]--;
+  figur->position[5]--;
+  figur->position[7]--;
+}
+
+void MoveFigurRight(Figur* figur) {
+  figur->position[1]++;
+  figur->position[3]++;
+  figur->position[5]++;
+  figur->position[7]++;
+}
+
+void MoveFigurDown(Figur* figur) {
+  figur->position[0]++;
+  figur->position[2]++;
+  figur->position[4]++;
+  figur->position[6]++;
+}
+
 bool conditions_of_falling_down(Figur figur, Game_space game_space) {
   bool code_result = false;
   if (figur.figur_type == 1) {
@@ -1493,18 +1514,17 @@ void writeNumberToFile(int number) {
   fclose(file);
 }
 
-void figur_falling_down(Figur* figur, UserAction_t* user_action,
-                        Game_space* game_space) {
-  if (*user_action != TDown) {
+void figur_falling_down(Figur* figur, Game_space* game_space,
+                        VectorDirection* direction) {
+  if (*direction != Down) {
     kill_figur(figur, game_space);
     figur->position[0]++;
     figur->position[2]++;
     figur->position[4]++;
     figur->position[6]++;
     print_figur_in_game_poly(game_space, figur);
-  }
-  if (*user_action != Terminate && *user_action != Game_over) {
-    *user_action = Start;
+  } else {
+    *direction = Dormant;
   }
 }
 

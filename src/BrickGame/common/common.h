@@ -8,4 +8,6 @@
 #define VELOCITY_MULTIPLIER 1.2
 #define START_LEVEL 1
 
+typedef enum VectorDirection { Up, Down, Right, Left, Dormant } VectorDirection;
+
 #endif  // COMMON_H

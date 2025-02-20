@@ -16,8 +16,6 @@ namespace s21 {
 
 #define INITIAL_BODY_LENGTH 4
 
-typedef enum VectorDirection { Up, Down, Right, Left } VectorDirection;
-
 typedef enum StateGame {
   StartGame,
   Fast,
