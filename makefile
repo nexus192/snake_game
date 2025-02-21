@@ -79,9 +79,9 @@ install: $(TETRIS_FRONTEND_OBJ) $(TETRIS_CONTROLER_OBJ) $(TETRIS_LIB) $(SNAKE_LI
 	$(CXX) $(CXXFLAGS) -o $(BUILD_DIR)/BrickGame $(CLI_MAIN_FILE) $(TETRIS_CONTROLER_OBJ) $(TETRIS_FRONTEND_OBJ) $(SNAKE_CONTROLER_FILE) $(TETRIS_LIB) $(SNAKE_LIB) -lncurses -lm
 
 #━━━━━━━━━━Тестирование━━━━━━━━━━
-test: $(BUILD_DIR)/cli_snake_tests
+test: $(BUILD_DIR)/cli_snake_tests $(BUILD_DIR)/cli_tetris_tests
 	$(BUILD_DIR)/cli_snake_tests
-	# $(BUILD_DIR)/cli_tetris_tests
+	$(BUILD_DIR)/cli_tetris_tests
 
 $(BUILD_DIR)/cli_snake_tests: $(SNAKE_TESTS) $(SNAKE_LIB)
 	$(CXX) $(CXXFLAGS) -o $@ $^ $(TESTS_LINKER_FLAGS_GTEST)
