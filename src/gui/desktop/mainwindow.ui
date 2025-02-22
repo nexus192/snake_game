@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>600</width>
+    <height>300</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>MainWindow</string>
+  </property>
+  <property name="styleSheet">
+   <string notr="true">background-color: #18191C;
+color: white;</string>
+  </property>
+  <property name="toolButtonStyle">
+   <enum>Qt::ToolButtonFollowStyle</enum>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <widget class="QPushButton" name="SnakeButton">
+    <property name="geometry">
+     <rect>
+      <x>60</x>
+      <y>200</y>
+      <width>171</width>
+      <height>51</height>
+     </rect>
+    </property>
+    <property name="sizePolicy">
+     <sizepolicy hsizetype="Minimum" vsizetype="Ignored">
+      <horstretch>0</horstretch>
+      <verstretch>0</verstretch>
+     </sizepolicy>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QPushButton {
+    background-color: #22272E;
+    color: white;
+    border: none; 
+    border-radius: 12px;
+}
+
+QPushButton:hover {
+    background-color: #2A353C;
+}
+
+QPushButton:pressed {
+    background-color: #2A353C;
+}</string>
+    </property>
+    <property name="text">
+     <string>SNAKE</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="TetrisButton">
+    <property name="geometry">
+     <rect>
+      <x>390</x>
+      <y>200</y>
+      <width>171</width>
+      <height>51</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QPushButton {
+    background-color: #22272E;
+    color: white;
+    border: none; 
+    border-radius: 12px;
+}
+
+QPushButton:hover {
+    background-color: #2A353C;
+}
+
+QPushButton:pressed {
+    background-color: #2A353C;
+}</string>
+    </property>
+    <property name="text">
+     <string>TETRIS</string>
+    </property>
+   </widget>
+  </widget>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>

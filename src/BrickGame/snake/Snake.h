@@ -10,21 +10,23 @@
 #include <utility>
 #include <vector>
 
-#define WIDTH 10
-#define HEIGHT 20
-#define INITIAL_BODY_LENGTH 4
-#define STANDART_SPEED 500000
+#include "./../common/common.h"
 
-typedef enum VectorDirection { Up, Down, Right, Left } VectorDirection;
+namespace s21 {
+
+#define INITIAL_BODY_LENGTH 4
 
 typedef enum StateGame {
   StartGame,
+  Fast,
   Spawn,
   Moving,
   Shifting,
   Eating,
   Pausa,
+  GameOver,
   End,
+  Rest,
   Win
 } StateGame;
 
@@ -33,43 +35,45 @@ class HeadSnake;
 class Snake;
 
 class Apple {
- private:
-  int x;
-  int y;
-
-  // int get_random_x();
-  // int get_random_y();
-
  public:
   int get_x_apple() const;
   int get_y_apple() const;
   void generate_apple(Snake& snake, StateGame* State);
-};
-class HeadSnake {
+
  private:
   int x;
   int y;
+};
 
+class HeadSnake {
  public:
   HeadSnake();
   HeadSnake(int x, int y);
+  ~HeadSnake() = default;
 
   void move_haed(VectorDirection Direction);
 
   int get_head_x() const;
   int get_head_y() const;
+
+  void set_head_position(int x_, int y_);
+
+ private:
+  int x;
+  int y;
 };
 
 class BodySnake {
- private:
-  int x_body;
-  int y_body;
-
  public:
   BodySnake();
   BodySnake(int x, int y);
+  ~BodySnake() = default;
   int get_body_x() const;
   int get_body_y() const;
+
+ private:
+  int x_body;
+  int y_body;
 };
 
 class GameParameters {
@@ -78,17 +82,13 @@ class GameParameters {
   int speed;
   int high_score;
   GameParameters();
+  ~GameParameters() = default;
   void get_high_score();
   void set_high_score(int score);
   void parameter_changes(int score);
 };
 
 class Snake : public HeadSnake, protected BodySnake {
- private:
-  std::vector<BodySnake> body_snake;
-  HeadSnake head_snake;
-  int body_length;
-
  public:
   Snake();
 
@@ -96,17 +96,20 @@ class Snake : public HeadSnake, protected BodySnake {
   void eating_apple(Snake* snake, Apple& apple, VectorDirection direction,
                     StateGame* State, GameParameters* Parameters);
   void add_body_snake(Snake* snake, VectorDirection direction);
+  void restart_snake();
 
   int get_x_pixel_body(int pixel) const;
   int get_y_pixel_body(int pixel) const;
   int get_length_body() const;
-};
 
-int get_random_x();
-int get_random_y();
+ private:
+  std::vector<BodySnake> body_snake;
+  HeadSnake head_snake;
+  int body_length;
+};
 
 void Coliseum(Snake& snake, StateGame* state_game);
 
-// temporary fanc debag
+}  // namespace s21
 
 #endif  // SNAKE_H_
