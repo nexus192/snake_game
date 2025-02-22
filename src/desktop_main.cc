@@ -1,7 +1,7 @@
 #include <QApplication>
 
-#include "Snake/snakegamerender.h"
-#include "mainwindow.h"
+#include "./gui/desktop/Snake/snakegamerender.h"
+#include "./gui/desktop/mainwindow.h"
 
 int main(int argc, char *argv[]) {
   QApplication app(argc, argv);

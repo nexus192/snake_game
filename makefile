@@ -30,10 +30,10 @@ CLI_MAIN_FILE         = $(SRC_DIR)/cli_main.cc
 SNAKE_TESTS           = $(TESTS_SRC_DIR)/snake/s21_snake_tests.cc
 TETRIS_TESTS          = $(TESTS_SRC_DIR)/tetris/run_tests.c
 
-SRCS = $(DESKTOP_DIR)/main.cpp \
-       $(DESKTOP_DIR)/mainwindow.cpp \
-       $(DESKTOP_DIR)/Snake/snakegamerender.cpp \
-       $(DESKTOP_DIR)/Tetris/tetrisgamerender.cpp
+SRCS = $(SRC_DIR)/desktop_main.cc \
+       $(DESKTOP_DIR)/mainwindow.cc \
+       $(DESKTOP_DIR)/Snake/snakegamerender.cc \
+       $(DESKTOP_DIR)/Tetris/tetrisgamerender.cc
 
 HDRS = $(DESKTOP_DIR)/mainwindow.h \
        $(DESKTOP_DIR)/Snake/snakegamerender.h \
@@ -49,7 +49,6 @@ TETRIS_CONTROLER_OBJ  = $(TETRIS_OBJ_DIR)/controller_tetris.o
 
 MOC_SRCS = $(HDRS)
 MOC_OUTS = $(MOC_SRCS:.h=.moc.cpp)
-MOC_OBJS = $(MOC_OUTS:.cpp=.o)
 
 #━━━━━━━━━━ Архивы (статические библиотеки) ━━━━━━━━━━
 TETRIS_LIB = $(BUILD_DIR)/tetris.a
@@ -130,4 +129,4 @@ coverage: clean test
 
 #━━━━━━━━━━ Очистка ━━━━━━━━━━
 clean:
-	rm -rf $(BUILD_DIR) *.moc.cpp *.moc.o
+	rm -rf $(BUILD_DIR)
