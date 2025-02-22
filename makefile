@@ -21,7 +21,7 @@ COVERAGE_DIR       = $(BUILD_DIR)/coverage
 DESKTOP_DIR        = $(SRC_DIR)/gui/desktop
 
 #━━━━━━━━━━ Исходные файлы ━━━━━━━━━━
-TETRIS_BACKEND_FILE   = $(SRC_DIR)/BrickGame/tetris/back_end.c
+TETRIS_BACKEND_FILE   = $(SRC_DIR)/BrickGame/tetris/tetris_backend.c
 TETRIS_FRONTEND_FILE  = $(SRC_DIR)/gui/cli/front.c
 TETRIS_CONTROLER_FILE = $(SRC_DIR)/controller/controller_tetris.c
 SNAKE_BACKEND_FILE    = $(SRC_DIR)/BrickGame/snake/Backend_snake.cc
@@ -42,9 +42,9 @@ HDRS = $(DESKTOP_DIR)/mainwindow.h \
 UI_FILES = $(DESKTOP_DIR)/mainwindow.ui
 
 #━━━━━━━━━━ Объектные файлы ━━━━━━━━━━
-TETRIS_OBJ_FILES      = $(TETRIS_OBJ_DIR)/back_end.o
+TETRIS_OBJ_FILES      = $(TETRIS_OBJ_DIR)/tetris_backend.o
 SNAKE_OBJ_FILES       = $(SNAKE_OBJ_DIR)/Backend_snake.o
-TETRIS_FRONTEND_OBJ   = $(TETRIS_OBJ_DIR)/front_end.o
+TETRIS_FRONTEND_OBJ   = $(TETRIS_OBJ_DIR)/front.o
 TETRIS_CONTROLER_OBJ  = $(TETRIS_OBJ_DIR)/controller_tetris.o
 
 MOC_SRCS = $(HDRS)
@@ -73,10 +73,10 @@ $(BUILD_DIR):
 	@mkdir -p $(BUILD_DIR) $(TETRIS_OBJ_DIR) $(SNAKE_OBJ_DIR) $(DESKTOP_FILES_DIR)
 
 #━━━━━━━━━━ Компиляция объектных файлов ━━━━━━━━━━
-$(TETRIS_OBJ_DIR)/back_end.o: $(TETRIS_BACKEND_FILE) | $(BUILD_DIR)
+$(TETRIS_OBJ_DIR)/tetris_backend.o: $(TETRIS_BACKEND_FILE) | $(BUILD_DIR)
 	$(CC) $(CFLAGS) -c $< -o $@
 
-$(TETRIS_OBJ_DIR)/front_end.o: $(TETRIS_FRONTEND_FILE) | $(BUILD_DIR)
+$(TETRIS_OBJ_DIR)/front.o: $(TETRIS_FRONTEND_FILE) | $(BUILD_DIR)
 	$(CC) $(CFLAGS) -c $< -o $@
 
 $(TETRIS_OBJ_DIR)/controller_tetris.o: $(TETRIS_CONTROLER_FILE) | $(BUILD_DIR)

@@ -7,7 +7,7 @@
 #include <QTimer>
 #include <QWidget>
 
-#include "../../../BrickGame/tetris/back_end.h"
+#include "../../../BrickGame/tetris/tetris_backend.h"
 
 class TetrisGameRender : public QWidget {
   Q_OBJECT

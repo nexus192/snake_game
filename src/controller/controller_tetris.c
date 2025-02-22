@@ -2,7 +2,7 @@
 
 #include <time.h>
 
-#include "../gui/cli/front_end.h"
+#include "../gui/cli/front.h"
 
 int init_game() {
   Game_space game_space = {0};

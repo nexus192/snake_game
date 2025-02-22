@@ -1,6 +1,6 @@
-#include <time.h>
+#include "front.h"
 
-#include "front_end.h"
+#include <time.h>
 
 WINDOW* init_ncurses() {
   initscr();

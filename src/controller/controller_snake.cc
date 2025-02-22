@@ -2,7 +2,7 @@
 
 #include <iostream>
 
-#include "../gui/cli/front_end.h"
+#include "../gui/cli/front.h"
 
 void InitGame() {
   srand(time(NULL));
