@@ -9,7 +9,7 @@
 
 #include "../../../BrickGame/snake/Snake.h"
 
-namespace s21 {
+using namespace s21;
 
 class SnakeGameRender : public QWidget {
   Q_OBJECT
@@ -35,7 +35,5 @@ class SnakeGameRender : public QWidget {
   StateGame State;
   QTimer *timer;
 };
-
-}  // namespace s21
 
 #endif  // SNAKEGAMERENDER_H

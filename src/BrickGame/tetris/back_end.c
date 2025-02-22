@@ -1418,7 +1418,8 @@ bool traffic_permit_flip_for_figur_5(Game_space* game_space, Figur* figur) {
       result = true;
     }
   } else {
-    if (game_space->space[figur->position[4] - 1][figur->position[5] + 1] !=
+    if ((figur->position[5] != 9) &&
+        game_space->space[figur->position[4] - 1][figur->position[5] + 1] !=
             figur->code &&
         game_space->space[figur->position[4] - 1][figur->position[5]] !=
             figur->code) {
@@ -1464,7 +1465,8 @@ bool traffic_permit_flip_for_figur_7(Game_space* game_space, Figur* figur) {
       result = true;
     }
   } else {
-    if (game_space->space[figur->position[4] - 1][figur->position[5] - 1] !=
+    if ((figur->position[5] != 0) &&
+        game_space->space[figur->position[4] - 1][figur->position[5] - 1] !=
             figur->code &&
         game_space->space[figur->position[4] - 1][figur->position[5]] !=
             figur->code) {
