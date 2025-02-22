@@ -1,15 +1,14 @@
-#include "mainwindow.h"
-#include "Snake/snakegamerender.h"
-
 #include <QApplication>
 
-int main(int argc, char *argv[])
-{
-    QApplication app(argc, argv);
+#include "Snake/snakegamerender.h"
+#include "mainwindow.h"
 
-    MainWindow Windiw;
-    Windiw.setWindowTitle("BrickGame 2.0");
-    Windiw.show();
+int main(int argc, char *argv[]) {
+  QApplication app(argc, argv);
 
-    return app.exec();
+  MainWindow Windiw;
+  Windiw.setWindowTitle("BrickGame 2.0");
+  Windiw.show();
+
+  return app.exec();
 }

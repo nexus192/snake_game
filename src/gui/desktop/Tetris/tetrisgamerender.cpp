@@ -5,7 +5,10 @@
 #include <QMessageBox>
 
 TetrisGameRender::TetrisGameRender(QWidget *parent)
-    : QWidget(parent), user_actions(Start), timer(new QTimer(this)), direction(Dormant) {
+    : QWidget(parent),
+      user_actions(Start),
+      timer(new QTimer(this)),
+      direction(Dormant) {
   setFocusPolicy(Qt::StrongFocus);
   init_space_game(&game_space);
   init_game_info(&game_info);
