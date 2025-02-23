@@ -9,12 +9,19 @@
 using namespace s21;
 
 SnakeGameRender::SnakeGameRender(QWidget *parent)
-    : QWidget(parent), Direction(Down), State(StartGame) {
+    : QWidget{parent},
+      snake{},
+      apple{},
+      Parameters{},
+      Direction{Down},
+      State{StartGame},
+      timer{nullptr} {
   apple.generate_apple(snake, &State);
 
   timer = new QTimer(this);
   connect(timer, &QTimer::timeout, this, &SnakeGameRender::updateGame);
   Parameters.speed = 500;
+  Parameters.get_high_score();
   timer->start(Parameters.speed);
 }
 
@@ -43,7 +50,6 @@ void SnakeGameRender::Render_Field(QPainter &painter, int cellSize) {
   painter.setPen(pen);
   painter.drawRect(rect);
 
-  // Рисуем клетки поля
   for (int i = 0; i < WIDTH; i++) {
     for (int j = 0; j < HEIGHT; j++) {
       QRect cell(i * cellSize, j * cellSize, cellSize, cellSize);
@@ -51,21 +57,16 @@ void SnakeGameRender::Render_Field(QPainter &painter, int cellSize) {
     }
   }
 
-  // Рисуем яблоко (позиция яблока в клетках с учётом изменения размера)
   QRect appleCell(apple.get_x_apple() * cellSize,
                   apple.get_y_apple() * cellSize, cellSize, cellSize);
   painter.setBrush(Qt::red);
   painter.fillRect(appleCell, Qt::red);
 
-  // Рисуем голову змейки (позиция головы змейки в клетках с учётом изменения
-  // размера)
   QRect snakeHeadCell(snake.get_head_x() * cellSize,
                       snake.get_head_y() * cellSize, cellSize, cellSize);
   painter.setBrush(Qt::green);
   painter.fillRect(snakeHeadCell, Qt::green);
 
-  // Рисуем тело змейки (позиции тела змейки в клетках с учётом изменения
-  // размера)
   painter.setBrush(Qt::darkGreen);
   for (int i = 0; i < snake.get_length_body(); i++) {
     QRect bodyCell(snake.get_x_pixel_body(i) * cellSize,
@@ -92,8 +93,14 @@ void SnakeGameRender::Render_Info(QPainter &painter, int cellSize) {
   painter.drawText(textX, textY, s.data());
 
   textY += fontSize + 5;
-  std::string hs = "High score: " + std::to_string(Parameters.high_score);
-  painter.drawText(textX, textY, hs.data());
+  if (snake.get_length_body() - INITIAL_BODY_LENGTH < Parameters.high_score) {
+    std::string hs = "High score: " + std::to_string(Parameters.high_score);
+    painter.drawText(textX, textY, hs.data());
+  } else {
+    std::string hs = "High score: " + std::to_string(snake.get_length_body() -
+                                                     INITIAL_BODY_LENGTH);
+    painter.drawText(textX, textY, hs.data());
+  }
 
   textY += fontSize + 5;
   std::string l = "Level: " + std::to_string(Parameters.level);
@@ -130,6 +137,7 @@ void SnakeGameRender::Control_Key(QKeyEvent *event) {
       State = Shifting;
       break;
     case Qt::Key_Escape:
+      Parameters.set_high_score(snake.get_length_body() - INITIAL_BODY_LENGTH);
       this->close();
       break;
     case Qt::Key_P:
@@ -141,13 +149,8 @@ void SnakeGameRender::Control_Key(QKeyEvent *event) {
         timer->start(Parameters.speed);
       }
       break;
-    case Qt::Key_A:
-      Direction = Up;
-      State = Shifting;
-      break;
-    case Qt::Key_D:
-      Direction = Up;
-      State = Shifting;
+    case Qt::Key_Space:
+      State = Fast;
       break;
     default:
       break;
@@ -155,20 +158,34 @@ void SnakeGameRender::Control_Key(QKeyEvent *event) {
 }
 
 void SnakeGameRender::updateGame() {
+  if (State == Fast) {
+    int temp_speed = 150;
+    timer->setInterval(temp_speed);
+    State = Moving;
+  } else {
+    timer->setInterval(Parameters.speed);
+  }
+
+  int temp_level = Parameters.level;
   if (State != End) {
     snake.eating_apple(&snake, apple, Direction, &State, &Parameters);
     snake.move_snake(snake, Direction, &State);
     Coliseum(snake, &State);
   }
+
   if (State == GameOver) {
     GameRestart();
   }
-  Parameters.set_high_score(snake.get_length_body() - INITIAL_BODY_LENGTH);
+
+  if (Parameters.level > temp_level) {
+    timer->setInterval(Parameters.speed);
+  }
 
   update();
 }
 
 void SnakeGameRender::GameRestart() {
+  timer->stop();
   QMessageBox msgBox;
   msgBox.setText("Игра окончена!");
   msgBox.setInformativeText("Начать заново или выйти?");
@@ -181,12 +198,14 @@ void SnakeGameRender::GameRestart() {
     State = Rest;
     snake.restart_snake();
     snake.set_head_position(5, 10);
-    Parameters.speed = START_SPEED;
+    Parameters.speed = 500;
     Parameters.level = 0;
-    // Parameters.set_high_score(snake.get_length_body() - INITIAL_BODY_LENGTH);
+    Parameters.set_high_score(snake.get_length_body() - INITIAL_BODY_LENGTH);
     Direction = Down;
+    timer->start(Parameters.speed);
     update();
   } else {
+    Parameters.set_high_score(snake.get_length_body() - INITIAL_BODY_LENGTH);
     QApplication::quit();
   }
 }

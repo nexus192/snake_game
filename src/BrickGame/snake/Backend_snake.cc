@@ -144,9 +144,9 @@ void GameParameters::set_high_score(int score) {
 }
 
 void GameParameters::parameter_changes(int score) {
-  if ((score % 5) == 0 && level <= 10) {
+  if ((score % 5) == 0 && level != 10) {
     level++;
-    speed -= 25000;
+    speed -= speed * (0.05);
   }
 }
 

@@ -130,3 +130,14 @@ coverage: clean test
 #━━━━━━━━━━ Очистка ━━━━━━━━━━
 clean:
 	rm -rf $(BUILD_DIR)
+
+# dvi:
+# 	doxygen -g Doxyfile.txt ./brick_game/tetris/*.c ./gui/cli/*.c
+
+# dist:
+# 	mkdir dist
+# 	cp -a ./brick_game/ ./dist/
+# 	cp -a ./Makefile ./dist/ 
+# 	cp -a ./gui/ ./dist/ 
+# 	tar -czf tetris_1_0.tar.gz ./dist/
+# 	rm -rf ./dist/

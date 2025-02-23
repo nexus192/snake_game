@@ -13,13 +13,14 @@ TetrisGameRender::TetrisGameRender(QWidget *parent)
   init_space_game(&game_space);
   init_game_info(&game_info);
   game_info.next_figur = get_random_number();
-  game_info.speed = START_SPEED;
+  game_info.speed = 500;
   game_info.level = START_LEVEL;
+  game_info.high_score = readNumberFromFile();
 
   init_figur(1, &figur);
 
   connect(timer, &QTimer::timeout, this, &TetrisGameRender::updateGame_T);
-  timer->start(500);
+  timer->start(game_info.speed);
 }
 
 TetrisGameRender::~TetrisGameRender() { delete timer; }
@@ -88,9 +89,16 @@ void TetrisGameRender::Render_Info_T(QPainter &painter, int cellSize) {
   textY = nextFigureY + 6 * cellSize + 10;
 
   painter.drawText(textX, textY, "Score: " + QString::number(game_info.score));
+
   textY += fontSize + 5;
-  painter.drawText(textX, textY,
-                   "High score: " + QString::number(game_info.high_score));
+  if (game_info.high_score > game_info.score) {
+    painter.drawText(textX, textY,
+                     "High score: " + QString::number(game_info.high_score));
+  } else {
+    painter.drawText(textX, textY,
+                     "High score: " + QString::number(game_info.score));
+  }
+
   textY += fontSize + 5;
   painter.drawText(textX, textY, "Level: " + QString::number(game_info.level));
   textY += fontSize + 5;
@@ -103,6 +111,7 @@ void TetrisGameRender::Render_Info_T(QPainter &painter, int cellSize) {
 }
 
 void TetrisGameRender::updateGame_T() {
+  int temp_level = game_info.level;
   if (conditions_of_falling_down(figur, game_space)) {
     figur_falling_down(&figur, &game_space, &direction);
   } else {
@@ -113,6 +122,10 @@ void TetrisGameRender::updateGame_T() {
 
     init_figur(game_info.next_figur, &figur);
     game_info.next_figur = get_random_number();
+  }
+
+  if (game_info.level > temp_level) {
+    timer->setInterval(game_info.speed);
   }
 
   if (check_on_game_over(game_space)) {
@@ -146,6 +159,9 @@ void TetrisGameRender::GameRestart() {
     timer->start(500);
     update();
   } else {
+    if (game_info.score > game_info.high_score) {
+      writeNumberToFile(game_info.score);
+    }
     QApplication::quit();
   }
 }
@@ -177,6 +193,9 @@ void TetrisGameRender::keyPressEvent(QKeyEvent *event) {
     kill_figur(&figur, &game_space);
     rotation_figurs(&figur);
   } else if (event->key() == Qt::Key_Escape) {
+    if (game_info.score > game_info.high_score) {
+      writeNumberToFile(game_info.score);
+    }
     this->close();
   } else if (event->key() == Qt::Key_P) {
     if (user_actions != Pause) {
