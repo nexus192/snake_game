@@ -8,6 +8,7 @@
 #include <QWidget>
 
 #include "../../../BrickGame/snake/Snake.h"
+#include "../desktop_front.h"
 
 using namespace s21;
 
@@ -19,7 +20,6 @@ class SnakeGameRender : public QWidget {
   ~SnakeGameRender();
   void Render_Field(QPainter &painter, int cellSize);
   void Render_Info(QPainter &painter, int cellSize);
-  void Control_Key(QKeyEvent *event);  // Method to handle key press
   void updateGame();
   void GameRestart();
 

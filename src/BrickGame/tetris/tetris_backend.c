@@ -1492,7 +1492,7 @@ void game_level_and_speed(GameInfo_t* game_info) {
     level_up = floor(level_up);
     if (level_up > 0 && game_info->level + (int)level_up <= 10) {
       game_info->level += (int)level_up;
-      game_info->speed -= 50 * (int)level_up;
+      game_info->speed -= game_info->speed * (0.05);
     } else {
       game_info->level = 10;
       game_info->speed = 150;

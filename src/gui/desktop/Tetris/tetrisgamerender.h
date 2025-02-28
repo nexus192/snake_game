@@ -8,6 +8,7 @@
 #include <QWidget>
 
 #include "../../../BrickGame/tetris/tetris_backend.h"
+#include "../desktop_front.h"
 
 class TetrisGameRender : public QWidget {
   Q_OBJECT
@@ -17,7 +18,7 @@ class TetrisGameRender : public QWidget {
   ~TetrisGameRender();
   void Render_Field_T(QPainter &painter, int cellSize);
   void Render_Info_T(QPainter &painter, int cellSize);
-  void Control_Key_T(QKeyEvent *event);  // Method to handle key press
+  // void Control_Key_T(QKeyEvent *event);  // Method to handle key press
   void GameRestart();
   void updateGame_T();
 

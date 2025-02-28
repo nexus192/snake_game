@@ -33,11 +33,13 @@ TETRIS_TESTS          = $(TESTS_SRC_DIR)/tetris/run_tests.c
 SRCS = $(SRC_DIR)/desktop_main.cc \
        $(DESKTOP_DIR)/mainwindow.cc \
        $(DESKTOP_DIR)/Snake/snakegamerender.cc \
-       $(DESKTOP_DIR)/Tetris/tetrisgamerender.cc
+       $(DESKTOP_DIR)/Tetris/tetrisgamerender.cc \
+			 $(DESKTOP_DIR)/desktop_front.cc
 
 HDRS = $(DESKTOP_DIR)/mainwindow.h \
        $(DESKTOP_DIR)/Snake/snakegamerender.h \
        $(DESKTOP_DIR)/Tetris/tetrisgamerender.h \
+			 $(DESKTOP_DIR)/desktop_front.h
 
 UI_FILES = $(DESKTOP_DIR)/mainwindow.ui
 

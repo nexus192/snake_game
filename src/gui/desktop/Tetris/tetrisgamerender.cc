@@ -6,9 +6,13 @@
 
 TetrisGameRender::TetrisGameRender(QWidget *parent)
     : QWidget(parent),
+      game_space(),
+      game_info(),
       user_actions(Start),
-      timer(new QTimer(this)),
-      direction(Dormant) {
+      direction(Dormant),
+      figur(),
+      end(true),
+      timer(new QTimer(this)) {
   setFocusPolicy(Qt::StrongFocus);
   init_space_game(&game_space);
   init_game_info(&game_info);
@@ -34,84 +38,29 @@ void TetrisGameRender::paintEvent(QPaintEvent *event) {
   int windowHeight = this->height();
   int cellSize = qMin(windowWidth / WIDTH, windowHeight / HEIGHT);
 
-  Render_Field_T(painter, cellSize);
-  Render_Info_T(painter, cellSize);
-}
-
-void TetrisGameRender::Render_Field_T(QPainter &painter, int cellSize) {
-  QRect rect(0, 0, WIDTH * cellSize, HEIGHT * cellSize);
-  QPen pen(Qt::black, 2);
-  painter.setPen(pen);
-  painter.drawRect(rect);
+  GameRenderer::RenderGrid(painter, cellSize);
 
   for (int i = 0; i < HEIGHT; i++) {
     for (int j = 0; j < WIDTH; j++) {
-      QRect cell(j * cellSize, i * cellSize, cellSize, cellSize);
-      painter.drawRect(cell);
-
       if (game_space.space[i][j] == 3) {
-        painter.fillRect(cell, Qt::red);
-      }
-    }
-  }
-}
-
-void TetrisGameRender::Render_Info_T(QPainter &painter, int cellSize) {
-  int windowHeight = this->height();
-  int textX = cellSize * WIDTH + 10;  // Смещаем текст вправо от игрового поля
-  int fontSize = windowHeight / 25;
-  QFont font;
-  font.setPointSize(fontSize);
-  painter.setFont(font);
-
-  int textY = 20;
-
-  QPen whitePen(Qt::white);
-  painter.setPen(whitePen);
-
-  painter.drawText(textX, textY, "NEXT");
-
-  // Координаты для следующей фигуры
-  int nextFigureX = textX;
-  int nextFigureY = textY + fontSize;
-
-  for (int i = 0; i < 4; i++) {
-    for (int j = 0; j < 6; j++) {
-      QRect cell(nextFigureX + j * cellSize, nextFigureY + i * cellSize,
-                 cellSize, cellSize);
-      painter.drawRect(cell);
-      if (game_info.next[i][j] == 3) {
-        painter.fillRect(cell, Qt::red);
+        GameRenderer::RenderPixel(painter, j, i, cellSize, Qt::red);
       }
     }
   }
 
-  textY = nextFigureY + 6 * cellSize + 10;
+  GameRenderer::RenderNextFigure(painter, cellSize, windowHeight,
+                                 game_info.next);
 
-  painter.drawText(textX, textY, "Score: " + QString::number(game_info.score));
+  int textY = 20 + 6 * cellSize + 10;
 
-  textY += fontSize + 5;
-  if (game_info.high_score > game_info.score) {
-    painter.drawText(textX, textY,
-                     "High score: " + QString::number(game_info.high_score));
-  } else {
-    painter.drawText(textX, textY,
-                     "High score: " + QString::number(game_info.score));
-  }
-
-  textY += fontSize + 5;
-  painter.drawText(textX, textY, "Level: " + QString::number(game_info.level));
-  textY += fontSize + 5;
-  painter.drawText(textX, textY, "Speed: " + QString::number(game_info.speed));
-
-  if (user_actions == Pause) {
-    textY += fontSize + 5;
-    painter.drawText(textX, textY, "Pause");
-  }
+  GameRenderer::RenderInfo(painter, cellSize, this->height(), textY,
+                           game_info.score, game_info.high_score,
+                           game_info.level, game_info.speed, false);
 }
 
 void TetrisGameRender::updateGame_T() {
   int temp_level = game_info.level;
+  print_figur_in_game_poly(&game_space, &figur);
   if (conditions_of_falling_down(figur, game_space)) {
     figur_falling_down(&figur, &game_space, &direction);
   } else {
