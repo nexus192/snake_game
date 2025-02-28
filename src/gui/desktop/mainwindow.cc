@@ -3,8 +3,8 @@
 #include <QDebug>
 
 #include "../../../build/desktop_files/ui_mainwindow.h"
-#include "Snake/snakegamerender.h"
-#include "Tetris/tetrisgamerender.h"
+#include "controller_desktop/controller_snake_desktop.h"
+#include "controller_desktop/controller_tetris_desktop.h"
 
 using namespace s21;
 

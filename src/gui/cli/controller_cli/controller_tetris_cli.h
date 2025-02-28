@@ -5,7 +5,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#include "../BrickGame/tetris/tetris_backend.h"
+#include "../../../BrickGame/tetris/tetris_backend.h"
 
 #ifdef __cplusplus
 extern "C" {

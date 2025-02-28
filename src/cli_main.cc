@@ -3,8 +3,8 @@
 
 #include <iostream>
 
-#include "controller/controller_snake.h"
-#include "controller/controller_tetris.h"
+#include "gui/cli/controller_cli/controller_snake_cli.h"
+#include "gui/cli/controller_cli/controller_tetris_cli.h"
 
 char mygetch() {
   struct termios oldt, newt;

@@ -1,4 +1,4 @@
-#include "tetrisgamerender.h"
+#include "controller_tetris_desktop.h"
 
 #include <QApplication>
 #include <QKeyEvent>

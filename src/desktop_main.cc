@@ -1,6 +1,7 @@
 #include <QApplication>
 
-#include "./gui/desktop/Snake/snakegamerender.h"
+#include "./gui/desktop/controller_desktop/controller_snake_desktop.h"
+#include "./gui/desktop/controller_desktop/controller_tetris_desktop.h"
 #include "./gui/desktop/mainwindow.h"
 
 int main(int argc, char *argv[]) {

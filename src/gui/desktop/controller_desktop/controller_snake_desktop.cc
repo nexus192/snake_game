@@ -1,4 +1,4 @@
-#include "snakegamerender.h"
+#include "controller_snake_desktop.h"
 
 #include <QApplication>
 #include <QKeyEvent>

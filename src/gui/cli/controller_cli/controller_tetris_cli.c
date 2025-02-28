@@ -1,8 +1,8 @@
-#include "controller_tetris.h"
+#include "controller_tetris_cli.h"
 
 #include <time.h>
 
-#include "../gui/cli/front.h"
+#include "../front.h"
 
 int init_game() {
   Game_space game_space = {0};

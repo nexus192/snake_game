@@ -23,22 +23,22 @@ DESKTOP_DIR        = $(SRC_DIR)/gui/desktop
 #━━━━━━━━━━ Исходные файлы ━━━━━━━━━━
 TETRIS_BACKEND_FILE   = $(SRC_DIR)/BrickGame/tetris/tetris_backend.c
 TETRIS_FRONTEND_FILE  = $(SRC_DIR)/gui/cli/front.c
-TETRIS_CONTROLER_FILE = $(SRC_DIR)/controller/controller_tetris.c
+TETRIS_CONTROLER_FILE = $(SRC_DIR)/gui/cli//controller_cli/controller_tetris_cli.c
 SNAKE_BACKEND_FILE    = $(SRC_DIR)/BrickGame/snake/Backend_snake.cc
-SNAKE_CONTROLER_FILE  = $(SRC_DIR)/controller/controller_snake.cc
+SNAKE_CONTROLER_FILE  = $(SRC_DIR)/gui/cli//controller_cli/controller_snake_cli.cc
 CLI_MAIN_FILE         = $(SRC_DIR)/cli_main.cc
 SNAKE_TESTS           = $(TESTS_SRC_DIR)/snake/s21_snake_tests.cc
 TETRIS_TESTS          = $(TESTS_SRC_DIR)/tetris/run_tests.c
 
 SRCS = $(SRC_DIR)/desktop_main.cc \
        $(DESKTOP_DIR)/mainwindow.cc \
-       $(DESKTOP_DIR)/Snake/snakegamerender.cc \
-       $(DESKTOP_DIR)/Tetris/tetrisgamerender.cc \
+       $(DESKTOP_DIR)/controller_desktop/controller_snake_desktop.cc \
+       $(DESKTOP_DIR)/controller_desktop/controller_tetris_desktop.cc \
 			 $(DESKTOP_DIR)/desktop_front.cc
 
 HDRS = $(DESKTOP_DIR)/mainwindow.h \
-       $(DESKTOP_DIR)/Snake/snakegamerender.h \
-       $(DESKTOP_DIR)/Tetris/tetrisgamerender.h \
+       $(DESKTOP_DIR)/controller_desktop/controller_snake_desktop.h \
+       $(DESKTOP_DIR)/controller_desktop/controller_tetris_desktop.h \
 			 $(DESKTOP_DIR)/desktop_front.h
 
 UI_FILES = $(DESKTOP_DIR)/mainwindow.ui
@@ -47,7 +47,7 @@ UI_FILES = $(DESKTOP_DIR)/mainwindow.ui
 TETRIS_OBJ_FILES      = $(TETRIS_OBJ_DIR)/tetris_backend.o
 SNAKE_OBJ_FILES       = $(SNAKE_OBJ_DIR)/Backend_snake.o
 TETRIS_FRONTEND_OBJ   = $(TETRIS_OBJ_DIR)/front.o
-TETRIS_CONTROLER_OBJ  = $(TETRIS_OBJ_DIR)/controller_tetris.o
+TETRIS_CONTROLER_OBJ  = $(TETRIS_OBJ_DIR)/controller_tetris_cli.o
 
 MOC_SRCS = $(HDRS)
 MOC_OUTS = $(MOC_SRCS:.h=.moc.cpp)
@@ -81,7 +81,7 @@ $(TETRIS_OBJ_DIR)/tetris_backend.o: $(TETRIS_BACKEND_FILE) | $(BUILD_DIR)
 $(TETRIS_OBJ_DIR)/front.o: $(TETRIS_FRONTEND_FILE) | $(BUILD_DIR)
 	$(CC) $(CFLAGS) -c $< -o $@
 
-$(TETRIS_OBJ_DIR)/controller_tetris.o: $(TETRIS_CONTROLER_FILE) | $(BUILD_DIR)
+$(TETRIS_OBJ_DIR)/controller_tetris_cli.o: $(TETRIS_CONTROLER_FILE) | $(BUILD_DIR)
 	$(CC) $(CFLAGS) -c $< -o $@
 
 $(SNAKE_OBJ_DIR)/Backend_snake.o: $(SNAKE_BACKEND_FILE) | $(BUILD_DIR)
