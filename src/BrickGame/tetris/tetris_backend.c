@@ -1487,15 +1487,16 @@ bool end_space(Figur* figur) {
 }
 
 void game_level_and_speed(GameInfo_t* game_info) {
-  if (game_info->score >= LEVEL_UP * game_info->level) {
-    float level_up = game_info->score / LEVEL_UP;
-    level_up = floor(level_up);
-    if (level_up > 0 && game_info->level + (int)level_up <= 10) {
-      game_info->level += (int)level_up;
-      game_info->speed -= game_info->speed * (0.05);
-    } else {
+  int new_level = floor(game_info->score / LEVEL_UP) + 1;
+  int level_diff = new_level - game_info->level;
+
+  if (level_diff > 0) {
+    if (new_level > 10) {
       game_info->level = 10;
       game_info->speed = 150;
+    } else {
+      game_info->level = new_level;
+      game_info->speed -= (25 * level_diff);
     }
   }
 }

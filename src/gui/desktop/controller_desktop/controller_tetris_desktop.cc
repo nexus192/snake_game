@@ -117,28 +117,22 @@ void TetrisGameRender::GameRestart() {
 
 void TetrisGameRender::keyPressEvent(QKeyEvent *event) {
   if (event->key() == Qt::Key_Left &&
-      traffic_permit_left(&game_space, &figur)) {
+      traffic_permit_left(&game_space, &figur) && user_actions != Pause) {
     kill_figur(&figur, &game_space);
-    figur.position[1]--;
-    figur.position[3]--;
-    figur.position[5]--;
-    figur.position[7]--;
+    MoveFigurLeft(&figur);
   } else if (event->key() == Qt::Key_Right &&
-             traffic_permit_right(&game_space, &figur)) {
+             traffic_permit_right(&game_space, &figur) &&
+             user_actions != Pause) {
     kill_figur(&figur, &game_space);
-    figur.position[1]++;
-    figur.position[3]++;
-    figur.position[5]++;
-    figur.position[7]++;
+    MoveFigurRight(&figur);
   } else if (event->key() == Qt::Key_Down &&
-             traffic_permit_down(&game_space, &figur)) {
+             traffic_permit_down(&game_space, &figur) &&
+             user_actions != Pause) {
     kill_figur(&figur, &game_space);
-    figur.position[0]++;
-    figur.position[2]++;
-    figur.position[4]++;
-    figur.position[6]++;
+    MoveFigurDown(&figur);
   } else if (event->key() == Qt::Key_Up &&
-             traffic_permit_flip(&game_space, &figur)) {
+             traffic_permit_flip(&game_space, &figur) &&
+             user_actions != Pause) {
     kill_figur(&figur, &game_space);
     rotation_figurs(&figur);
   } else if (event->key() == Qt::Key_Escape) {
