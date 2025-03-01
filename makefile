@@ -66,7 +66,7 @@ GCOVR_EXCLUDES            := --exclude-unreachable-branches --exclude-throw-bran
 GCOVR_FILTER              := --filter=src
 GCOVR_FLAGS               := $(GCOVR_CONFIG_FLAGS) $(GCOVR_EXCLUDES) $(GCOVR_THEME) $(GCOVR_FILTER)
 
-TARGET = my_project
+TARGET = run_desktop
 
 #━━━━━━━━━━ Цель по умолчанию ━━━━━━━━━━
 all: $(BUILD_DIR) $(TETRIS_LIB) $(SNAKE_LIB) ui_mainwindow.h install $(MOC_OUTS) $(TARGET)
@@ -108,7 +108,7 @@ $(TARGET): $(TETRIS_LIB) $(SNAKE_LIB)
 
 #━━━━━━━━━━ Установка ━━━━━━━━━━
 install: $(TETRIS_FRONTEND_OBJ) $(TETRIS_CONTROLER_OBJ) $(TETRIS_LIB) $(SNAKE_LIB)
-	$(CXX) $(CXXFLAGS) -o $(BUILD_DIR)/BrickGame $(CLI_MAIN_FILE) $(TETRIS_CONTROLER_OBJ) $(TETRIS_FRONTEND_OBJ) $(SNAKE_CONTROLER_FILE) $(TETRIS_LIB) $(SNAKE_LIB) -lncurses -lm
+	$(CXX) $(CXXFLAGS) -o $(BUILD_DIR)/run_cli $(CLI_MAIN_FILE) $(TETRIS_CONTROLER_OBJ) $(TETRIS_FRONTEND_OBJ) $(SNAKE_CONTROLER_FILE) $(TETRIS_LIB) $(SNAKE_LIB) -lncurses -lm
 
 #━━━━━━━━━━ Тестирование ━━━━━━━━━━
 test: $(BUILD_DIR)/cli_snake_tests $(BUILD_DIR)/cli_tetris_tests
