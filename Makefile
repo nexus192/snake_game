@@ -12,6 +12,7 @@ LDFLAGS  = $(shell pkg-config --libs Qt5Widgets)
 #━━━━━━━━━━ Директории ━━━━━━━━━━
 SRC_DIR            = src
 BUILD_DIR          = build
+DIST_DIR           = dist
 TETRIS_OBJ_DIR     = $(BUILD_DIR)/object_files_for_tetris
 SNAKE_OBJ_DIR      = $(BUILD_DIR)/object_files_for_snake
 DESKTOP_FILES_DIR  = $(BUILD_DIR)/desktop_files
@@ -110,6 +111,11 @@ $(TARGET): $(TETRIS_LIB) $(SNAKE_LIB)
 install: $(TETRIS_FRONTEND_OBJ) $(TETRIS_CONTROLER_OBJ) $(TETRIS_LIB) $(SNAKE_LIB)
 	$(CXX) $(CXXFLAGS) -o $(BUILD_DIR)/run_cli $(CLI_MAIN_FILE) $(TETRIS_CONTROLER_OBJ) $(TETRIS_FRONTEND_OBJ) $(SNAKE_CONTROLER_FILE) $(TETRIS_LIB) $(SNAKE_LIB) -lncurses -lm
 
+#━━━━━━━━━━ Удаление ━━━━━━━━━━
+uninstall:
+	rm -f $(TETRIS_LIB)
+	rm -f $(SNAKE_LIB)
+
 #━━━━━━━━━━ Тестирование ━━━━━━━━━━
 test: $(BUILD_DIR)/cli_snake_tests $(BUILD_DIR)/cli_tetris_tests
 	$(BUILD_DIR)/cli_snake_tests
@@ -129,17 +135,23 @@ coverage: clean test
 	@gcovr -o $(COVERAGE_DIR)/gcov_report.html $(GCOVR_FLAGS)
 	open $(COVERAGE_DIR)/gcov_report.html
 
+#━━━━━━━━━━ Архивирование проекта ━━━━━━━━━━
+dist: clean
+	mkdir -p $(DIST_DIR)
+	rsync -av --exclude=$(BUILD_DIR) --exclude=$(DIST_DIR) . $(DIST_DIR)/
+	tar -czf $(DIST_DIR).tar.gz $(DIST_DIR)
+	rm -rf $(DIST_DIR)
+
+#━━━━━━━━━━ Генерация документации ━━━━━━━━━━
+dvi: clean
+	doxygen Doxyfile
+	cd docs/latex
+	make
+
+$(DOCS_DIR):
+	mkdir -p $(DOCS_DIR)
+
 #━━━━━━━━━━ Очистка ━━━━━━━━━━
 clean:
 	rm -rf $(BUILD_DIR)
-
-# dvi:
-# 	doxygen -g Doxyfile.txt ./brick_game/tetris/*.c ./gui/cli/*.c
-
-# dist:
-# 	mkdir dist
-# 	cp -a ./brick_game/ ./dist/
-# 	cp -a ./Makefile ./dist/ 
-# 	cp -a ./gui/ ./dist/ 
-# 	tar -czf tetris_1_0.tar.gz ./dist/
-# 	rm -rf ./dist/
+	rm -rf ./docs
