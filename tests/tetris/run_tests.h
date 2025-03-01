@@ -5,9 +5,9 @@
 #include <ncurses.h>
 #include <stdlib.h>
 
-#include "../../src/BrickGame/tetris/back_end.h"
-#include "../../src/controller/controller_tetris.h"
-#include "../../src/gui/cli/front_end.h"
+#include "../../src/BrickGame/tetris/tetris_backend.h"
+#include "../../src/gui/cli/controller_cli/controller_tetris_cli.h"
+#include "../../src/gui/cli/front.h"
 
 void run_suite(Suite* current_suite, int* total_number_run,
                int* total_number_failed);

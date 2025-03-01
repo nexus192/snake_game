@@ -1,4 +1,4 @@
-#include "../../src/BrickGame/tetris/back_end.h"
+#include "../../src/BrickGame/tetris/tetris_backend.h"
 #include "run_tests.h"
 
 START_TEST(test_backend_1) {
@@ -4144,8 +4144,10 @@ START_TEST(test_conditions_of_falling_down_3) {
   Game_space game_spase = {0};
   GameInfo_t game_info = {0};
   VectorDirection direction = Dormant;
+  game_info.next_figur = 2;
   init_game_info(&game_info);
   init_space_game(&game_spase);
+  print_next_figur(&game_info);
   // init_figur(1, &test_figur);
   game_spase.space[19][3] = 3;
   game_spase.space[19][4] = 3;
@@ -4198,48 +4200,75 @@ START_TEST(test_tetris_level_and_speed_4) {
 }
 END_TEST
 
-// START_TEST(test_tetris_game_play) {
-//   WINDOW* win = newwin(24, 27, 0, 0);
-//   Game_space game_space = {0};
-//   GameInfo_t game_info = {0};
-VectorDirection direction = Dormant;
-//   UserAction_t user_actions = Start;
-//   init_space_game(&game_space);
-//   init_game_info(&game_info);
-//   game_info.next_figur = get_random_number();
-//   game_info.speed = START_SPEED;
-//   game_info.level = START_LEVEL;
-//   int ch;
-//   WINDOW* window = init_ncurses();
-//   game_info.high_score = readNumberFromFile();
-//   while ((ch = wgetch(window)) != 'q' && user_actions != Terminate &&
-//          user_actions != Game_over) {
-//     if (check_on_game_over(game_space) == false) {
-//       user_actions = Game_over;
-//     } else {
-//       Figur figur;
-//       get_figur(&figur, game_info);
-//       game_info.next_figur = get_random_number();
-//       CleanGameInfo(&game_info, win);
-//       user_actions =
-//           GameLoop(window, win, &game_space, &game_info, &user_actions,
-//           &figur);
-//       find_full_line(&game_space, &game_info);
-//       game_level_and_speed(&game_info);
-//     }
-//   }
-//   if (game_info.score > game_info.high_score) {
-//     writeNumberToFile(game_info.score);
-//   }
-//   if (user_actions == Game_over) {
-//     printf("\t\t\t\t\tGAME OVER");
-//   }
-//   game_remove(&game_space, &game_info);
-//   delwin(window);
-//   delwin(stdscr);
-//   endwin();
-// }
-// END_TEST
+START_TEST(kill_line_tests_1) {
+  Game_space game_spase = {0};
+  GameInfo_t game_info = {0};
+  init_game_info(&game_info);
+  init_space_game(&game_spase);
+  for (int i = 0; i < 10; i++) {
+    game_spase.space[19][i] = 3;
+  }
+  find_full_line(&game_spase, &game_info);
+  game_remove(&game_spase, &game_info);
+}
+END_TEST
+
+START_TEST(kill_line_tests_2) {
+  Game_space game_spase = {0};
+  GameInfo_t game_info = {0};
+  init_game_info(&game_info);
+  init_space_game(&game_spase);
+  for (int i = 0; i < 10; i++) {
+    game_spase.space[19][i] = 3;
+  }
+  for (int i = 0; i < 10; i++) {
+    game_spase.space[18][i] = 3;
+  }
+  find_full_line(&game_spase, &game_info);
+  game_remove(&game_spase, &game_info);
+}
+END_TEST
+
+START_TEST(kill_line_tests_3) {
+  Game_space game_spase = {0};
+  GameInfo_t game_info = {0};
+  init_game_info(&game_info);
+  init_space_game(&game_spase);
+  for (int i = 0; i < 10; i++) {
+    game_spase.space[19][i] = 3;
+  }
+  for (int i = 0; i < 10; i++) {
+    game_spase.space[18][i] = 3;
+  }
+  for (int i = 0; i < 10; i++) {
+    game_spase.space[17][i] = 3;
+  }
+  find_full_line(&game_spase, &game_info);
+  game_remove(&game_spase, &game_info);
+}
+END_TEST
+
+START_TEST(kill_line_tests_4) {
+  Game_space game_spase = {0};
+  GameInfo_t game_info = {0};
+  init_game_info(&game_info);
+  init_space_game(&game_spase);
+  for (int i = 0; i < 10; i++) {
+    game_spase.space[19][i] = 3;
+  }
+  for (int i = 0; i < 10; i++) {
+    game_spase.space[18][i] = 3;
+  }
+  for (int i = 0; i < 10; i++) {
+    game_spase.space[17][i] = 3;
+  }
+  for (int i = 0; i < 10; i++) {
+    game_spase.space[16][i] = 3;
+  }
+  find_full_line(&game_spase, &game_info);
+  game_remove(&game_spase, &game_info);
+}
+END_TEST
 
 Suite* make_test_backend_suite() {
   Suite* backend_suite = suite_create("backend");
@@ -4397,7 +4426,10 @@ Suite* make_test_backend_suite() {
   tcase_add_test(tc_core, test_tetris_level_and_speed_2);
   tcase_add_test(tc_core, test_tetris_level_and_speed_3);
   tcase_add_test(tc_core, test_tetris_level_and_speed_4);
-  // tcase_add_test(tc_core, test_tetris_game_play);
+  tcase_add_test(tc_core, kill_line_tests_1);
+  tcase_add_test(tc_core, kill_line_tests_2);
+  tcase_add_test(tc_core, kill_line_tests_3);
+  tcase_add_test(tc_core, kill_line_tests_4);
 
   suite_add_tcase(backend_suite, tc_core);
   return backend_suite;

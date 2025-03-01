@@ -95,3 +95,29 @@ TEST(ColiseumTest, CollisionDetection) {
   Coliseum(snake, &state);
   EXPECT_EQ(state, GameOver);
 }
+
+TEST(SnakeTest, EatingApple) {
+  Snake snake;
+  Apple apple;
+  GameParameters parameters;
+  StateGame state = Moving;
+  VectorDirection direction = Right;
+
+    apple.generate_apple(snake, &state);
+
+  // Устанавливаем положение головы змейки и яблока одинаковыми
+  snake.set_head_position(apple.get_x_apple(), apple.get_y_apple());
+
+  // Длина змейки до еды
+  int initial_length = snake.get_length_body();
+
+  // Вызываем функцию
+  snake.eating_apple(&snake, apple, direction, &state, &parameters);
+
+  for (int i = 0; i < 500; i++) {
+    apple.generate_apple(snake, &state);
+  }
+
+  // Проверяем, что длина змейки увеличилась
+  EXPECT_EQ(snake.get_length_body(), initial_length + 1);
+}
