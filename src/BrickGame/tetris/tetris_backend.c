@@ -1496,7 +1496,7 @@ void game_level_and_speed(GameInfo_t* game_info) {
       game_info->speed = 150;
     } else {
       game_info->level = new_level;
-      game_info->speed -= (25 * level_diff);
+      game_info->speed -= (SPEED_STEP * level_diff);
     }
   }
 }
@@ -1563,8 +1563,8 @@ void print_next_figur(GameInfo_t* game_info) {
 void clean_space_game(Game_space* game_space) {
   for (int i = 0; i < HEIGHT; i++) {
     for (int j = 0; j < WIDTH; j++) {
-      if (game_space->space[i][j] == 3) {
-        game_space->space[i][j] = 0;
+      if (game_space->space[i][j] == CODE_FIGURE) {
+        game_space->space[i][j] = CODE_CLEAR_SPACE;
       }
     }
   }
@@ -1579,32 +1579,32 @@ void init_space_game(Game_space* game_space) {
 
   for (int i = 0; i < HEIGHT; i++) {
     for (int j = 0; j < WIDTH; j++) {
-      game_space->space[i][j] = 0;
+      game_space->space[i][j] = CODE_CLEAR_SPACE;
     }
   }
 }
 
 void init_game_info(GameInfo_t* game_info) {
-  game_info->next = (int**)malloc(4 * sizeof(int*));
+  game_info->next = (int**)malloc(NEXT_HEIGHT * sizeof(int*));
 
   for (int i = 0; i < 4; i++) {
-    game_info->next[i] = (int*)malloc(6 * sizeof(int));
+    game_info->next[i] = (int*)malloc(NEXT_WIDTH * sizeof(int));
   }
 
-  for (int i = 0; i < 4; i++) {
-    for (int j = 0; j < 6; j++) {
-      if (i == 0 || i == 3) {
-        game_info->next[i][j] = 1;
+  for (int i = 0; i < NEXT_HEIGHT; i++) {
+    for (int j = 0; j < NEXT_WIDTH; j++) {
+      if (i == 0 || i == CODE_FIGURE) {
+        game_info->next[i][j] = CODE_BARRIER;
       } else {
-        game_info->next[i][j] = 0;
+        game_info->next[i][j] = CODE_CLEAR_SPACE;
       }
     }
   }
 }
 
 void CleanGameInfo(GameInfo_t* game_info) {
-  for (int i = 1; i < 3; i++) {
-    for (int j = 0; j < 6; j++) {
+  for (int i = 1; i < NEXT_HEIGHT - 1; i++) {
+    for (int j = 0; j < NEXT_WIDTH; j++) {
       game_info->next[i][j] = 0;
     }
   }
@@ -1616,7 +1616,7 @@ void game_remove(Game_space* game_space, GameInfo_t* game_info) {
   }
   free(game_space->space);
 
-  for (int i = 0; i < 4; i++) {
+  for (int i = 0; i < NEXT_HEIGHT; i++) {
     free(game_info->next[i]);
   }
   free(game_info->next);

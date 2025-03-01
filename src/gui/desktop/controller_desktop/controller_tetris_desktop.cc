@@ -17,7 +17,7 @@ TetrisGameRender::TetrisGameRender(QWidget *parent)
   init_space_game(&game_space);
   init_game_info(&game_info);
   game_info.next_figur = get_random_number();
-  game_info.speed = 500;
+  game_info.speed = STANDART_SPEED;
   game_info.level = START_LEVEL;
   game_info.high_score = readNumberFromFile();
 
@@ -42,7 +42,7 @@ void TetrisGameRender::paintEvent(QPaintEvent *event) {
 
   for (int i = 0; i < HEIGHT; i++) {
     for (int j = 0; j < WIDTH; j++) {
-      if (game_space.space[i][j] == 3) {
+      if (game_space.space[i][j] == CODE_FIGURE) {
         GameRenderer::RenderPixel(painter, j, i, cellSize, Qt::red);
       }
     }
@@ -51,7 +51,9 @@ void TetrisGameRender::paintEvent(QPaintEvent *event) {
   GameRenderer::RenderNextFigure(painter, cellSize, windowHeight,
                                  game_info.next);
 
-  int textY = 20 + 6 * cellSize + 10;
+  int textY = WINDOW_TOP_SETBACK + NEXT_WIDTH * cellSize +
+              STANDARD_INDENTATION;  // это я так высчитываю пространсто под
+                                     // "next figure"
 
   GameRenderer::RenderInfo(painter, cellSize, this->height(), textY,
                            game_info.score, game_info.high_score,
@@ -64,7 +66,7 @@ void TetrisGameRender::updateGame_T() {
   if (conditions_of_falling_down(figur, game_space)) {
     figur_falling_down(&figur, &game_space, &direction);
   } else {
-    figur.move_triger = 1;
+    figur.move_triger = 1;  // true
 
     find_full_line(&game_space, &game_info);
     game_level_and_speed(&game_info);
@@ -105,7 +107,7 @@ void TetrisGameRender::GameRestart() {
     init_figur(game_info.next_figur, &figur);
     user_actions = Start;
 
-    timer->start(500);
+    timer->start(STANDART_SPEED);
     update();
   } else {
     if (game_info.score > game_info.high_score) {

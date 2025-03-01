@@ -13,6 +13,15 @@ extern "C" {
 
 #define LEVEL_UP 600
 
+#define SPEED_STEP 25
+
+#define NEXT_WIDTH 6
+#define NEXT_HEIGHT 4
+
+#define CODE_CLEAR_SPACE 0
+#define CODE_BARRIER 1
+#define CODE_FIGURE 3
+
 typedef enum UserAction_t {
   Start,
   Pause,

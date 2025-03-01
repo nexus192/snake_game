@@ -2,7 +2,8 @@
 
 namespace s21 {
 
-HeadSnake::HeadSnake() : x{5}, y{10} {};
+HeadSnake::HeadSnake()
+    : x{START_POSITION_HEAD_SNAKE_X}, y{START_POSITION_HEAD_SNAKE_Y} {};
 HeadSnake::HeadSnake(int x, int y) : x(x), y(y) {}
 
 void HeadSnake::move_haed(VectorDirection Direction) {
@@ -31,10 +32,14 @@ int BodySnake::get_body_x() const { return x_body; }
 int BodySnake::get_body_y() const { return y_body; }
 
 Snake::Snake() {
-  body_snake.push_back(BodySnake(5, 9));
-  body_snake.push_back(BodySnake(5, 8));
-  body_snake.push_back(BodySnake(5, 7));
-  body_snake.push_back(BodySnake(5, 6));
+  body_snake.push_back(
+      BodySnake(START_POSITION_BODY_SNAKE_X, START_POSITION_BODY_SNAKE_Y));
+  body_snake.push_back(
+      BodySnake(START_POSITION_BODY_SNAKE_X, START_POSITION_BODY_SNAKE_Y - 1));
+  body_snake.push_back(
+      BodySnake(START_POSITION_BODY_SNAKE_X, START_POSITION_BODY_SNAKE_Y - 2));
+  body_snake.push_back(
+      BodySnake(START_POSITION_BODY_SNAKE_X, START_POSITION_BODY_SNAKE_Y - 3));
   body_length = INITIAL_BODY_LENGTH;
 };
 
@@ -74,12 +79,15 @@ void Snake::add_body_snake(Snake* snake, VectorDirection direction) {
 
 void Snake::restart_snake() {
   this->body_snake.clear();
-  this->body_snake.push_back(BodySnake(5, 9));
-  this->body_snake.push_back(BodySnake(5, 8));
-  this->body_snake.push_back(BodySnake(5, 7));
-  this->body_snake.push_back(BodySnake(5, 6));
+  this->body_snake.push_back(
+      BodySnake(START_POSITION_BODY_SNAKE_X, START_POSITION_BODY_SNAKE_Y));
+  this->body_snake.push_back(
+      BodySnake(START_POSITION_BODY_SNAKE_X, START_POSITION_BODY_SNAKE_Y - 1));
+  this->body_snake.push_back(
+      BodySnake(START_POSITION_BODY_SNAKE_X, START_POSITION_BODY_SNAKE_Y - 2));
+  this->body_snake.push_back(
+      BodySnake(START_POSITION_BODY_SNAKE_X, START_POSITION_BODY_SNAKE_Y - 3));
   this->body_length = INITIAL_BODY_LENGTH;
-  // this->head_snake.set_head_position(5, 10);
 }
 
 int Snake::get_x_pixel_body(int pixel) const {
@@ -100,11 +108,9 @@ void Apple::generate_apple(Snake& snake, StateGame* State) {
   bool apple_generated = false;
 
   while (!apple_generated) {
-    // Генерация случайных координат для яблока
     this->x = dist_x(gen);
     this->y = dist_y(gen);
 
-    // Проверка, что яблоко не попало в тело или голову змеи
     apple_generated = true;
     for (int i = 0; i < snake.get_length_body(); i++) {
       if (this->x == snake.get_x_pixel_body(i) &&
@@ -144,9 +150,9 @@ void GameParameters::set_high_score(int score) {
 }
 
 void GameParameters::parameter_changes(int score) {
-  if ((score % 5) == 0 && level != 10) {
+  if ((score % LEVEL_STEP) == 0 && level != MAX_LEVEL) {
     level++;
-    speed -= speed * (0.05);
+    speed -= speed * SPEED_REDUCTION_PERETGE;
   }
 }
 

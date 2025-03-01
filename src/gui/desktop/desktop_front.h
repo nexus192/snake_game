@@ -4,7 +4,7 @@
 #include <QPainter>
 #include <QWidget>
 
-#include "../../BrickGame/tetris/tetris_backend.h"
+#include "../../BrickGame/common/common.h"
 
 class GameRenderer {
  public:

@@ -16,6 +16,17 @@ namespace s21 {
 
 #define INITIAL_BODY_LENGTH 4
 
+#define START_POSITION_HEAD_SNAKE_X 5
+#define START_POSITION_HEAD_SNAKE_Y 10
+
+#define START_POSITION_BODY_SNAKE_X 5
+#define START_POSITION_BODY_SNAKE_Y 9
+
+#define LEVEL_STEP 5
+#define MAX_LEVEL 10
+
+#define SPEED_REDUCTION_PERETGE 0.05
+
 typedef enum StateGame {
   StartGame,
   Fast,

@@ -5,6 +5,7 @@
 #define HEIGHT 20
 
 #define START_SPEED 800
+#define STANDART_SPEED 500
 #define VELOCITY_MULTIPLIER 1.2
 #define START_LEVEL 1
 

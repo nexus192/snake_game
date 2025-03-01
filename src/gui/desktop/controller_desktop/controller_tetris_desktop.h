@@ -10,6 +10,9 @@
 #include "../../../BrickGame/tetris/tetris_backend.h"
 #include "../desktop_front.h"
 
+#define WINDOW_TOP_SETBACK 20
+#define STANDARD_INDENTATION 10
+
 class TetrisGameRender : public QWidget {
   Q_OBJECT
 

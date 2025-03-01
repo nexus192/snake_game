@@ -9,6 +9,8 @@
 extern "C" {
 #endif
 
+#define TEXT_Y 7
+
 WINDOW* init_ncurses(void);
 
 void DrawPixel(int y, int x, int color_pair, WINDOW* win);

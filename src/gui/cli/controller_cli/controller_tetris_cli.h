@@ -11,6 +11,11 @@
 extern "C" {
 #endif
 
+#define NANOSECONDS_IN_SECOND 1000000000.0
+
+#define WHITE_COLOR 1
+#define NO_COLOR 0
+
 int init_game();
 
 UserAction_t GameLoop(WINDOW *window, WINDOW *Info_Window,

@@ -12,6 +12,8 @@
 
 using namespace s21;
 
+#define FAST_SPEED 150
+
 class SnakeGameRender : public QWidget {
   Q_OBJECT
 

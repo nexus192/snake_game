@@ -85,7 +85,7 @@ UserAction_t GameLoop(WINDOW *window, WINDOW *Info_Window,
 
         clock_gettime(CLOCK_MONOTONIC, &end);
         elapsed = (end.tv_sec - start.tv_sec) +
-                  (end.tv_nsec - start.tv_nsec) / 1000000000.0;
+                  (end.tv_nsec - start.tv_nsec) / NANOSECONDS_IN_SECOND;
       } while (elapsed < START_SPEED /
                              pow(VELOCITY_MULTIPLIER, game_info->level) /
                              START_SPEED);
@@ -136,9 +136,9 @@ void RanderField(Game_space *game_space, WINDOW *win) {
   for (int i = 0; i < HEIGHT; i++) {
     for (int j = 0; j < WIDTH; j++) {
       if (game_space->space[i][j] == 3) {
-        DrawPixel(i, j, 1, win);
+        DrawPixel(i, j, WHITE_COLOR, win);
       } else {
-        DrawPixel(i, j, 0, win);
+        DrawPixel(i, j, NO_COLOR, win);
       }
     }
   }

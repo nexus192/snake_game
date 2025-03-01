@@ -20,7 +20,7 @@ SnakeGameRender::SnakeGameRender(QWidget *parent)
 
   timer = new QTimer(this);
   connect(timer, &QTimer::timeout, this, &SnakeGameRender::updateGame);
-  Parameters.speed = 500;
+  Parameters.speed = STANDART_SPEED;
   Parameters.get_high_score();
   timer->start(Parameters.speed);
 }
@@ -86,7 +86,7 @@ void SnakeGameRender::keyPressEvent(QKeyEvent *event) {
 
 void SnakeGameRender::updateGame() {
   if (State == Fast) {
-    int temp_speed = 150;
+    int temp_speed = FAST_SPEED;
     timer->setInterval(temp_speed);
     State = Moving;
   } else {
@@ -124,9 +124,10 @@ void SnakeGameRender::GameRestart() {
   if (ret == QMessageBox::Retry) {
     State = Rest;
     snake.restart_snake();
-    snake.set_head_position(5, 10);
-    Parameters.speed = 500;
-    Parameters.level = 0;
+    snake.set_head_position(START_POSITION_HEAD_SNAKE_X,
+                            START_POSITION_HEAD_SNAKE_Y);
+    Parameters.speed = STANDART_SPEED;
+    Parameters.level = START_LEVEL;
     Parameters.set_high_score(snake.get_length_body() - INITIAL_BODY_LENGTH);
     Direction = Down;
     timer->start(Parameters.speed);

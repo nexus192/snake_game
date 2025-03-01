@@ -107,9 +107,10 @@ void RestartGame(StateGame* state, GameParameters* parameters, Snake& snake,
     if (ch1 == 'r') {
       *state = Rest;
       snake.restart_snake();
-      snake.set_head_position(5, 10);
+      snake.set_head_position(START_POSITION_HEAD_SNAKE_X,
+                              START_POSITION_HEAD_SNAKE_Y);
       parameters->speed = START_SPEED;
-      parameters->level = 0;
+      parameters->level = START_LEVEL;
       parameters->set_high_score(snake.get_length_body() - INITIAL_BODY_LENGTH);
       *direction = Down;
     } else if (ch1 == 'q') {
